@@ -161,3 +161,8 @@ cython_debug/
 
 # VS code
 *.code-workspace
+
+.DS_Store
+
+# Project
+results/
