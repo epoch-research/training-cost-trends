@@ -169,3 +169,5 @@ cython_debug/
 
 # Project
 results/
+/archive/cost_analysis.ipynb
+/archive/
