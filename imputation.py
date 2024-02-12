@@ -4,6 +4,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.impute import KNNImputer
 from sklearn.preprocessing import LabelEncoder
 
+from utils import *
+
 
 def knn_impute_column(dataframe, target_col, num_neighbors=5):
     """
@@ -43,8 +45,7 @@ def impute_pcd_data(pcd_df, num_neighbors=5):
     imputer = KNNImputer(n_neighbors=num_neighbors)
 
     # convert datetime to float
-    # TODO: move this to a function
-    pcd_df['Publication date'] = pcd_df['Publication date'].dt.year + (pcd_df['Publication date'].dt.month-1) / 12 + (pcd_df['Publication date'].dt.day-1) / 365
+    pcd_df['Publication date'] = datetime_to_float(pcd_df['Publication date'])
 
     # set the System column as the index
     pcd_df = pcd_df.set_index('System')
