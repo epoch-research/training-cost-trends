@@ -82,13 +82,18 @@ def drop_random_values(dataframe, col, num_drop):
     return dropped_df, holdout_values
 
 
-def diff_with_imputation(dataframe, impute_col, reference_col, num_neighbors=5, num_drop=5):
+def diff_with_imputation(
+    dataframe, impute_col, reference_col, imputer_fn, num_drop=5, **imputer_kwargs,
+):
     """
-    Compare the original dataframe with the dataframe after dropping and imputing `num_drop` values in `target_col`.
+    Compare the original dataframe with the dataframe after dropping and imputing `num_drop` 
+    values in `target_col`.
+
+    `imputer_kwargs` are passed to `imputer_fn`, which imputes the missing values in `impute_col`.
     """
     dropped_df, _ = drop_random_values(dataframe, impute_col, num_drop)
     imputed_df = dropped_df.copy()
-    knn_impute_categorical_column(imputed_df, impute_col, num_neighbors)
+    imputer_fn(imputed_df, impute_col, **imputer_kwargs)
 
     # Calculate the mean absolute error in reference_col between the original and imputed dataframes
     mae = np.mean(np.abs(dropped_df[reference_col] - imputed_df[reference_col]))
