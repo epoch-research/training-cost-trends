@@ -7,7 +7,7 @@ from sklearn.preprocessing import LabelEncoder
 from utils import *
 
 
-def knn_impute_column(dataframe, target_col, num_neighbors=5):
+def knn_impute_categorical_column(dataframe, target_col, num_neighbors=5):
     """
     Use `KNeighborsClassifier` to impute the missing values in-place in `target_col`.
     """
@@ -41,7 +41,7 @@ def knn_impute_column(dataframe, target_col, num_neighbors=5):
     return dataframe
 
 
-def impute_pcd_data(pcd_df, num_neighbors=5):
+def knn_impute_numerical_pcd_data(pcd_df, num_neighbors=5):
     # instantiate the imputer
     imputer = KNNImputer(n_neighbors=num_neighbors)
 
@@ -87,7 +87,7 @@ def diff_with_imputation(dataframe, impute_col, reference_col, num_neighbors=5, 
     """
     dropped_df = drop_random_values(dataframe, impute_col, num_drop)
     imputed_df = dropped_df.copy()
-    knn_impute_column(imputed_df, impute_col, num_neighbors)
+    knn_impute_categorical_column(imputed_df, impute_col, num_neighbors)
 
     # Calculate the mean absolute error in reference_col between the original and imputed dataframes
     mae = np.mean(np.abs(dropped_df[reference_col] - imputed_df[reference_col]))
