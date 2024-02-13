@@ -71,6 +71,7 @@ def knn_impute_numerical_pcd_data(pcd_df, num_neighbors=5):
 def drop_random_values(dataframe, col, num_drop):
     """
     Set `num_drop` random values in `col` to NaN in `dataframe`.
+    Returns a new dataframe with the NaNs and a dataframe with just the original dropped values.
     """
     known_values = dataframe[col].notna()
     # select num_drop random rows that have known values
@@ -78,14 +79,14 @@ def drop_random_values(dataframe, col, num_drop):
     holdout_values = filtered_df.sample(n=num_drop)
     dropped_df = dataframe.copy()
     dropped_df.loc[holdout_values.index, col] = np.nan
-    return dropped_df
+    return dropped_df, holdout_values
 
 
 def diff_with_imputation(dataframe, impute_col, reference_col, num_neighbors=5, num_drop=5):
     """
     Compare the original dataframe with the dataframe after dropping and imputing `num_drop` values in `target_col`.
     """
-    dropped_df = drop_random_values(dataframe, impute_col, num_drop)
+    dropped_df, _ = drop_random_values(dataframe, impute_col, num_drop)
     imputed_df = dropped_df.copy()
     knn_impute_categorical_column(imputed_df, impute_col, num_neighbors)
 
