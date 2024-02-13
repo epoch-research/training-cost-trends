@@ -12,30 +12,31 @@ def knn_impute_column(dataframe, target_col, num_neighbors=5):
     Use `KNeighborsClassifier` to impute the missing values in-place in `target_col`.
     """
     # Separate the target and features
-    features = dataframe.drop(target_col, axis=1)
-    target = dataframe[target_col]
+    full_features = dataframe.drop(target_col, axis=1)
+    full_target = dataframe[target_col]
+
+    # Remove rows with missing target
+    missing_target_mask = full_target.isna()
+    features = full_features[~missing_target_mask]
+    target = full_target[~missing_target_mask]
 
     # Encode the target column
     label_encoder = LabelEncoder()
-    target_filled = target.fillna('Unknown')  # Temporarily fill missing values
-    target_encoded = label_encoder.fit_transform(target_filled)
+    target_encoded = label_encoder.fit_transform(target)
 
     # Train a KNeighborsClassifier
     knc = KNeighborsClassifier(n_neighbors=num_neighbors)
     knc.fit(features, target_encoded)
 
     # Predict the missing values
-    missing_values = features[target.isna()]
-    predicted = knc.predict(missing_values)
+    features_with_missing_target = full_features[missing_target_mask]
+    predicted = knc.predict(features_with_missing_target)
 
     # Decode the predictions
     predicted_labels = label_encoder.inverse_transform(predicted)
 
     # Replace the missing values with the predictions
-    dataframe.loc[target.isna(), target_col] = predicted_labels
-
-    # replace all 'Unknown' with np.nan
-    dataframe[target_col] = dataframe[target_col].replace('Unknown', np.nan)
+    dataframe.loc[missing_target_mask, target_col] = predicted_labels
 
     return dataframe
 
@@ -43,12 +44,6 @@ def knn_impute_column(dataframe, target_col, num_neighbors=5):
 def impute_pcd_data(pcd_df, num_neighbors=5):
     # instantiate the imputer
     imputer = KNNImputer(n_neighbors=num_neighbors)
-
-    # convert datetime to float
-    pcd_df['Publication date'] = datetime_to_float(pcd_df['Publication date'])
-
-    # set the System column as the index
-    pcd_df = pcd_df.set_index('System')
 
     # Identify categorical columns
     categorical_cols = pcd_df.select_dtypes(include=['object', 'category']).columns.tolist()
@@ -68,8 +63,9 @@ def impute_pcd_data(pcd_df, num_neighbors=5):
         if col.startswith('Training hardware_'):
             training_hardware = col.split('Training hardware_')[1]
             imputed_pcd_df['Training hardware'] = imputed_pcd_df['Training hardware'] + pd.Series([int(_) * training_hardware for _ in imputed_pcd_df[col]])
+    imputed_pcd_df['Training hardware'].replace('', np.nan, inplace=True)
 
-    return imputed_pcd_df, one_hot_pcd_df
+    return imputed_pcd_df
 
 
 def drop_random_values(dataframe, col, num_drop):
