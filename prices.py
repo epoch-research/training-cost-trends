@@ -112,12 +112,12 @@ def find_price(
         if possible_price_type != price_colname:
             price_types.append(possible_price_type)
     
-    for vendor in vendors:
-        closest_price_dates_df = find_closest_price_dates(
-            vendor, hardware_model, purchase_time, price_df
-        )
-        for price_type in price_types:
+    for price_type in price_types:
+        for vendor in vendors:
             print(f"Trying {vendor}, {price_type}")
+            closest_price_dates_df = find_closest_price_dates(
+                vendor, hardware_model, purchase_time, price_df
+            )
             price = find_price_for_vendor_and_hardware_model(
                 closest_price_dates_df, purchase_time, price_type
             )
