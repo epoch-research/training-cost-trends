@@ -97,10 +97,15 @@ def find_price(
     vendors = [vendor]
     if "TPU" not in hardware_model:
         # TPUs are only available from Google Cloud
-        vendors = [vendor]
         for possible_vendor in ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud']:
             if possible_vendor != vendor:
                 vendors.append(possible_vendor)
+    elif vendor != 'Google Cloud':
+        # Means the hardware is a TPU but the cloud provider is not Google Cloud
+        # This can happen if the hardware is an imputed value
+        # This is not a good result for imputation, but we need to handle it
+        vendor = 'Google Cloud'
+        vendors = [vendor]
 
     price_types = [price_colname]
     for possible_price_type in ['Price per chip-hour (3-year CUD)', 'Price per chip-hour (1-year CUD)', 'Price per chip-hour (on-demand)']:
