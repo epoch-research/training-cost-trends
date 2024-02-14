@@ -81,21 +81,3 @@ def drop_random_values(target_df, target_col, reference_df, reference_col, num_d
     dropped_df = target_df.copy()
     dropped_df.loc[holdout_values.index, target_col] = np.nan
     return dropped_df, holdout_values
-
-
-def diff_with_imputation(
-    dataframe, impute_col, reference_col, imputer_fn, num_drop=5, **imputer_kwargs,
-):
-    """
-    Compare the original dataframe with the dataframe after dropping and imputing `num_drop` 
-    values in `target_col`.
-
-    `imputer_kwargs` are passed to `imputer_fn`, which imputes the missing values in `impute_col`.
-    """
-    dropped_df, _ = drop_random_values(dataframe, impute_col, num_drop)
-    imputed_df = dropped_df.copy()
-    imputer_fn(imputed_df, impute_col, **imputer_kwargs)
-
-    # Calculate the mean absolute error in reference_col between the original and imputed dataframes
-    mae = np.mean(np.abs(dropped_df[reference_col] - imputed_df[reference_col]))
-    return mae
