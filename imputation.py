@@ -68,28 +68,16 @@ def knn_impute_numerical_pcd_data(pcd_df, num_neighbors=5):
     return imputed_pcd_df
 
 
-def drop_random_values(dataframe, col, num_drop):
+def drop_random_values(target_df, target_col, reference_df, reference_col, num_drop):
     """
-    Set `num_drop` random values in `col` to NaN in `dataframe`.
+    Set `num_drop` random values in `target_col` to NaN in `target_df`.
+    Only drops values that are known in both `target_df[target_col]` and `reference_df[reference_col]`.
     Returns a new dataframe with the NaNs and a dataframe with just the original dropped values.
     """
-    known_values = dataframe[col].notna()
+    known_values = target_df[target_col].notna() & reference_df[reference_col].notna()
     # select num_drop random rows that have known values
-    filtered_df = dataframe[known_values]
+    filtered_df = target_df[known_values]
     holdout_values = filtered_df.sample(n=num_drop)
-    dropped_df = dataframe.copy()
-    dropped_df.loc[holdout_values.index, col] = np.nan
+    dropped_df = target_df.copy()
+    dropped_df.loc[holdout_values.index, target_col] = np.nan
     return dropped_df, holdout_values
-
-
-def diff_with_imputation(dataframe, impute_col, reference_col, num_neighbors=5, num_drop=5):
-    """
-    Compare the original dataframe with the dataframe after dropping and imputing `num_drop` values in `target_col`.
-    """
-    dropped_df, _ = drop_random_values(dataframe, impute_col, num_drop)
-    imputed_df = dropped_df.copy()
-    knn_impute_categorical_column(imputed_df, impute_col, num_neighbors)
-
-    # Calculate the mean absolute error in reference_col between the original and imputed dataframes
-    mae = np.mean(np.abs(dropped_df[reference_col] - imputed_df[reference_col]))
-    return mae
