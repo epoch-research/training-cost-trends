@@ -94,7 +94,8 @@ def load_data_for_cost_estimation():
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
 
     frontier_pcd_df = pcd_df[pcd_df['System'].isin(frontier_systems)]
-    frontier_pcd_df
+    # Temporary fix for string type error
+    frontier_pcd_df['Training compute (FLOP)'] = pd.to_numeric(frontier_pcd_df['Training compute (FLOP)'], errors='coerce')
     assert len(frontier_pcd_df) == len(frontier_systems)
 
     ## Prices
