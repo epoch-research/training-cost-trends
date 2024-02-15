@@ -120,6 +120,7 @@ def estimate_costs(frontier_pcd_df, hardware_df, price_df, impute_pcd_data=False
     if impute_pcd_data:
         # Use k nearest neighbors
         # drop unneeded columns from frontier_pcd_df
+        # TODO: drop Reference column? It's the title of the paper, which is unique
         irrelevant_columns = ['Notability criteria', 'Notability criteria notes', 'Link', 'Citations', 'Parameters notes',
                             'Training compute notes', 'Training dataset notes', 'Dataset size notes',
                             'Inference compute notes', 'Approach', 'Confidence', 'Last modified', 'Created By', 'Benchmark data',
@@ -140,7 +141,18 @@ def estimate_costs(frontier_pcd_df, hardware_df, price_df, impute_pcd_data=False
         }
         frontier_pcd_df['Training cloud compute vendor'] = frontier_pcd_df['Organization'].map(org_to_cloud_vendor)
         frontier_pcd_df['Training cloud compute vendor'] = frontier_pcd_df['Training cloud compute vendor'].fillna('Amazon Web Services')
-        # TODO: logarithmic scaling of big-valued columns (just copy this from validate_imputation.ipynb)
+
+        # convert large number columns to logarithmic
+        parameters_col = frontier_pcd_df['Parameters']
+        training_compute_col = frontier_pcd_df['Training compute (FLOP)']
+        dataset_size_col = frontier_pcd_df['Training dataset size (datapoints)']
+        frontier_pcd_df['log_params'] = np.log10(parameters_col)
+        frontier_pcd_df['log_compute'] = np.log10(training_compute_col)
+        frontier_pcd_df['log_dataset'] = np.log10(dataset_size_col)
+        # drop raw columns
+        raw_columns = ['Parameters', 'Training compute (FLOP)', 'Training dataset size (datapoints)']
+        frontier_pcd_df.drop(columns=raw_columns, inplace=True)
+
         # convert datetime to float so that it can be used in kNN
         frontier_pcd_df['Publication date'] = datetime_to_float_year(frontier_pcd_df['Publication date'])
 
@@ -173,6 +185,10 @@ def estimate_costs(frontier_pcd_df, hardware_df, price_df, impute_pcd_data=False
         # calculate training time (chip hours) from training time and hardware quantity
         # TODO: try estimating this from compute and FLOP/s instead. Compare the results.
         frontier_pcd_df['Training time (chip hours)'] = frontier_pcd_df['Training time (hours)'] * frontier_pcd_df['Hardware quantity']
+        # Restore columns that were dropped
+        frontier_pcd_df['Parameters'] = parameters_col
+        frontier_pcd_df['Training compute (FLOP)'] = training_compute_col
+        frontier_pcd_df['Training dataset size (datapoints)'] = dataset_size_col
 
         assert all(frontier_pcd_df['Training time (chip hours)'].notna())
 
