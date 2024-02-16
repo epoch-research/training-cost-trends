@@ -13,16 +13,14 @@ def estimate_costs(
     frontier_pcd_df,
     hardware_df,
     price_df,
-    impute_pcd_data=False,
-    impute_pcd_fn=knn_impute_pcd,
+    impute_pcd_fn=None,
     **impute_kwargs,
 ):
     """
     Full cost estimation pipeline
     """
-    # Imputation
-    if impute_pcd_data:
-        impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
+    if impute_pcd_fn is not None:
+        frontier_pcd_df = impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
     else:
         # set the System column as the index for formatting purposes
         frontier_pcd_df = frontier_pcd_df.set_index('System')
