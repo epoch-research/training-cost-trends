@@ -41,6 +41,47 @@ def knn_impute_categorical_column(dataframe, target_col, num_neighbors=5):
     return dataframe
 
 
+def most_common_over_time_impute_categorical_column(dataframe, target_col, time_col):
+    """
+    Impute the missing values in-place in `target_col` with the most common value for each year in `time_col`.
+    Assumes `time_col` represents dates as a fractional year.
+    """
+    times = dataframe[time_col]
+    # Time is a float year e.g. 2017.2. We want to group by the integer year e.g. 2017
+    years = times.apply(int)
+
+    def get_most_common_target(group):
+        # Some values are multiple values separated by a comma
+        # We want to split these and count each value separately
+        split_values = group.str.split(',').explode()
+        return split_values.mode().values[0]
+
+    # Group by year
+    # For hardware models, we also want to group Google TPU and GPUs separately
+    if target_col == 'Training hardware':
+        groups = dataframe.dropna(subset=[target_col]).groupby(
+            [dataframe['Training hardware'].str.contains('TPU'), years]
+        )
+        grouped_targets = groups[target_col]
+
+        # Impute the missing values with the most common value for each year
+        most_common_targets = grouped_targets.apply(get_most_common_target)
+        print(most_common_targets)
+        for (is_tpu, year), most_common_target in most_common_targets.iteritems():
+            mask = (years == year) & ((dataframe['Training hardware'].str.contains('TPU') == is_tpu) | dataframe['Training hardware'].isna())
+            dataframe.loc[mask, target_col] = dataframe.loc[mask, target_col].fillna(most_common_target)
+    else:
+        grouped_targets = dataframe.dropna(subset=[target_col]).groupby(years)[target_col]
+
+        # Impute the missing values with the most common value for each year
+        most_common_targets = grouped_targets.apply(get_most_common_target)
+        for year, most_common_target in most_common_targets.iteritems():
+            mask = years == year
+            dataframe.loc[mask, target_col] = dataframe.loc[mask, target_col].fillna(most_common_target)
+
+    return dataframe
+
+
 def knn_impute_numerical_pcd_data(pcd_df, num_neighbors=5):
     # instantiate the imputer
     imputer = KNNImputer(n_neighbors=num_neighbors)
@@ -81,3 +122,23 @@ def drop_random_values(target_df, target_col, reference_df, reference_col, num_d
     dropped_df = target_df.copy()
     dropped_df.loc[holdout_values.index, target_col] = np.nan
     return dropped_df, holdout_values
+
+
+if __name__ == '__main__':
+    from cost import *
+
+    # Load the data
+    pcd_df = pd.read_csv('data/All ML Systems - full view.csv')
+
+    # Publication date in datetime format
+    pcd_df.dropna(subset=['Publication date'], inplace=True)
+    pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
+    pcd_df['Publication date'] = datetime_to_float_year(pcd_df['Publication date'])
+
+    # Impute missing values in Training hardware
+    imputed_pcd_df = most_common_over_time_impute_categorical_column(pcd_df, 'Training hardware', 'Publication date')
+
+    frontier_pcd_df, hardware_df, price_df = load_data_for_cost_estimation()
+    print(frontier_pcd_df['Training hardware'])
+    frontier_pcd_df.loc[:, 'Training hardware'] = imputed_pcd_df.loc[imputed_pcd_df['System'].isin(frontier_systems), 'Training hardware']
+    print(frontier_pcd_df['Training hardware'])
