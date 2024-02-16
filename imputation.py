@@ -175,7 +175,6 @@ def most_common_impute(dataframe, target_col, time_col):
 
         # Impute the missing values with the most common value for each year
         most_common_targets = grouped_targets.apply(get_most_common_target)
-        print(most_common_targets)
         for (is_tpu, year), most_common_target in most_common_targets.iteritems():
             mask = (years == year) & ((dataframe['Training hardware'].str.contains('TPU') == is_tpu) | dataframe['Training hardware'].isna())
             dataframe.loc[mask, target_col] = dataframe.loc[mask, target_col].fillna(most_common_target)
@@ -211,7 +210,7 @@ def most_common_impute_training_hardware(pcd_df):
     pcd_df.loc[:, 'Training hardware'] = imputed_pcd_df.loc[
         imputed_pcd_df['System'].isin(frontier_systems), 'Training hardware'
     ]
-    
+
     return pcd_df
 
 
