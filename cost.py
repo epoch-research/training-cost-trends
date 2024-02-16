@@ -2,114 +2,11 @@ import numpy as np
 import os
 import pandas as pd
 
+from data import *
 from plotting import *
 from prices import *
 from imputation import *
 from inflation import *
-
-
-# Manually copied from "Training cost trends" Airtable
-frontier_systems = [
-    "Gemini Ultra",
-    "Qwen-72B",
-    "Inflection-2",
-    "Yi-34B",
-    "ChatGLM3",
-    "Falcon 180B",
-    "Llama 2-70B",
-    "Claude 2",
-    "PaLM 2",
-    "PanGu-Σ",
-    "GPT-4",
-    "LLaMA-65B",
-    "GPT-3.5 (text-davinci-003)",
-    "U-PaLM (540B)",
-    "BlenderBot 3",
-    "GLM-130B",
-    "Minerva (540B)",
-    "Parti",
-    "OPT-175B",
-    "Flamingo",
-    "PaLM (540B)",
-    "Chinchilla",
-    "LaMDA",
-    "GPT-NeoX-20B",
-    "AlphaCode",
-    "ERNIE 3.0 Titan",
-    "GLaM",
-    "Gopher (280B)",
-    "Yuan 1.0",
-    "Megatron-Turing NLG 530B",
-    "HyperClova",
-    "GOAT",
-    "ALIGN",
-    "ByT5-XXL",
-    "ProtT5-XXL",
-    "Meta Pseudo Labels",
-    "Switch",
-    "DALL-E",
-    "mT5-XXL",
-    "GShard (dense)",
-    "iGPT-XL",
-    "GPT-3 175B (davinci)",
-    "Turing-NLG",
-    "Meena",
-    "OpenAI Five",
-    "OpenAI Five Rerun",
-    "AlphaStar",
-    "T5-3B",
-    "T5-11B",
-    "Megatron-LM (8.3B)",
-    "Megatron-BERT",
-    "RoBERTa Large",
-    "GPT-2 (1.5B)",
-    "BERT-Large",
-    "BigGAN-deep 512x512",
-    "FTW",
-    "ResNeXt-101 32x48d",
-    "AmoebaNet-A (F=448)",
-    "IMPALA",
-    "AlphaZero",
-    "AlphaGo Zero",
-    "OpenAI TI7 DOTA 1v1",
-    "JFT",
-    "AlphaGo Master",
-    "NASv3 (CIFAR-10)",
-    "GNMT",
-    "AlphaGo Lee",
-    "AlphaGo Fan",
-]
-
-
-def load_data_for_cost_estimation():
-    """
-    Load the data needed for cost estimation
-
-    Returns a tuple of the frontier systems PCD dataframe, hardware dataframe, and price dataframe
-    """
-    pcd_df = pd.read_csv('data/All ML Systems - full view.csv')
-
-    # Publication date in datetime format
-    pcd_df.dropna(subset=['Publication date'], inplace=True)
-    pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
-
-    frontier_pcd_df = pcd_df[pcd_df['System'].isin(frontier_systems)]
-    # Temporary fix for string type error
-    frontier_pcd_df['Training compute (FLOP)'] = pd.to_numeric(frontier_pcd_df['Training compute (FLOP)'], errors='coerce')
-    assert len(frontier_pcd_df) == len(frontier_systems)
-
-    ## Prices
-    price_df = pd.read_csv('data/Hardware prices.csv')
-
-    # Price date in datetime format
-    price_df.dropna(subset=['Price date'], inplace=True)
-    price_df['Price date'] = pd.to_datetime(price_df['Price date'])
-    pcd_hardware_model_colname = 'Name of the hardware (from Training hardware)'
-
-    ## Hardware data
-    hardware_df = pd.read_csv('data/Chip dataset-Grid view.csv')
-
-    return frontier_pcd_df, hardware_df, price_df
 
 
 def estimate_costs(
