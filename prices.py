@@ -29,6 +29,7 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
 
 def get_purchase_time(row):
     if pd.isna(row['Training time (hours)']):
+        # TODO: fallback to using publication date and a default training time
         print("Training time is required but no value found")
         return None
     
@@ -70,8 +71,8 @@ def find_price_for_vendor_and_hardware_model(closest_price_dates_df, purchase_ti
             if price_row['Price date'] > purchase_time:
                 price_per_chip_hour = price_row[price_colname]
                 break
-    if type(price_per_chip_hour) is str:
-        return float(price_per_chip_hour.strip('$'))
+    if not pd.isna(price_per_chip_hour):
+        return float(price_per_chip_hour)
     else:
         print(f"Could not find price")
         return None
@@ -123,6 +124,7 @@ def find_price(
             )
             if price is not None:
                 print(f"Found price: {price}")
+                # TODO: use standard committed-use discount (CUD) rates for each vendor to convert a price type to the desired one
                 print()
                 break
             # else: try again with a different vendor, price type
@@ -135,57 +137,57 @@ def find_price(
     from any cloud provider, then try the next nearest neighbor for the hardware type.
     """
 
-    if price is None:
-        """
-        We did not find any price from any cloud provider for the given hardware type. 
-        So estimate a price from the FLOP/second performance of the GPU
-        and the general trend in FLOP/$ for ML GPUs.
-        # TODO: can we get a trend in cloud price FLOP/$ specifically?
-        """
-        print("Estimating price from FLOP/s and FLOP/$ trend")
-        # Get the FLOP/second performance of the GPU from the hardware database
-        flop_per_second_columns = [  # ordered by preference
-            'FP16 Tensor Core',
-            'Tensor Float 32 (TF32)',
-            'FP32 (single precision) Performance (FLOP/s)',
-        ]
-        for col in flop_per_second_columns:
-            hardware_df_match = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
-            flop_per_second = hardware_df_match[col].values[0]
-            if not pd.isna(flop_per_second):
-                flop_per_second_column = col
-                break
-        if pd.isna(flop_per_second):
-            print(f"Could not find FLOP/s for {hardware_model}")
-            return None
+    # if price is None:
+    #     """
+    #     We did not find any price from any cloud provider for the given hardware type. 
+    #     So estimate a price from the FLOP/second performance of the GPU
+    #     and the general trend in FLOP/$ for ML GPUs.
+    #     # TODO: can we get a trend in cloud price FLOP/$ specifically?
+    #     """
+    #     print("Estimating price from FLOP/s and FLOP/$ trend")
+    #     # Get the FLOP/second performance of the GPU from the hardware database
+    #     flop_per_second_columns = [  # ordered by preference
+    #         'FP16 Tensor Core',
+    #         'Tensor Float 32 (TF32)',
+    #         'FP32 (single precision) Performance (FLOP/s)',
+    #     ]
+    #     for col in flop_per_second_columns:
+    #         hardware_df_match = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    #         flop_per_second = hardware_df_match[col].values[0]
+    #         if not pd.isna(flop_per_second):
+    #             flop_per_second_column = col
+    #             break
+    #     if pd.isna(flop_per_second):
+    #         print(f"Could not find FLOP/s for {hardware_model}")
+    #         return None
         
-        """
-        Calculate the FLOP/$ for ML GPUs at the time of purchase
-        This is based on "FP32 price-performance" plot in the blog post:
-        https://epochai.org/blog/trends-in-machine-learning-hardware
-        Assumes a 2-year hardware replacement time.
-        TODO: may want to use a different hardware replacement time, e.g. 4 years
-        """ 
-        if '16' in flop_per_second_column:
-            flop_per_second_per_dollar_slope = 1 / 7
-            # Assume a 2x improvement in FLOP/$ for FP16 over FP32
-            flop_per_second_per_dollar_intercept = 15.55 + np.log10(2)
-        else:
-            # Use FP32
-            flop_per_second_per_dollar_slope = 1 / 7  # OOMs/year
-            flop_per_second_per_dollar_intercept = 15.55  # OOMs - at Jan 1, 2004
+    #     """
+    #     Calculate the FLOP/$ for ML GPUs at the time of purchase
+    #     This is based on "FP32 price-performance" plot in the blog post:
+    #     https://epochai.org/blog/trends-in-machine-learning-hardware
+    #     Assumes a 2-year hardware replacement time.
+    #     TODO: may want to use a different hardware replacement time, e.g. 4 years
+    #     """ 
+    #     if '16' in flop_per_second_column:
+    #         flop_per_second_per_dollar_slope = 1 / 7
+    #         # Assume a 2x improvement in FLOP/$ for FP16 over FP32
+    #         flop_per_second_per_dollar_intercept = 15.55 + np.log10(2)
+    #     else:
+    #         # Use FP32
+    #         flop_per_second_per_dollar_slope = 1 / 7  # OOMs/year
+    #         flop_per_second_per_dollar_intercept = 15.55  # OOMs - at Jan 1, 2004
         
-        intercept_date = pd.to_datetime('2004-01-01')
-        purchase_time_offset = purchase_time - intercept_date
-        purchase_time_offset_years = purchase_time_offset.days / DAYS_PER_YEAR
-        flop_per_dollar = 10 ** (flop_per_second_per_dollar_intercept + \
-            flop_per_second_per_dollar_slope * purchase_time_offset_years)
-        # Calculate the price of the hardware at the time of purchase
-        price_per_chip_second = flop_per_second / flop_per_dollar
-        # Conver to price per hour
-        price = price_per_chip_second * SECONDS_PER_HOUR
+    #     intercept_date = pd.to_datetime('2004-01-01')
+    #     purchase_time_offset = purchase_time - intercept_date
+    #     purchase_time_offset_years = purchase_time_offset.days / DAYS_PER_YEAR
+    #     flop_per_dollar = 10 ** (flop_per_second_per_dollar_intercept + \
+    #         flop_per_second_per_dollar_slope * purchase_time_offset_years)
+    #     # Calculate the price of the hardware at the time of purchase
+    #     price_per_chip_second = flop_per_second / flop_per_dollar
+    #     # Conver to price per hour
+    #     price = price_per_chip_second * SECONDS_PER_HOUR
 
-        print(f"Estimated price: {price}")
-        print()
+    #     print(f"Estimated price: {price}")
+    #     print()
 
     return price
