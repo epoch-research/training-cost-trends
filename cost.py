@@ -22,9 +22,7 @@ def estimate_costs(
     if impute_pcd_fn is not None:
         frontier_pcd_df = impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
     else:
-        # set the System column as the index for formatting purposes
-        frontier_pcd_df = frontier_pcd_df.set_index('System')
-        frontier_pcd_df['System'] = frontier_pcd_df.index
+        
         for _, row in frontier_pcd_df.iterrows():
             if not(pd.isna(row['Training time (hours)']) or pd.isna(row['Hardware quantity'])):
                 frontier_pcd_df['Training time (chip hours)'] = frontier_pcd_df['Training time (hours)'] * frontier_pcd_df['Hardware quantity']
