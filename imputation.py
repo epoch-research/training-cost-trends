@@ -211,6 +211,11 @@ def most_common_impute_training_hardware(pcd_df):
         imputed_pcd_df['System'].isin(frontier_systems), 'Training hardware'
     ]
 
+    # TODO: probably want to move this part one level up in the functions, like `knn_impute_pcd`
+    for _, row in pcd_df.iterrows():
+        if not(pd.isna(row['Training time (hours)']) or pd.isna(row['Hardware quantity'])):
+            pcd_df['Training time (chip hours)'] = pcd_df['Training time (hours)'] * pcd_df['Hardware quantity']
+
     return pcd_df
 
 
