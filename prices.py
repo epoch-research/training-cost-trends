@@ -47,7 +47,7 @@ def get_purchase_time(row):
     return mid_purchase_time
 
 
-def select_vendor(row, org_to_cloud_vendor):
+def select_vendor(row, org_to_cloud_vendor, default_vendor=True):
     orgs = row['Organization'].split(',')
     vendor = None
     for org in orgs:
@@ -55,43 +55,60 @@ def select_vendor(row, org_to_cloud_vendor):
             if key in org.lower():
                 vendor = org_to_cloud_vendor[key]
                 break
-    if vendor is None:
+    if default_vendor and vendor is None:
+        # TODO: choose vendor based on cheapest price available?
         vendor = 'Amazon Web Services'  # default
     return vendor
 
 
-def find_price_for_vendor_and_hardware_model(closest_price_dates_df, purchase_time, price_colname):
+def find_price_for_vendor_and_hardware_model(
+    closest_price_dates_df,
+    purchase_time,
+    price_colname,
+    price_date_after=True,
+):
     price_per_chip_hour = None
     for i, price_row in closest_price_dates_df.iterrows():
         if price_row['Price date'] <= purchase_time:
             price_per_chip_hour = price_row[price_colname]
+            price_id = price_row['Price source']
             break
     if price_per_chip_hour is None:
         for i, price_row in closest_price_dates_df.iterrows():
-            if price_row['Price date'] > purchase_time:
+            if price_date_after and price_row['Price date'] > purchase_time:
                 price_per_chip_hour = price_row[price_colname]
+                price_id = price_row['Price source']
                 break
     if not pd.isna(price_per_chip_hour):
-        return float(price_per_chip_hour)
+        return float(price_per_chip_hour), price_id
     else:
         print(f"Could not find price")
-        return None
+        return None, None
 
 
 def find_price(
-    row, price_df, hardware_df, pcd_hardware_model_colname, price_colname, org_to_cloud_vendor,
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+    org_to_cloud_vendor,
+    price_date_after=True,
+    default_vendor=True,
+    backup_vendor=True,
+    backup_price_type=True,
 ):
     print(f"==== System: {row['System']} ====")
     purchase_time = get_purchase_time(row)
     if purchase_time is None:
         print()
-        return None
+        return None, None
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
         print(f"Could not find hardware model for {row['System']}")
         print()
-        return None
-    vendor = select_vendor(row, org_to_cloud_vendor)
+        return None, None
+    vendor = select_vendor(row, org_to_cloud_vendor, default_vendor=default_vendor)
     print(f"Trying {hardware_model} at {purchase_time}")
 
     # Find the price of the hardware at the time of purchase
@@ -100,6 +117,7 @@ def find_price(
         # TPUs are only available from Google Cloud
         for possible_vendor in ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud']:
             if possible_vendor != vendor:
+                # Means that we try the selected vendor first, then the other vendors
                 vendors.append(possible_vendor)
     elif vendor != 'Google Cloud':
         # Means the hardware is a TPU but the cloud provider is not Google Cloud
@@ -111,25 +129,38 @@ def find_price(
     price_types = [price_colname]
     for possible_price_type in ['Price per chip-hour (3-year CUD)', 'Price per chip-hour (1-year CUD)', 'Price per chip-hour (on-demand)']:
         if possible_price_type != price_colname:
+            # Means that we try the default price type first, then the other types
             price_types.append(possible_price_type)
     
+    # TODO: implement toggle for price_type fallback
     for price_type in price_types:
+        # TODO: implement toggle for vendor fallback
         for vendor in vendors:
             print(f"Trying {vendor}, {price_type}")
             # TODO: fall back to soft matching of hardware models, e.g. "NVIDIA A100 SXM4 40 GB" falls back to "NVIDIA A100"
             closest_price_dates_df = find_closest_price_dates(
                 vendor, hardware_model, purchase_time, price_df
             )
-            price = find_price_for_vendor_and_hardware_model(
-                closest_price_dates_df, purchase_time, price_type
+            # TODO: is it better to try a different vendor before a different date?
+            price_value, price_id = find_price_for_vendor_and_hardware_model(
+                closest_price_dates_df, 
+                purchase_time,
+                price_type,
+                price_date_after=price_date_after,
             )
-            if price is not None:
-                print(f"Found price: {price}")
+            if price_value is not None:
+                print(f"Found price: {price_value}")
                 # TODO: use standard committed-use discount (CUD) rates for each vendor to convert a price type to the desired one
                 print()
                 break
             # else: try again with a different vendor, price type
-        if price is not None:
+            if not backup_vendor:
+                # Only do the first iteration
+                break
+        if not backup_price_type:
+            # Only do the first iteration
+            break
+        if price_value is not None:
             break
 
     """
@@ -191,4 +222,4 @@ def find_price(
     #     print(f"Estimated price: {price}")
     #     print()
 
-    return price
+    return price_value, price_id
