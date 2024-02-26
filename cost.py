@@ -49,7 +49,7 @@ def estimate_costs(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        price = find_price(row, price_df, hardware_df, pcd_hardware_model_colname, price_colname, org_to_cloud_vendor)
+        price, _ = find_price(row, price_df, hardware_df, pcd_hardware_model_colname, price_colname, org_to_cloud_vendor)
         if price is None:
             continue
         else:
