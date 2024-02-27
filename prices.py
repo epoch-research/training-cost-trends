@@ -4,6 +4,27 @@ import pandas as pd
 from parameters import *
 
 
+# Default committed-use discounts (CUD) for each cloud provider
+# See cud_estimate.ipynb
+DEFAULT_CUD = {
+    'Amazon Web Services': {
+        'Price per chip-hour (on-demand)': 0,
+        'Price per chip-hour (1-year CUD)': 0.41,
+        'Price per chip-hour (3-year CUD)': 0.64,
+    },
+    'Google Cloud': {
+        'Price per chip-hour (on-demand)': 0,
+        'Price per chip-hour (1-year CUD)': 0.37,
+        'Price per chip-hour (3-year CUD)': 0.56,
+    },
+    'Microsoft Azure': {
+        'Price per chip-hour (on-demand)': 0,
+        'Price per chip-hour (1-year CUD)': 0.25,
+        'Price per chip-hour (3-year CUD)': 0.49,
+    },
+}
+
+
 def find_closest_price_dates(vendor, hardware_model, date, df):
     """
     Finds the row in the DataFrame with the closest 'Price date' to the given date
@@ -30,7 +51,7 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
 def get_purchase_time(row):
     if pd.isna(row['Training time (hours)']):
         # TODO: fallback to using publication date and a default training time
-        print("Training time is required but no value found")
+        print("Training time is required but no value found\n")
         return None
     
     # Subtract training time plus 2 months from publication date
@@ -86,6 +107,15 @@ def find_price_for_vendor_and_hardware_model(
         return None, None
 
 
+def apply_cud(price_per_chip_hour, vendor, price_type, default_price_type):
+    if price_type != default_price_type:
+        default_cud = DEFAULT_CUD[vendor][default_price_type]
+        current_cud = DEFAULT_CUD[vendor][price_type]
+        cud_ratio = (1 - default_cud) / (1 - current_cud)
+        price_per_chip_hour = price_per_chip_hour * cud_ratio
+    return price_per_chip_hour
+
+
 def find_price(
     row,
     price_df,
@@ -101,11 +131,10 @@ def find_price(
     print(f"==== System: {row['System']} ====")
     purchase_time = get_purchase_time(row)
     if purchase_time is None:
-        print()
         return None, None
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
-        print(f"Could not find hardware model for {row['System']}")
+        print(f"Could not find hardware model for {row['System']}\n")
         print()
         return None, None
     vendor = select_vendor(row, org_to_cloud_vendor, default_vendor=default_vendor)
@@ -132,9 +161,7 @@ def find_price(
             # Means that we try the default price type first, then the other types
             price_types.append(possible_price_type)
     
-    # TODO: implement toggle for price_type fallback
     for price_type in price_types:
-        # TODO: implement toggle for vendor fallback
         for vendor in vendors:
             print(f"Trying {vendor}, {price_type}")
             # TODO: fall back to soft matching of hardware models, e.g. "NVIDIA A100 SXM4 40 GB" falls back to "NVIDIA A100"
@@ -149,9 +176,9 @@ def find_price(
                 price_date_after=price_date_after,
             )
             if price_value is not None:
-                print(f"Found price: {price_value}")
-                # TODO: use standard committed-use discount (CUD) rates for each vendor to convert a price type to the desired one
-                print()
+                if backup_price_type:
+                    price_value = apply_cud(price_value, vendor, price_type, price_colname)
+                print(f"Found price: {price_value}\n")
                 break
             # else: try again with a different vendor, price type
             if not backup_vendor:
