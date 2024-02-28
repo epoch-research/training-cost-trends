@@ -4,6 +4,14 @@ import pandas as pd
 from parameters import *
 
 
+# Mapping of simplified hardware names, for soft matching
+# TODO finish this
+SIMPLIFIED_HARDWARE_NAMES = {
+    'NVIDIA A100 SXM4 40 GB': 'NVIDIA A100',
+    'NVIDIA A100 PCIe': 'NVIDIA A100',
+    'NVIDIA A100 SXM4 80 GB': 'NVIDIA A100',
+}
+
 # Default committed-use discounts (CUD) for each cloud provider
 # See cud_estimate.ipynb
 DEFAULT_CUD = {
@@ -37,7 +45,15 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
     :return: The row from the DataFrame that matches the criteria.
     """
     # Filter the DataFrame based on vendor and hardware model
-    filtered_df = df[(df['Vendor'] == vendor) & (df['Hardware model'] == hardware_model)]
+    filtered_df = df[df['Vendor'] == vendor]
+    filtered_df = filtered_df[filtered_df['Hardware model'] == hardware_model]
+    if len(filtered_df) == 0:
+        simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
+        if simplified_hardware_model is not None:
+            filtered_df = df[df['Hardware model'] == simplified_hardware_model]
+            # if len(filtered_df) == 0:
+                # try any version of the hardware name (using overlap of minimal version e.g. "NVIDIA A100")
+
 
     # Convert the target date to datetime
     target_date = pd.to_datetime(date)
