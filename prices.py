@@ -7,9 +7,13 @@ from parameters import *
 # Mapping of simplified hardware names, for soft matching
 # TODO finish this
 SIMPLIFIED_HARDWARE_NAMES = {
-    'NVIDIA A100 SXM4 40 GB': 'NVIDIA A100',
+    'NVIDIA Tesla V100 DGXS 16 GB': 'NVIDIA V100',
+    'NVIDIA Tesla V100 DGXS 32 GB': 'NVIDIA V100',
     'NVIDIA A100 PCIe': 'NVIDIA A100',
+    'NVIDIA A100 SXM4 40 GB': 'NVIDIA A100',
     'NVIDIA A100 SXM4 80 GB': 'NVIDIA A100',
+    'NVIDIA H100 PCIe': 'NVIDIA H100',
+    'NVIDIA H100 SXM5': 'NVIDIA H100',
 }
 
 # Default committed-use discounts (CUD) for each cloud provider
@@ -46,14 +50,22 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
     """
     # Filter the DataFrame based on vendor and hardware model
     filtered_df = df[df['Vendor'] == vendor]
+    # Soft matching of hardware model
     filtered_df = filtered_df[filtered_df['Hardware model'] == hardware_model]
     if len(filtered_df) == 0:
         simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
         if simplified_hardware_model is not None:
+            print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
             filtered_df = df[df['Hardware model'] == simplified_hardware_model]
-            # if len(filtered_df) == 0:
-                # try any version of the hardware name (using overlap of minimal version e.g. "NVIDIA A100")
-
+            if len(filtered_df) == 0:
+                # try any version of the hardware name (using overlap of simplified name)
+                for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
+                    terms = simplified_hardware_model.split()
+                    if all([term in full_hardware_model for term in terms]):
+                        print(f"Soft matching {hardware_model} to {full_hardware_model}")
+                        filtered_df = filtered_df[filtered_df['Hardware model'] == full_hardware_model]
+                        if len(filtered_df) > 0:
+                            break
 
     # Convert the target date to datetime
     target_date = pd.to_datetime(date)
@@ -154,6 +166,10 @@ def find_price(
         print()
         return None, None
     vendor = select_vendor(row, org_to_cloud_vendor, default_vendor=default_vendor)
+    if vendor is None:
+        print(f"Could not find vendor for {row['System']}\n")
+        print()
+        return None, None
     print(f"Trying {hardware_model} at {purchase_time}")
 
     # Find the price of the hardware at the time of purchase
