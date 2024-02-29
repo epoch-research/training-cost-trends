@@ -171,3 +171,6 @@ cython_debug/
 results/
 /archive/cost_analysis.ipynb
 /archive/
+identify foundation models/All ML Systems.csv
+identify foundation models/identify_foundation_models (PCD).ipynb
+identify foundation models/pcd dataset with FM indicator.csv
