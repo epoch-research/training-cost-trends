@@ -121,18 +121,21 @@ def find_price_for_vendor_and_hardware_model(
         if price_row['Price date'] <= purchase_time:
             price_per_chip_hour = price_row[price_colname]
             price_id = price_row['Price source']
+            price_date = price_row['Price date']
             break
     if price_per_chip_hour is None:
         for i, price_row in closest_price_dates_df.iterrows():
             if price_date_after and price_row['Price date'] > purchase_time:
                 price_per_chip_hour = price_row[price_colname]
                 price_id = price_row['Price source']
+                price_date = price_row['Price date']
                 break
     if not pd.isna(price_per_chip_hour):
-        return float(price_per_chip_hour), price_id
+        return float(price_per_chip_hour), price_id, price_date
     else:
         print(f"Could not find price")
-        return None, None
+        print()
+        return None, None, None
 
 
 def apply_cud(price_per_chip_hour, vendor, price_type, default_price_type):
@@ -201,7 +204,7 @@ def find_price(
                 vendor, hardware_model, purchase_time, price_df
             )
             # TODO: is it better to try a different vendor before a different date?
-            price_value, price_id = find_price_for_vendor_and_hardware_model(
+            price_value, price_id, price_date = find_price_for_vendor_and_hardware_model(
                 closest_price_dates_df, 
                 purchase_time,
                 price_type,
@@ -210,7 +213,7 @@ def find_price(
             if price_value is not None:
                 if backup_price_type:
                     price_value = apply_cud(price_value, vendor, price_type, price_colname)
-                print(f"Found price: {price_value}\n")
+                print(f"Found price: {price_value} at {price_date}\n")
                 break
             # else: try again with a different vendor, price type
             if not backup_vendor:
