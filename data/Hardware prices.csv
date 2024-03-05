@@ -13,6 +13,8 @@ https://web.archive.org/web/20211117224813/https://cloud.google.com/tpu/pricing,
 https://web.archive.org/web/20220511211849/https://cloud.google.com/tpu/pricing,2022-05-11,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,
 https://web.archive.org/web/20220911040357/https://cloud.google.com/tpu/pricing,2022-09-11,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,
 https://web.archive.org/web/20230601141218/https://cloud.google.com/tpu/pricing,2023-06-01,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,
+https://web.archive.org/web/20210615052658/https://aws.amazon.com/ec2/instance-types/p4/,2021-06-15,NVIDIA A100,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,p4d.24xlarge
+https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,p4d.24xlarge
 https://web.archive.org/web/20210411041826/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-04-11,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.40,1.44,,
 https://web.archive.org/web/20210716090503/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-07-16,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,
 https://web.archive.org/web/20210813114749/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-08-13,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,
@@ -63,6 +65,8 @@ https://web.archive.org/web/20190806220543/https://azure.microsoft.com/en-us/pri
 https://web.archive.org/web/20190922202958/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-09-22,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
 https://web.archive.org/web/20191118032616/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-11-18,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
 https://web.archive.org/web/20200212185125/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2020-02-12,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
+https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,, NC6s v3 
+https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,2.75,,,,ND40rs v2 
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC6s v3 number of GPUs: 1X OS/Software: CentOS or Ubuntu Linux
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC12s v3 number of GPUs: 2X OS/Software: CentOS or Ubuntu Linux
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.37,2.47,1.79,,instance NC24rs v3 number of GPUs: 4X OS/Software: CentOS or Ubuntu Linux
