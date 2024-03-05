@@ -139,12 +139,14 @@ def find_price_for_vendor_and_hardware_model(
 
 
 def apply_cud(price_per_chip_hour, vendor, price_type, default_price_type):
+    adjusted_price_per_chip_hour = price_per_chip_hour
     if price_type != default_price_type:
         default_cud = DEFAULT_CUD[vendor][default_price_type]
         current_cud = DEFAULT_CUD[vendor][price_type]
         cud_ratio = (1 - default_cud) / (1 - current_cud)
-        price_per_chip_hour = price_per_chip_hour * cud_ratio
-    return price_per_chip_hour
+        adjusted_price_per_chip_hour = price_per_chip_hour * cud_ratio
+        print(f"Applying CUD: {price_per_chip_hour} * {cud_ratio} = {adjusted_price_per_chip_hour}")
+    return adjusted_price_per_chip_hour
 
 
 def find_price(
@@ -213,7 +215,8 @@ def find_price(
             if price_value is not None:
                 if backup_price_type:
                     price_value = apply_cud(price_value, vendor, price_type, price_colname)
-                print(f"Found price: {price_value} at {price_date}\n")
+                print(f"Found price: {price_value} at {price_date}")
+                print("Difference between purchase time and price date:", purchase_time - price_date, "\n")
                 break
             # else: try again with a different vendor, price type
             if not backup_vendor:
