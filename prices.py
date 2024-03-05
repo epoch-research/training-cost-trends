@@ -5,10 +5,10 @@ from parameters import *
 
 
 # Mapping of simplified hardware names, for soft matching
-# TODO finish this
 SIMPLIFIED_HARDWARE_NAMES = {
     'NVIDIA Tesla V100 DGXS 16 GB': 'NVIDIA V100',
     'NVIDIA Tesla V100 DGXS 32 GB': 'NVIDIA V100',
+    'NVIDIA Tesla V100S PCIe 32 GB': 'NVIDIA V100',  # similar in specs
     'NVIDIA A100 PCIe': 'NVIDIA A100',
     'NVIDIA A100 SXM4 40 GB': 'NVIDIA A100',
     'NVIDIA A100 SXM4 80 GB': 'NVIDIA A100',
