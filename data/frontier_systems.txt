@@ -1,68 +1,138 @@
 Gemini Ultra
-Qwen-72B
 Inflection-2
-Yi-34B
-ChatGLM3
-Falcon 180B
-Llama 2-70B
-Claude 2
 PaLM 2
-PanGu-Σ
 GPT-4
-LLaMA-65B
-GPT-3.5 (text-davinci-003)
-U-PaLM (540B)
-BlenderBot 3
-GLM-130B
 Minerva (540B)
-Parti
-OPT-175B
-Flamingo
 PaLM (540B)
-Chinchilla
-LaMDA
-GPT-NeoX-20B
-AlphaCode
-ERNIE 3.0 Titan
-GLaM
-Gopher (280B)
-Yuan 1.0
 Megatron-Turing NLG 530B
-HyperClova
-GOAT
-ALIGN
-ByT5-XXL
-ProtT5-XXL
-Meta Pseudo Labels
-Switch
-DALL-E
-mT5-XXL
-GShard (dense)
-iGPT-XL
 GPT-3 175B (davinci)
-Turing-NLG
 Meena
 OpenAI Five
-OpenAI Five Rerun
-AlphaStar
-T5-3B
-T5-11B
-Megatron-LM (8.3B)
 Megatron-BERT
-RoBERTa Large
-GPT-2 (1.5B)
-BERT-Large
-BigGAN-deep 512x512
-FTW
 ResNeXt-101 32x48d
-AmoebaNet-A (F=448)
-IMPALA
 AlphaZero
 AlphaGo Zero
-OpenAI TI7 DOTA 1v1
-JFT
 AlphaGo Master
-NASv3 (CIFAR-10)
 GNMT
+Falcon 180B
+Claude 2
+GPT-3.5 (text-davinci-003)
+U-PaLM (540B)
+Chinchilla
+ERNIE 3.0 Titan
+Gopher (280B)
+Switch
+mT5-XXL
+AlphaStar
+FTW
+NASv3 (CIFAR-10)
+Qwen-72B
+ChatGLM3
+OPT-175B
+LaMDA
+GLaM
+Yuan 1.0
+Turing-NLG
+OpenAI Five Rerun
+T5-11B
 AlphaGo Lee
 AlphaGo Fan
+Yi-34B
+Llama 2-70B
+PanGu-Σ
+LLaMA-65B
+BlenderBot 3
+GLM-130B
+Parti
+Flamingo
+AlphaCode
+HyperCLOVA
+ByT5-XXL
+DALL-E
+Megatron-LM (8.3B)
+GPT-2 (1.5B)
+BigGAN-deep 512x512
+AmoebaNet-A (F=448)
+OpenAI TI7 DOTA 1v1
+JFT
+Galactica
+BLOOM-176B
+GPT-NeoX-20B
+GOAT
+ProtT5-XXL
+Meta Pseudo Labels
+iGPT-XL
+RoBERTa Large
+BERT-Large
+IMPALA
+Libratus
+DeepSpeech2 (English)
+Skywork-13B
+Falcon-40B
+AlexaTM 20B
+UL2
+FLAN 137B
+CoAtNet
+GShard (dense)
+ContextNet + Noisy Student
+MnasNet-A1 + SSDLite
+MnasNet-A3
+Big Transformer for Back-Translation
+MoE
+PolyNet
+Nemotron-3-8B
+StarCoder
+BloombergGPT
+CoCa
+Stable Diffusion (LDM-KL-8-G)
+Florence
+ProtT5-XXL-BFD
+ProtBERT-BFD
+PLUG
+ViT-Huge/14
+iGPT-L
+ELECTRA
+ALBERT-xxlarge
+BERT-Large-CAS (PTB+WT2+WT103)
+Transformer (Adaptive Input Embeddings)
+YOLOv3
+PNASNet-5
+Xception
+ResNet-152 (ImageNet)
+XGen-7B
+Llama 2-7B
+PaLI
+ESM2-15B
+XGLM-7.5B
+ERNIE 3.0
+ALIGN
+CogView
+CLIP (ViT L/14@336px)
+Conformer + Wav2vec 2.0 + Noisy Student
+T5-3B
+SciBERT
+Population-based DRL
+LSTM (Hebbian, Cache, MbPA)
+DeepStack
+Taiyi-Stable Diffusion
+Whisper
+BASIC-L
+T0-XXL
+Once for All
+DD-PPO
+Noisy Student (L2)
+GPT
+CogVLM
+Jais
+Pangu-Weather
+WizardLM-7B
+LLaMA-7B
+NLLB
+Imagen
+DeBERTa
+M6-T
+MSA Transformer
+ProxylessNAS
+Transformer + Simple Recurrent Unit
+Transformer
+BIDAF
