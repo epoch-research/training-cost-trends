@@ -25,18 +25,8 @@ def estimate_costs(
         for _, row in frontier_pcd_df.iterrows():
             if not(pd.isna(row['Training time (hours)']) or pd.isna(row['Hardware quantity'])):
                 frontier_pcd_df['Training time (chip hours)'] = frontier_pcd_df['Training time (hours)'] * frontier_pcd_df['Hardware quantity']
-
-    """
-    Price selection
-    1. Use a fixed mapping from Organization to cloud provider. If no mapping found, default to "Amazon Web Services".
-    2. If there's a match for the hardware model, use that. Else, discard the ML system from the dataset.
-    3. Use the price that is nearest to, but prior to, training time + 2 months before the publication date
-    4. If there are no prices prior to that time, use the nearest price after that time
-    5. If there are no prices for that hardware model and cloud provider at all, repeat steps 3 and 4 for "Microsoft Azure", then "Google Cloud" as the cloud provider.
-    6. If there are no prices found from step 5, discard the ML system from the dataset.
-    """
     
-    # TODO: use the vendor mapping from imputation to reduce repetition
+    # TODO: centralize vendor mapping to reduce repetition
     org_to_cloud_vendor = {
         'google': 'Google Cloud',
         'deepmind': 'Google Cloud',
