@@ -201,7 +201,6 @@ def find_price(
     for price_type in price_types:
         for vendor in vendors:
             print(f"Trying {vendor}, {price_type}")
-            # TODO: fall back to soft matching of hardware models, e.g. "NVIDIA A100 SXM4 40 GB" falls back to "NVIDIA A100"
             closest_price_dates_df = find_closest_price_dates(
                 vendor, hardware_model, purchase_time, price_df
             )
