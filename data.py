@@ -14,7 +14,8 @@ def load_frontier_systems():
 
 
 def load_pcd_df():
-    return pd.read_csv('data/All ML Systems - full view.csv')
+    dtype = {'Training compute (FLOP)': 'float64'}
+    return pd.read_csv('data/All ML Systems - full view.csv', dtype=dtype)
 
 
 def load_hardware_df():
@@ -38,11 +39,9 @@ def load_data_for_cost_estimation():
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
 
     frontier_systems = load_frontier_systems()
+    frontier_systems = [_.replace('Î£', 'Σ') for _ in frontier_systems]
     frontier_pcd_df = pcd_df[pcd_df['System'].isin(frontier_systems)]
-    # Temporary fix for string type error
-    frontier_pcd_df.loc[:, 'Training compute (FLOP)'] = pd.to_numeric(
-        frontier_pcd_df['Training compute (FLOP)'], errors='coerce'
-    )
+
     assert len(frontier_pcd_df) == len(frontier_systems)
 
     ## Prices
