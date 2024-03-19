@@ -287,3 +287,32 @@ def find_price(
     #     print()
 
     return price_value, price_id
+
+
+def find_purchase_price(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+):
+    print(f"==== System: {row['System']} ====")
+    hardware_model = row[pcd_hardware_model_colname]
+    if pd.isna(hardware_model):
+        print(f"Could not find hardware model for {row['System']}\n")
+        print()
+        return None, None
+    
+    print(f"Trying {hardware_model}")
+    # TODO remove placeholder - want to look up in price_df not hardware_df
+    price_value = hardware_df.loc[hardware_model, 'Release price (USD)']
+    if pd.isna(price_value):
+        print(f"Could not find price for {hardware_model}\n")
+        print()
+        return None, None
+    else:
+        print(f"Found price: {price_value}")
+    
+    price_id = None  # TODO
+
+    return price_value, price_id
