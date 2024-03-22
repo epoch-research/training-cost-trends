@@ -289,7 +289,7 @@ def find_price(
     return price_value, price_id
 
 
-def find_purchase_price(
+def find_purchase_price_from_chip_dataset(
     row,
     price_df,
     hardware_df,
@@ -305,14 +305,43 @@ def find_purchase_price(
     
     print(f"Trying {hardware_model}")
     # TODO remove placeholder - want to look up in price_df not hardware_df
-    price_value = hardware_df.loc[hardware_model, 'Release price (USD)']
+    filtered_df = hardware_df.loc[hardware_df['Name of the hardware'] == hardware_model]
+    if len(filtered_df) == 0:
+        print(f"Could not find hardware model for {hardware_model}\n")
+        print()
+        return None, None
+    
+    price_value = filtered_df['Release price (USD)'].values[0]
+    if pd.isna(price_value):
+        simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
+        if simplified_hardware_model is not None:
+            print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
+            filtered_df = hardware_df[hardware_df['Name of the hardware'] == simplified_hardware_model]
+            if len(filtered_df) == 0:
+                # try any version of the hardware name (using overlap of simplified name)
+                for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
+                    terms = simplified_hardware_model.split()
+                    if all([term in full_hardware_model for term in terms]):
+                        print(f"Soft matching {hardware_model} to {full_hardware_model}")
+                        filtered_df = hardware_df[hardware_df['Name of the hardware'] == full_hardware_model]
+                        if len(filtered_df) > 0:
+                            break
+    
+    if len(filtered_df) == 0:
+        print(f"Could not find hardware model for {hardware_model}\n")
+        print()
+        return None, None
+    price_value = filtered_df['Release price (USD)'].values[0]
     if pd.isna(price_value):
         print(f"Could not find price for {hardware_model}\n")
         print()
         return None, None
     else:
         print(f"Found price: {price_value}")
+        print()
     
+    price_value = float(price_value[1:])  # remove dollar sign
+
     price_id = None  # TODO
 
     return price_value, price_id
