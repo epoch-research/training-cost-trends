@@ -63,7 +63,7 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
                     terms = simplified_hardware_model.split()
                     if all([term in full_hardware_model for term in terms]):
                         print(f"Soft matching {hardware_model} to {full_hardware_model}")
-                        filtered_df = filtered_df[filtered_df['Hardware model'] == full_hardware_model]
+                        filtered_df = df[df['Hardware model'] == full_hardware_model]
                         if len(filtered_df) > 0:
                             break
 
