@@ -133,6 +133,8 @@ def estimate_amortized_hardware_costs(
         if not pd.isna(row['Base model']):
             base_model_name = row['Base model']
             base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
+            if base_model.empty:
+                return None
             base_cost = estimate_cost(base_model, system_to_price)
             if base_cost is None:
                 return None
