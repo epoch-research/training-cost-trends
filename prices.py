@@ -9,11 +9,14 @@ SIMPLIFIED_HARDWARE_NAMES = {
     'NVIDIA Tesla V100 DGXS 16 GB': 'NVIDIA V100',
     'NVIDIA Tesla V100 DGXS 32 GB': 'NVIDIA V100',
     'NVIDIA Tesla V100S PCIe 32 GB': 'NVIDIA V100',  # similar in specs
+    'NVIDIA V100': 'NVIDIA V100',
     'NVIDIA A100 PCIe': 'NVIDIA A100',
     'NVIDIA A100 SXM4 40 GB': 'NVIDIA A100',
     'NVIDIA A100 SXM4 80 GB': 'NVIDIA A100',
+    'NVIDIA A100': 'NVIDIA A100',
     'NVIDIA H100 PCIe': 'NVIDIA H100',
     'NVIDIA H100 SXM5': 'NVIDIA H100',
+    'NVIDIA H100': 'NVIDIA H100',
 }
 
 # Default committed-use discounts (CUD) for each cloud provider
@@ -63,7 +66,7 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
                     terms = simplified_hardware_model.split()
                     if all([term in full_hardware_model for term in terms]):
                         print(f"Soft matching {hardware_model} to {full_hardware_model}")
-                        filtered_df = filtered_df[filtered_df['Hardware model'] == full_hardware_model]
+                        filtered_df = df[df['Hardware model'] == full_hardware_model]
                         if len(filtered_df) > 0:
                             break
 
@@ -285,5 +288,123 @@ def find_price(
 
     #     print(f"Estimated price: {price}")
     #     print()
+
+    return price_value, price_id
+
+
+def find_purchase_price_from_chip_dataset(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+):
+    print(f"==== System: {row['System']} ====")
+    hardware_model = row[pcd_hardware_model_colname]
+    if pd.isna(hardware_model):
+        print(f"Could not find hardware model for {row['System']}\n")
+        print()
+        return None, None
+    
+    print(f"Trying {hardware_model}")
+    # TODO remove placeholder - want to look up in price_df not hardware_df
+    filtered_df = hardware_df.loc[hardware_df['Name of the hardware'] == hardware_model]
+    if len(filtered_df) == 0:
+        print(f"Could not find hardware model for {hardware_model}\n")
+        print()
+        return None, None
+    
+    price_value = filtered_df['Release price (USD)'].values[0]
+    if pd.isna(price_value):
+        simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
+        if simplified_hardware_model is not None:
+            print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
+            filtered_df = hardware_df[hardware_df['Name of the hardware'] == simplified_hardware_model]
+            if len(filtered_df) == 0:
+                # try any version of the hardware name (using overlap of simplified name)
+                for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
+                    terms = simplified_hardware_model.split()
+                    if all([term in full_hardware_model for term in terms]):
+                        print(f"Soft matching {hardware_model} to {full_hardware_model}")
+                        filtered_df = hardware_df[hardware_df['Name of the hardware'] == full_hardware_model]
+                        if len(filtered_df) > 0:
+                            break
+    
+    if len(filtered_df) == 0:
+        print(f"Could not find hardware model for {hardware_model}\n")
+        print()
+        return None, None
+    price_value = filtered_df['Release price (USD)'].values[0]
+    if pd.isna(price_value):
+        print(f"Could not find price for {hardware_model}\n")
+        print()
+        return None, None
+    else:
+        print(f"Found price: {price_value}")
+        print()
+    
+    price_value = float(price_value[1:])  # remove dollar sign
+
+    price_id = None  # TODO
+
+    return price_value, price_id
+
+
+def find_purchase_price(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+):
+    print(f"==== System: {row['System']} ====")
+    hardware_model = row[pcd_hardware_model_colname]
+    if pd.isna(hardware_model):
+        print(f"Could not find hardware model for {row['System']}\n")
+        print()
+        return None, None
+    
+    # TODO choose server type based on hardware quantity
+    
+    print(f"Trying {hardware_model}")
+    filtered_df = price_df.loc[price_df['Hardware model'] == hardware_model]
+    if len(filtered_df) == 0:
+        print(f"Could not find hardware model for {hardware_model}\n")
+        print()
+        return None, None
+    
+    filtered_df = filtered_df.dropna(subset=[price_colname])
+    price_value = filtered_df[price_colname].mean()
+    if pd.isna(price_value):
+        simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
+        if simplified_hardware_model is not None:
+            print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
+            filtered_df = price_df.loc[price_df['Hardware model'] == simplified_hardware_model]
+            filtered_df = filtered_df.dropna(subset=[price_colname])
+            if len(filtered_df) == 0:
+                # try any version of the hardware name (using overlap of simplified name)
+                for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
+                    terms = simplified_hardware_model.split()
+                    if all([term in full_hardware_model for term in terms]):
+                        print(f"Soft matching {hardware_model} to {full_hardware_model}")
+                        filtered_df = price_df[price_df['Hardware model'] == full_hardware_model]
+                        filtered_df = filtered_df.dropna(subset=[price_colname])
+                        if len(filtered_df) > 0:
+                            break
+    
+    if len(filtered_df) == 0:
+        print(f"Could not find hardware model for {hardware_model}\n")
+        print()
+        return None, None
+    price_value = filtered_df[price_colname].mean()
+    if pd.isna(price_value):
+        print(f"Could not find price for {hardware_model}\n")
+        print()
+        return None, None
+    else:
+        print(f"Found price: {price_value}")
+        print()
+
+    price_id = None  # TODO
 
     return price_value, price_id

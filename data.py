@@ -1,14 +1,19 @@
+import json
 import pandas as pd
 
 
-def load_frontier_systems():
+def load_frontier_systems(compute_percentile_threshold=75):
     """
     Load the frontier systems from the file
 
     Returns a list of the frontier systems
     """
-    with open('data/frontier_systems.txt', 'r') as f:
-        frontier_systems = [line.strip() for line in f]
+    frontier_systems = []
+    with open('data/frontier_systems_by_window_percentile.json', 'r') as f:
+        # Load JSON data
+        frontier_systems_by_percentile = json.load(f)
+        for percentile in range(compute_percentile_threshold, 100, 5):
+            frontier_systems.extend(frontier_systems_by_percentile[str(percentile)])
 
     return frontier_systems
 
@@ -26,7 +31,7 @@ def load_price_df():
     return pd.read_csv('data/Hardware prices.csv')
 
 
-def load_data_for_cost_estimation():
+def load_data_for_cost_estimation(compute_percentile_threshold=75):
     """
     Load the data needed for cost estimation
 
@@ -38,7 +43,9 @@ def load_data_for_cost_estimation():
     pcd_df.dropna(subset=['Publication date'], inplace=True)
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
 
-    frontier_systems = load_frontier_systems()
+    frontier_systems = load_frontier_systems(
+        compute_percentile_threshold=compute_percentile_threshold
+    )
     frontier_systems = [_.replace('Î£', 'Σ') for _ in frontier_systems]
     frontier_pcd_df = pcd_df[pcd_df['System'].isin(frontier_systems)]
 

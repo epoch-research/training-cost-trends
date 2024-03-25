@@ -22,6 +22,7 @@ https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricin
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC48ads A100 v4 number of GPUs: 2
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC96ads A100 v4 number of GPUs: 4
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.83,1.70,,instance ND96asr A100 v4 number of GPUs: 8x
+https://web.archive.org/web/20200521074015/https://nvidianews.nvidia.com/news/nvidia-ships-worlds-most-advanced-ai-system-nvidia-dgx-a100-to-fight-covid-19-third-generation-dgx-packs-record-5-petaflops-of-ai-performance,2020-05-21,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,24875.00,"DGX A100, 8 GPU, 320GB."
 https://web.archive.org/web/20221212030420/https://cloud.google.com/compute/gpus-pricing,2022-12-12,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,Iowa (us-central1),2.93,1.85,1.03,,
 https://web.archive.org/web/20211104020654/https://aws.amazon.com/ec2/instance-types/p4/,2021-11-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
 https://web.archive.org/web/20220125025352/https://aws.amazon.com/ec2/instance-types/p4/,2022-01-25,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
@@ -29,6 +30,9 @@ https://web.archive.org/web/20220226224704/https://aws.amazon.com/ec2/instance-t
 https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-10-17,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
 https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
 https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2023-03-10,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
+https://web.archive.org/web/20210630170623/https://www.graphcore.ai/posts/raising-the-bar-graphcores-first-mlperf-results,2021-06-30,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,37500.00,"DGX A100, 8 GPU, 640GB"
+https://web.archive.org/web/20220120191032/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/,2022-01-20,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,20875.00,"DGX A100, 8 GPU, 640GB"
+https://web.archive.org/web/20230923154035/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/#gpu%20,2023-09-23,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,18548.75,"HGX A100, 8 GPU, 640GB"
 https://web.archive.org/web/20221212030420/https://cloud.google.com/compute/gpus-pricing,2022-12-12,NVIDIA A100 SXM4 80 GB,NVIDIA,Google Cloud,Iowa (us-central1),3.93,,,,
 https://web.archive.org/web/20220819235958/https://aws.amazon.com/ec2/instance-types/p4/,2022-08-19,NVIDIA A100 SXM4 80 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),5.12,3.00,1.81,,
 https://web.archive.org/web/20220819235958/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100 SXM4 80 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),5.12,3.00,1.81,,
@@ -36,6 +40,11 @@ https://web.archive.org/web/20220415025353/https://azure.microsoft.com/en-us/pri
 https://web.archive.org/web/20220530173526/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-05-30,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,2.62,1.80,,
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,3.53,2.13,,instance ND96amsr A100 v4 number of GPUs: 8x
 https://lambdalabs.com/service/gpu-cloud,2024-01-29,NVIDIA H100 PCIe,NVIDIA,Lambda Labs,,2.49,,,,https://lambdalabs.com/service/gpu-cloud
+https://web.archive.org/web/20220929115124/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2022-09-29,NVIDIA H100 SXM5,NVIDIA,,,,,,44489.88,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=369855.51"
+https://web.archive.org/web/20230529125834/https://www.semianalysis.com/p/ai-server-cost-analysis-memory-is,2023-05-29,NVIDIA H100 SXM5,NVIDIA,,,,,,33750.00,"DGX, 8 GPU, 640GB. “Nvidia sells DGX H100’s at around $270,000”."
+https://web.archive.org/web/20231211031623/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2023-12-11,NVIDIA H100 SXM5,NVIDIA,,,,,,41197.50,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=306403.66"
+https://web.archive.org/web/20240320115454/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2024-03-20,NVIDIA H100 SXM5,NVIDIA,,,,,,41217.00,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=303610.2"
+https://web.archive.org/web/20240321212632/https://www.dihuni.com/product/supermicro-8125gs-tnhr-server/,2024-03-21,NVIDIA H100 SXM5,NVIDIA,,,,,,37080.50,"HGX, 8 GPU, 640GB"
 https://lambdalabs.com/service/gpu-cloud,2024-01-29,NVIDIA H100 SXM5,NVIDIA,Lambda Labs,,3.49,,,,27.92 for 8x
 https://web.archive.org/web/20171114190230/https://cloud.google.com/compute/pricing,2017-11-14,NVIDIA P100,NVIDIA,Google Cloud,Oregon,2.30,,,,
 https://web.archive.org/web/20171201173231/https://cloud.google.com/compute/pricing,2017-12-01,NVIDIA P100,NVIDIA,Google Cloud,Oregon,1.46,,,,
@@ -54,13 +63,25 @@ https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricin
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC12 have 2 GPUs
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,1.00,0.74,0.53,,instance NC24r number of GPUs: 4X
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC24 number of GPUs: 4X
+https://www.techpowerup.com/gpu-specs/tesla-p100-pcie-16-gb.c2888,2016-06-20,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5699.00,Single-unit release price
+https://web.archive.org/web/20160621002700/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2016-06-21,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,16125.00,"DGX-1, 8 GPU, 128GB"
+https://web.archive.org/web/20170312174101/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2017-03-12,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,18543.75,"DGX-1, 8 GPU, 128GB"
 https://web.archive.org/web/20180608204946/https://aws.amazon.com/ec2/instance-types/p3/,2018-06-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.06,1.99,1.23,,
+https://web.archive.org/web/20190111090822/https://www.microway.com/preconfiguredsystems/nvidia-dgx-station-deep-learning-workstation/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,18457.50,"DGX, 4 GPU, 128GB"
+https://web.archive.org/web/20190111061033/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,19928.75,"DGX-1, 8 GPU, 256GB"
+https://web.archive.org/web/20190111101112/https://www.microway.com/preconfiguredsystems/nvidia-dgx-2/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,26995.63,"DGX-2, 16 GPU, 512 GB"
 https://web.archive.org/web/20190125133337/https://aws.amazon.com/ec2/instance-types/p3/,2019-01-25,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
 https://web.archive.org/web/20190405111110/https://aws.amazon.com/ec2/instance-types/p3/,2019-04-05,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
 https://web.archive.org/web/20190520073153/https://aws.amazon.com/ec2/instance-types/p3/,2019-05-20,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
 https://web.archive.org/web/20190610092728/https://aws.amazon.com/ec2/instance-types/p3/,2019-06-10,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
 https://web.archive.org/web/20190708105149/https://aws.amazon.com/ec2/instance-types/p3/,2019-07-08,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
 https://web.archive.org/web/20190805130331/https://aws.amazon.com/ec2/instance-types/p3/,2019-08-05,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 PCIe 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price
+https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,18625.00,"Price at release (2017 Q3) for a DGX-1 with 8x V100 GPUs was $149,000. Dividing by 8, the price per GPU is $18,625 including interconnect hardware."
+https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,17250.00,"Price at release (2017 Q3) for a DGXX with 4x V100 GPUs was $69,000. Dividing by 4, the price per GPU is $17250 including interconnect hardware."
 https://web.archive.org/web/20190806220543/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-08-06,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
 https://web.archive.org/web/20190922202958/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-09-22,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
 https://web.archive.org/web/20191118032616/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-11-18,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
