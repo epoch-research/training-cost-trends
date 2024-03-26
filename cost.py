@@ -96,6 +96,7 @@ def estimate_amortized_hardware_costs(
     """
     Full pipeline for estimating amortized hardware costs
     """
+    print("Estimating amortized hardware costs")
     if impute_pcd_fn is not None:
         frontier_pcd_df = impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
     
@@ -124,10 +125,28 @@ def estimate_amortized_hardware_costs(
         hardware_quantity = row['Hardware quantity']
         training_time = row['Training time (hours)']
         hardware_lifetime = DEFAULT_HARDWARE_LIFETIME
-        if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
-            return None
 
-        cost = amortized_hardware_cost(training_time, hardware_lifetime, hardware_quantity, price)
+        if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
+            # Impute training time
+            # TODO: move this to a separate function
+            if not any([pd.isna(row[x]) for x in ['Training compute (FLOP)', 'Training hardware']]):
+                print("Imputing training time from compute and hardware")
+                flop = row['Training compute (FLOP)']
+                hardware_model = row['Training hardware']
+                flop_per_second = get_flop_per_second(hardware_model, hardware_df)
+                flop_utilization = row['Hardware utilization']
+                if pd.isna(flop_utilization):
+                    flop_utilization = 0.375  # median of 33 known values
+
+                training_chip_seconds = flop / (flop_per_second * flop_utilization)
+                training_chip_hours = training_chip_seconds / SECONDS_PER_HOUR
+            else:
+                return None
+        else:
+            training_chip_hours = training_time * hardware_quantity
+
+        price_per_chip_hour = price / hardware_lifetime
+        cost = price_per_chip_hour * training_chip_hours
 
         # Check for base model
         if not pd.isna(row['Base model']):
@@ -145,6 +164,7 @@ def estimate_amortized_hardware_costs(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
+        print(f"==== System: {row['System']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
             continue
@@ -155,17 +175,3 @@ def estimate_amortized_hardware_costs(
     frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
 
     return frontier_pcd_df
-
-
-def amortized_hardware_cost(hardware_hours, hardware_lifetime, hardware_quantity, hardware_price):
-    """
-    """
-    total_cost = total_hardware_cost(hardware_quantity, hardware_price)
-    amortized_cost = total_cost * hardware_hours / hardware_lifetime
-    return amortized_cost
-
-
-def total_hardware_cost(hardware_quantity, hardware_price):
-    """
-    """
-    return hardware_quantity * hardware_price
