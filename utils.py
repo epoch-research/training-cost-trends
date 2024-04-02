@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from scipy import stats
 
 
 def datetime_to_float_year(datetimes):
@@ -39,3 +40,50 @@ def ooms_to_doubling_time_months(ooms):
 def doubling_time_months_to_ooms(doubling_time_months):
     doubling_time_years = doubling_time_months / 12
     return doublings_per_year_to_ooms(1 / doubling_time_years)
+
+
+def printg(x):
+    """
+    Print `x` in general decimal format.
+    Fixed point for smaller numbers, scientific notation for larger numbers.
+    """
+    print(f"{x:g}")
+
+
+def printe(x):
+    """
+    Print `x` in scientific notation.
+    """
+    print(f"{x:e}")
+
+
+def geomean(arr):
+    return np.exp(np.mean(np.log(arr)))
+
+
+def wgeomean(arr, weights):
+    return np.exp(np.average(np.log(arr), weights=weights))
+
+
+def lognorm_from_90_ci(p_5th, p_95th, num_samples):
+    p_5th_log = np.log(p_5th)
+    p_95th_log = np.log(p_95th)
+    # Solve for mu and sigma
+    sigma = (p_95th_log - p_5th_log) / (stats.norm.ppf(0.95) - stats.norm.ppf(0.05))
+    mu = p_5th_log - stats.norm.ppf(0.05) * sigma
+    # Generate lognormal samples
+    dist = np.random.lognormal(mean=mu, sigma=sigma, size=num_samples)
+    return dist
+
+
+def print_median_and_ci(samples, ci=[5, 95]):
+    median_value = np.median(samples)
+    lower_percentile, upper_percentile = np.percentile(samples, ci)
+
+    # Formatting and printing the results
+    formatted_median = "{:.2g}".format(float(median_value))
+    formatted_low = "{:.2g}".format(float(lower_percentile))
+    formatted_high = "{:.2g}".format(float(upper_percentile))
+
+    ci_range = int(ci[1] - ci[0])
+    print(f"Median: {formatted_median} [{ci_range}% CI: {formatted_low}, {formatted_high}]")
