@@ -1,23 +1,9 @@
 import numpy as np
 import pandas as pd
 
+from hardware import *
 from parameters import *
 
-
-# Mapping of simplified hardware names, for soft matching
-SIMPLIFIED_HARDWARE_NAMES = {
-    'NVIDIA Tesla V100 DGXS 16 GB': 'NVIDIA V100',
-    'NVIDIA Tesla V100 DGXS 32 GB': 'NVIDIA V100',
-    'NVIDIA Tesla V100S PCIe 32 GB': 'NVIDIA V100',  # similar in specs
-    'NVIDIA V100': 'NVIDIA V100',
-    'NVIDIA A100 PCIe': 'NVIDIA A100',
-    'NVIDIA A100 SXM4 40 GB': 'NVIDIA A100',
-    'NVIDIA A100 SXM4 80 GB': 'NVIDIA A100',
-    'NVIDIA A100': 'NVIDIA A100',
-    'NVIDIA H100 PCIe': 'NVIDIA H100',
-    'NVIDIA H100 SXM5': 'NVIDIA H100',
-    'NVIDIA H100': 'NVIDIA H100',
-}
 
 # Default committed-use discounts (CUD) for each cloud provider
 # See cud_estimate.ipynb
@@ -56,7 +42,7 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
     # Soft matching of hardware model
     filtered_df = filtered_df[filtered_df['Hardware model'] == hardware_model]
     if len(filtered_df) == 0:
-        simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
+        simplified_hardware_model = get_simplified_hardware_model(hardware_model)
         if simplified_hardware_model is not None:
             print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
             filtered_df = df[df['Hardware model'] == simplified_hardware_model]
@@ -173,6 +159,12 @@ def find_price(
         print(f"Could not find hardware model for {row['System']}\n")
         print()
         return None, None
+    
+    # TODO: Remove. This tests the effect of removing TPUs.
+    if 'TPU' in hardware_model:
+        print(f"Skipping TPU {hardware_model}")
+        return None, None
+
     vendor = select_vendor(row, org_to_cloud_vendor, default_vendor=default_vendor)
     if vendor is None:
         print(f"Could not find vendor for {row['System']}\n")
@@ -364,8 +356,6 @@ def find_purchase_price(
         print()
         return None, None
     
-    # TODO choose server type based on hardware quantity
-    
     print(f"Trying {hardware_model}")
     filtered_df = price_df.loc[price_df['Hardware model'] == hardware_model]
     if len(filtered_df) == 0:
@@ -373,6 +363,8 @@ def find_purchase_price(
         print()
         return None, None
     
+    # TODO match on date
+
     filtered_df = filtered_df.dropna(subset=[price_colname])
     price_value = filtered_df[price_colname].mean()
     if pd.isna(price_value):
@@ -396,6 +388,16 @@ def find_purchase_price(
         print(f"Could not find hardware model for {hardware_model}\n")
         print()
         return None, None
+    
+    # Adjust single-unit prices for additional equipment e.g. CPU, interconnect
+    price_values = np.zeros(len(filtered_df))
+    for i, (_, row) in enumerate(filtered_df.iterrows()):
+        if 'single-unit' in row['Notes'].lower():
+            price_values[i] = row[price_colname] * HARDWARE_COST_OVERHEAD
+        else:
+            price_values[i] = row[price_colname]
+
+    # Estimate the price from the average of the available prices
     price_value = filtered_df[price_colname].mean()
     if pd.isna(price_value):
         print(f"Could not find price for {hardware_model}\n")

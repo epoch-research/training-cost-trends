@@ -2,6 +2,16 @@ import plotly.graph_objects as go
 import plotly.express as px
 import plotly.io as pio
 
+
+def human_format(num):
+    magnitude = 0
+    while abs(num) >= 1000:
+        magnitude += 1
+        num /= 1000.0
+    # Format number to one decimal place and add a suffix
+    return f'{int(num)}{["", "K", "M", "B", "T"][magnitude]}'
+
+
 def set_default_fig_layout(fig, xtickvals, xticktext, ytickvals, yticktext):
     fig.add_annotation(
         text="CC BY Epoch",
