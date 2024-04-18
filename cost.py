@@ -175,3 +175,72 @@ def estimate_amortized_hardware_costs(
     frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
 
     return frontier_pcd_df
+
+
+def estimate_upfront_server_capex(
+    frontier_pcd_df,
+    hardware_df,
+    price_df,
+    impute_pcd_fn=None,
+    **impute_kwargs,
+):
+    """
+    Full pipeline for estimating up-front server capex
+    """
+    print("Estimating up-front server capex")
+    if impute_pcd_fn is not None:
+        frontier_pcd_df = impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
+    
+    pcd_hardware_model_colname = 'Training hardware'
+    price_colname = 'Price (hardware purchase)'
+    system_to_price = {}
+
+    for i, row in frontier_pcd_df.iterrows():
+        # TODO
+        price, _ = find_purchase_price(
+            row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
+        )
+        if price is None:
+            continue
+        else:
+            system_to_price[row['System']] = price
+
+    # Cost estimation
+    # TODO move outside of the function
+    def estimate_cost(row, system_to_price):
+        system = row['System']
+        price = system_to_price.get(system)
+        if price is None:
+            return None
+        
+        # training_time = row['Training time (hours)']
+        hardware_quantity = row['Hardware quantity']
+        cost = hardware_quantity * price
+
+        # Check for base model
+        if not pd.isna(row['Base model']):
+            base_model_name = row['Base model']
+            base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
+            if base_model.empty:
+                return None
+            base_cost = estimate_cost(base_model, system_to_price)
+            if base_cost is None:
+                return None
+            else:
+                cost += base_cost
+
+        return cost
+        
+    system_to_cost = {}
+    for i, row in frontier_pcd_df.iterrows():
+        print(f"==== System: {row['System']} ====")
+        cost = estimate_cost(row, system_to_price)
+        if cost is None:
+            continue
+        system_to_cost[row['System']] = cost
+
+    print(system_to_cost)
+
+    frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
+
+    return frontier_pcd_df
