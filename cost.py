@@ -126,24 +126,24 @@ def estimate_amortized_hardware_costs(
         training_time = row['Training time (hours)']
         hardware_lifetime = DEFAULT_HARDWARE_LIFETIME
 
-        # if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
-        # Impute training time
-        # TODO: move this to a separate function
-        if not any([pd.isna(row[x]) for x in ['Training compute (FLOP)', 'Training hardware']]):
-            print("Imputing training time from compute and hardware")
-            flop = row['Training compute (FLOP)']
-            hardware_model = row['Training hardware']
-            flop_per_second = get_flop_per_second(hardware_model, hardware_df)
-            flop_utilization = row['Hardware utilization']
-            if pd.isna(flop_utilization):
-                flop_utilization = MEDIAN_UTILIZATION
+        if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
+            # Impute training time
+            # TODO: move this to a separate function
+            if not any([pd.isna(row[x]) for x in ['Training compute (FLOP)', 'Training hardware']]):
+                print("Imputing training time from compute and hardware")
+                flop = row['Training compute (FLOP)']
+                hardware_model = row['Training hardware']
+                flop_per_second = get_flop_per_second(hardware_model, hardware_df)
+                flop_utilization = row['Hardware utilization']
+                if pd.isna(flop_utilization):
+                    flop_utilization = MEDIAN_UTILIZATION
 
-            training_chip_seconds = flop / (flop_per_second * flop_utilization)
-            training_chip_hours = training_chip_seconds / SECONDS_PER_HOUR
+                training_chip_seconds = flop / (flop_per_second * flop_utilization)
+                training_chip_hours = training_chip_seconds / SECONDS_PER_HOUR
+            else:
+                return None
         else:
-            return None
-        # else:
-        #     training_chip_hours = training_time * hardware_quantity
+            training_chip_hours = training_time * hardware_quantity
 
         price_per_chip_hour = price / hardware_lifetime
         cost = price_per_chip_hour * training_chip_hours
