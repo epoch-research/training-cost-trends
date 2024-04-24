@@ -3,11 +3,13 @@ import os
 import pandas as pd
 
 from data import *
+from energy import *
 from imputation import *
 from inflation import *
 from parameters import *
 from plotting import *
 from prices import *
+
 
 def estimate_costs(
     frontier_pcd_df,
@@ -317,7 +319,11 @@ def estimate_hardware_capex_opex(
         other_hardware_cost *= total_chip_hours / hardware_lifetime  # amortize
         cost += other_hardware_cost
 
-        energy_cost = cluster_energy_cost(hardware_model, total_chip_hours, hardware_df)
+        org = row['Organization']
+        pub_year = row['Publication date'].year
+        energy_cost = cluster_energy_cost(
+            hardware_model, total_chip_hours, hardware_df, org, pub_year,
+        )
         cost += energy_cost
 
         # Check for base model
@@ -363,12 +369,15 @@ def cluster_interconnect_cost_per_gpu(hardware_model):
     return cost_per_gpu
 
 
-def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df):
+def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organization, year):
     matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
     # TODO: handle missing values - look up similar hardware
-    chip_power_kw = matching_hardware['TDP (W)'].squeeze() / 1000
-    chip_power_kw *= SERVER_TDP_RATIO  # adjust for average power draw
-    chip_power_kw *= SERVER_CHIP_POWER_RATIO  # adjust for server power draw
-    chip_power_kw *= DEFAULT_PUE  # adjust for power distribution and cooling
-    cluster_kwh = chip_power_kw * total_chip_hours
-    return cluster_kwh * DATA_CENTER_ENERGY_PRICE
+    chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
+    # Adjust for whole server power draw (CPUs, memory, cooling)
+    server_TDP_kw = chip_TDP_kw * chip_to_server_power(hardware_model)
+    # Adjust for average power draw
+    server_power_kw = server_TDP_kw * server_TDP_fraction(hardware_model)
+    # Adjust for data center power distribution and cooling
+    adj_server_power_kw = server_power_kw * power_usage_effectiveness(organization)
+    cluster_kwh = adj_server_power_kw * total_chip_hours
+    return cluster_kwh * energy_price(year)
