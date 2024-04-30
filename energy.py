@@ -13,7 +13,7 @@ def power_usage_effectiveness(organization):
     Meta: https://sustainability.fb.com/data-centers/
     "Data center buildings we completed in 2022 exhibit a Power Usage Effectiveness (PUE) of 1.09"
 
-    Google and Microsoft: Table 4 of https://arxiv.org/abs/2104.10350
+    Google and Microsoft: Table 4 of https://arxiv.org/abs/2104.10350, all close to 1.1
     """
     hyperscalers = ['google', 'deepmind', 'microsoft', 'amazon', 'meta', 'facebook']
     if any([hs in org for hs in hyperscalers]):
@@ -22,6 +22,9 @@ def power_usage_effectiveness(organization):
 
 
 def server_TDP_fraction(hardware_model):
+    """
+    Returns the fraction of the server's TDP that is used during training.
+    """
     if "TPU" in hardware_model:
         """
         https://arxiv.org/abs/2104.10350, Table 4
@@ -42,14 +45,14 @@ def server_TDP_fraction(hardware_model):
         https://arxiv.org/abs/2104.10350, Table 4
         Measured server power for GPT-3, at 330W, is ~53% or 88% of server TDP, depending on 
         whether they used DGX-1 (4 V100s, 1.5kW max) or DGX-2 (16 V100s, 10kW max).
-        This is with a low (~20%) FLOP/s utilization.
+        Note this is with a low (~20%) FLOP/s utilization for training GPT-3.
         
         https://docs.nvidia.com/nvidia-dgx-superpod-data-center-design-dgx-h100.pdf
         Table 4 shows expected average power equal to peak power for the DGX H100.
         "DGX H100 systems operate at or near peak utilization continuously when running AI 
         workloads."
 
-        An experiment conducted by Epoch with a NVIDIA H100 GPU found that at 70% FLOP/s 
+        An experiment conducted by Epoch with a single NVIDIA H100 GPU found that at 70% FLOP/s 
         utilization, GPU power was at peak (700W).
 
         https://pages.cs.wisc.edu/~shivaram/cs744-readings/dc-computer-v3.pdf
@@ -62,6 +65,9 @@ def server_TDP_fraction(hardware_model):
     
 
 def chip_to_server_power(hardware_model):
+    """
+    Returns a multiplier to estimate server power from chip power.
+    """
     if "TPU" in hardware_model:
         """
         https://gwern.net/doc/ai/scaling/hardware/2021-jouppi.pdf, Table 1

@@ -315,7 +315,10 @@ def estimate_hardware_capex_opex(
         amortized_hardware_cost = price_per_chip_hour * training_chip_hours
         cost += amortized_hardware_cost
 
-        other_hardware_cost = cluster_interconnect_cost_per_gpu(hardware_model)
+        other_hardware_cost = cluster_interconnect_cost_per_gpu(hardware_model, hardware_df)
+        if other_hardware_cost == 0:
+            if not pd.isna(hardware_quantity) and hardware_quantity > 8:
+                print("No interconnect cost, but hardware quantity > 8")
         other_hardware_cost *= total_chip_hours / hardware_lifetime  # amortize
         cost += other_hardware_cost
 
@@ -360,16 +363,26 @@ def estimate_hardware_capex_opex(
     return frontier_pcd_df
 
 
-def cluster_interconnect_cost_per_gpu(hardware_model):
+def cluster_interconnect_cost_per_gpu(hardware_model, hardware_df):
     # TODO: move to parameters.py
     cluster_interconnect_cost_per_gbps = 11
-    # TODO: look up in hardware_df
-    cluster_interconnect_bandwidth = 300
+    matching_row = hardware_df[hardware_df['Name of the hardware'] == hardware_model].squeeze()
+    cluster_interconnect_bandwidth = matching_row['Internode bandwidth (bit/s)'] / 1e9
+    if pd.isna(cluster_interconnect_bandwidth):
+        # Assume there is no interconnect
+        return 0
     cost_per_gpu = cluster_interconnect_cost_per_gbps * cluster_interconnect_bandwidth
     return cost_per_gpu
 
 
 def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organization, year):
+    """
+    hardware_model: name of the hardware used for the training run
+    total_chip_hours: total number of chip-hours used for the training run (i.e. number of chips * training time)
+    hardware_df: DataFrame containing hardware specs
+    organization: name of the organization who did the training
+    year: year in which the training run was conducted
+    """
     matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
     # TODO: handle missing values - look up similar hardware
     chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
