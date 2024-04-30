@@ -315,12 +315,8 @@ def estimate_hardware_capex_opex(
         amortized_hardware_cost = price_per_chip_hour * training_chip_hours
         cost += amortized_hardware_cost
 
-        other_hardware_cost = cluster_interconnect_cost_per_gpu(hardware_model, hardware_df)
-        if other_hardware_cost == 0:
-            if not pd.isna(hardware_quantity) and hardware_quantity > 8:
-                print("No interconnect cost, but hardware quantity > 8")
-        other_hardware_cost *= total_chip_hours / hardware_lifetime  # amortize
-        cost += other_hardware_cost
+        # Add interconnect cost
+        cost *= CLUSTER_INTERCONNECT_COST_OVERHEAD
 
         org = row['Organization']
         pub_year = row['Publication date'].year
