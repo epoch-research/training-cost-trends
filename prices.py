@@ -395,7 +395,7 @@ def find_purchase_price(
     price_values = np.zeros(len(filtered_df))
     for i, (_, row) in enumerate(filtered_df.iterrows()):
         if 'single-unit' in row['Notes'].lower():
-            price_values[i] = row[price_colname] * HARDWARE_COST_OVERHEAD
+            price_values[i] = row[price_colname] * SERVER_COST_OVERHEAD
         else:
             price_values[i] = row[price_colname]
 
