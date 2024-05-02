@@ -26,26 +26,33 @@ DEFAULT_CUD = {
 }
 
 
-def find_closest_price_dates(vendor, hardware_model, date, df):
+def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colname=None):
     """
-    Finds the row in the DataFrame with the closest 'Price date' to the given date
-    which has a 'Vendor' equal to the specified vendor and a 'Hardware model' equal to the specified hardware_model.
+    Finds the rows in the DataFrame with the closest 'Price date' to the given date and which match
+    the hardware model, vendor (if provided), and price column (if provided).
     
-    :param vendor: The vendor to match.
     :param hardware_model: The hardware model to match.
     :param date: The target date to find the closest 'Price date' to.
     :param df: The DataFrame containing the hardware price data.
-    :return: The row from the DataFrame that matches the criteria.
+    :param vendor: The vendor to match, if applicable.
+    :param price_colname: The price column to match, if applicable.
+    :return: The rows from the DataFrame that match the criteria, in order of closest date.
     """
     # Filter the DataFrame based on vendor and hardware model
-    filtered_df = df[df['Vendor'] == vendor]
+    if vendor is not None:
+        filtered_df = df[df['Vendor'] == vendor]
+    if price_colname is not None:
+        filtered_df = filtered_df.dropna(subset=[price_colname])
     # Soft matching of hardware model
     filtered_df = filtered_df[filtered_df['Hardware model'] == hardware_model]
     if len(filtered_df) == 0:
+        # No exact match found, try soft matching
         simplified_hardware_model = get_simplified_hardware_model(hardware_model)
         if simplified_hardware_model is not None:
             print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
             filtered_df = df[df['Hardware model'] == simplified_hardware_model]
+            if price_colname is not None:
+                filtered_df = filtered_df.dropna(subset=[price_colname])
             if len(filtered_df) == 0:
                 # try any version of the hardware name (using overlap of simplified name)
                 for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
@@ -53,6 +60,8 @@ def find_closest_price_dates(vendor, hardware_model, date, df):
                     if all([term in full_hardware_model for term in terms]):
                         print(f"Soft matching {hardware_model} to {full_hardware_model}")
                         filtered_df = df[df['Hardware model'] == full_hardware_model]
+                        if price_colname is not None:
+                            filtered_df = filtered_df.dropna(subset=[price_colname])
                         if len(filtered_df) > 0:
                             break
 
@@ -197,7 +206,7 @@ def find_price(
         for vendor in vendors:
             print(f"Trying {vendor}, {price_type}")
             closest_price_dates_df = find_closest_price_dates(
-                vendor, hardware_model, purchase_time, price_df
+                hardware_model, purchase_time, price_df, vendor,
             )
             # TODO: is it better to try a different vendor before a different date?
             price_value, price_id, price_date = find_price_for_vendor_and_hardware_model(
@@ -348,68 +357,49 @@ def find_purchase_price(
     hardware_df,
     pcd_hardware_model_colname,
     price_colname,
+    price_date_after=True,
 ):
     print(f"==== System: {row['System']} ====")
+    purchase_time = get_purchase_time(row)
+    if purchase_time is None:
+        return None, None
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
         print(f"Could not find hardware model for {row['System']}\n")
         print()
         return None, None
     
-    print(f"Trying {hardware_model}")
-    # Filter to prices with exact match of hardware model
-    filtered_df = price_df.loc[price_df['Hardware model'] == hardware_model]
-    # if len(filtered_df) == 0:
-    #     print(f"Could not find hardware model: {hardware_model}\n")
-    #     print()
-    #     return None, None
+    # Filter to prices with exact match of hardware model AND non-empty purchase price    
+    closest_price_dates_df = find_closest_price_dates(
+        hardware_model, purchase_time, price_df, price_colname=price_colname
+    )
     
-    # TODO match on date
-
-    # Filter to prices with exact match of hardware model AND non-empty purchase price
-    filtered_df = filtered_df.dropna(subset=[price_colname])
-    if len(filtered_df) == 0:
-        # No exact match found, try soft matching
-        simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
-        if simplified_hardware_model is not None:
-            print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
-            filtered_df = price_df.loc[price_df['Hardware model'] == simplified_hardware_model]
-            filtered_df = filtered_df.dropna(subset=[price_colname])
-            if len(filtered_df) == 0:
-                # try any version of the hardware name (using overlap of simplified name)
-                for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
-                    terms = simplified_hardware_model.split()
-                    if all([term in full_hardware_model for term in terms]):
-                        print(f"Soft matching {hardware_model} to {full_hardware_model}")
-                        filtered_df = price_df[price_df['Hardware model'] == full_hardware_model]
-                        filtered_df = filtered_df.dropna(subset=[price_colname])
-                        if len(filtered_df) > 0:
-                            break
-    
-    if len(filtered_df) == 0:
+    if len(closest_price_dates_df) == 0:
         print(f"Could not find hardware model after soft matching: {hardware_model}\n")
         print()
         return None, None
     
-    # Adjust single-unit prices for additional equipment e.g. CPU, interconnect
-    price_values = np.zeros(len(filtered_df))
-    for i, (_, row) in enumerate(filtered_df.iterrows()):
-        if 'single-unit' in row['Notes'].lower():
-            price_values[i] = row[price_colname] * SERVER_COST_OVERHEAD
+    # Search for the price closest to the purchase time
+    chosen_price_row = None
+    for _, price_row in closest_price_dates_df.iterrows():
+        if price_row['Price date'] <= purchase_time:
+            chosen_price_row = price_row
+            break
+    if chosen_price_row is None and price_date_after:
+        for _, price_row in closest_price_dates_df.iterrows():
+            if price_row['Price date'] > purchase_time:
+                chosen_price_row = price_row
+                break
+    if not pd.isna(chosen_price_row[price_colname]):
+        # Adjust single-unit prices for additional equipment e.g. CPU, interconnect
+        if 'single-unit' in chosen_price_row['Notes'].lower():
+            price_value = chosen_price_row[price_colname] * SERVER_COST_OVERHEAD
         else:
-            price_values[i] = row[price_colname]
-
-    # Estimate the price from the average of the available prices
-    # TODO find a better way to estimate a single best matching price
-    price_value = price_values.mean()
-    if pd.isna(price_value):
-        print(f"Could not find price for {hardware_model}\n")
-        print()
-        return None, None
+            price_value = chosen_price_row[price_colname]
+        price_id = chosen_price_row['Price source']
+        price_date = chosen_price_row['Price date']
+        print(f"Found price for {hardware_model} at {price_date}: {price_value}\n")
+        return price_value, price_id
     else:
-        print(f"Found price: {price_value}")
-        print()
-
-    price_id = None  # TODO
-
-    return price_value, price_id
+        print(f"Could not find price for {hardware_model}\n")
+        return None, None
