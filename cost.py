@@ -307,7 +307,7 @@ def estimate_hardware_capex_opex(
         else:
             training_chip_hours = training_time * hardware_quantity
 
-        total_chip_hours = training_chip_hours * 2  # TODO principled way to estimate total time
+        total_chip_hours = training_chip_hours  # TODO estimate total experiment time rather than training time?
 
         cost = 0
 
@@ -359,18 +359,6 @@ def estimate_hardware_capex_opex(
     return frontier_pcd_df
 
 
-def cluster_interconnect_cost_per_gpu(hardware_model, hardware_df):
-    # TODO: move to parameters.py
-    cluster_interconnect_cost_per_gbps = 11
-    matching_row = hardware_df[hardware_df['Name of the hardware'] == hardware_model].squeeze()
-    cluster_interconnect_bandwidth = matching_row['Internode bandwidth (bit/s)'] / 1e9
-    if pd.isna(cluster_interconnect_bandwidth):
-        # Assume there is no interconnect
-        return 0
-    cost_per_gpu = cluster_interconnect_cost_per_gbps * cluster_interconnect_bandwidth
-    return cost_per_gpu
-
-
 def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organization, year):
     """
     hardware_model: name of the hardware used for the training run
@@ -380,8 +368,10 @@ def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organizat
     year: year in which the training run was conducted
     """
     matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
-    # TODO: handle missing values - look up similar hardware
     chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
+    if pd.isna(chip_TDP_kw):
+        print("Unable to estimate chip TDP")
+        return None
     # Adjust for whole server power draw (CPUs, memory, cooling)
     server_TDP_kw = chip_TDP_kw * chip_to_server_power(hardware_model)
     # Adjust for average power draw

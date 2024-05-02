@@ -160,10 +160,10 @@ def find_price(
         print()
         return None, None
     
-    # TODO: Remove. This tests the effect of removing TPUs.
-    if 'TPU' in hardware_model:
-        print(f"Skipping TPU {hardware_model}")
-        return None, None
+    # Uncomment to test the effect of removing TPUs.
+    # if 'TPU' in hardware_model:
+    #     print(f"Skipping TPU {hardware_model}")
+    #     return None, None
 
     vendor = select_vendor(row, org_to_cloud_vendor, default_vendor=default_vendor)
     if vendor is None:
