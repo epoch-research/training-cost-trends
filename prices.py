@@ -39,6 +39,7 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
     :return: The rows from the DataFrame that match the criteria, in order of closest date.
     """
     # Filter the DataFrame based on vendor and hardware model
+    filtered_df = df
     if vendor is not None:
         filtered_df = df[df['Vendor'] == vendor]
     if price_colname is not None:
@@ -74,11 +75,14 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
     return closest_row_df
 
 
-def get_purchase_time(row):
+def get_purchase_time(row, backup_training_time=True):
     if pd.isna(row['Training time (hours)']):
-        # TODO: fallback to using publication date and a default training time
-        print("Training time is required but no value found\n")
-        return None
+        if backup_training_time:
+            print(f"No training time found, assuming {MEDIAN_TRAINING_TIME_DAYS}\n")
+            return row['Publication date'] - pd.Timedelta(days=MEDIAN_TRAINING_TIME_DAYS)
+        else:
+            print(f"No training time found\n")
+            return None
     
     # Subtract training time plus 2 months from publication date
     training_time_offset = pd.Timedelta(hours=int(row['Training time (hours)']))
@@ -158,9 +162,10 @@ def find_price(
     default_vendor=True,
     backup_vendor=True,
     backup_price_type=True,
+    backup_training_time=True,
 ):
     print(f"==== System: {row['System']} ====")
-    purchase_time = get_purchase_time(row)
+    purchase_time = get_purchase_time(row, backup_training_time)
     if purchase_time is None:
         return None, None
     hardware_model = row[pcd_hardware_model_colname]
@@ -358,15 +363,17 @@ def find_purchase_price(
     pcd_hardware_model_colname,
     price_colname,
     price_date_after=True,
+    backup_training_time=True,
 ):
     print(f"==== System: {row['System']} ====")
-    purchase_time = get_purchase_time(row)
-    if purchase_time is None:
-        return None, None
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
         print(f"Could not find hardware model for {row['System']}\n")
         print()
+        return None, None
+    
+    purchase_time = get_purchase_time(row, backup_training_time)
+    if purchase_time is None:
         return None, None
     
     # Filter to prices with exact match of hardware model AND non-empty purchase price    
@@ -376,7 +383,6 @@ def find_purchase_price(
     
     if len(closest_price_dates_df) == 0:
         print(f"Could not find hardware model after soft matching: {hardware_model}\n")
-        print()
         return None, None
     
     # Search for the price closest to the purchase time
