@@ -160,10 +160,10 @@ def find_price(
         print()
         return None, None
     
-    # TODO: Remove. This tests the effect of removing TPUs.
-    if 'TPU' in hardware_model:
-        print(f"Skipping TPU {hardware_model}")
-        return None, None
+    # Uncomment to test the effect of removing TPUs.
+    # if 'TPU' in hardware_model:
+    #     print(f"Skipping TPU {hardware_model}")
+    #     return None, None
 
     vendor = select_vendor(row, org_to_cloud_vendor, default_vendor=default_vendor)
     if vendor is None:
@@ -357,17 +357,19 @@ def find_purchase_price(
         return None, None
     
     print(f"Trying {hardware_model}")
+    # Filter to prices with exact match of hardware model
     filtered_df = price_df.loc[price_df['Hardware model'] == hardware_model]
-    if len(filtered_df) == 0:
-        print(f"Could not find hardware model for {hardware_model}\n")
-        print()
-        return None, None
+    # if len(filtered_df) == 0:
+    #     print(f"Could not find hardware model: {hardware_model}\n")
+    #     print()
+    #     return None, None
     
     # TODO match on date
 
+    # Filter to prices with exact match of hardware model AND non-empty purchase price
     filtered_df = filtered_df.dropna(subset=[price_colname])
-    price_value = filtered_df[price_colname].mean()
-    if pd.isna(price_value):
+    if len(filtered_df) == 0:
+        # No exact match found, try soft matching
         simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
         if simplified_hardware_model is not None:
             print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
@@ -385,7 +387,7 @@ def find_purchase_price(
                             break
     
     if len(filtered_df) == 0:
-        print(f"Could not find hardware model for {hardware_model}\n")
+        print(f"Could not find hardware model after soft matching: {hardware_model}\n")
         print()
         return None, None
     
@@ -393,12 +395,13 @@ def find_purchase_price(
     price_values = np.zeros(len(filtered_df))
     for i, (_, row) in enumerate(filtered_df.iterrows()):
         if 'single-unit' in row['Notes'].lower():
-            price_values[i] = row[price_colname] * HARDWARE_COST_OVERHEAD
+            price_values[i] = row[price_colname] * SERVER_COST_OVERHEAD
         else:
             price_values[i] = row[price_colname]
 
     # Estimate the price from the average of the available prices
-    price_value = filtered_df[price_colname].mean()
+    # TODO find a better way to estimate a single best matching price
+    price_value = price_values.mean()
     if pd.isna(price_value):
         print(f"Could not find price for {hardware_model}\n")
         print()
