@@ -22,11 +22,22 @@ def get_flop_per_second(hardware_model, hardware_df):
     flop_per_second_columns = [  # ordered by preference
         'FP16 Tensor Core',
         'Tensor Float 32 (TF32)',
+        'FP16 (half precision) Performance (FLOP/s)',
         'FP32 (single precision) Performance (FLOP/s)',
     ]
+    hardware_df_match = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    if 'TPU v1' in hardware_model:
+        # Special case
+        flop_per_second = hardware_df_match['INT8 Performance (OP/s)'].values[0]
+        return flop_per_second
     for col in flop_per_second_columns:
-        hardware_df_match = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
-        flop_per_second = hardware_df_match[col].values[0]
+        if col == 'FP16 (half precision) Performance (FLOP/s)':
+            if 'TPU' in hardware_model:
+                # FP16 performance for older GPUs can be misleading
+                # So only use it for TPUs
+                flop_per_second = hardware_df_match[col].values[0]
+        else:
+            flop_per_second = hardware_df_match[col].values[0]
         if not pd.isna(flop_per_second):
             print(f"Found {hardware_model} at {flop_per_second} FLOP/s")
             break

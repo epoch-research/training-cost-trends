@@ -25,6 +25,15 @@ DEFAULT_CUD = {
     },
 }
 
+# See https://docs.google.com/document/d/1r0KMbDPy0QVy7Z9PxAS3qJqzX7vK5hzEH1hVkoYUWiY/edit?usp=sharing
+# TODO update these prices
+TPU_EQUIVALENT_RELEASE_PRICES = {
+    "Google TPU v4": 12000,
+    "Google TPU v3": 12000,
+    "Google TPU v2": 12000,
+    "Google TPU v1": 12000,
+}
+
 
 def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colname=None):
     """
@@ -376,6 +385,9 @@ def find_purchase_price(
     if purchase_time is None:
         return None, None
     
+    if "TPU" in hardware_model:
+        return find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time)
+
     # Filter to prices with exact match of hardware model AND non-empty purchase price    
     closest_price_dates_df = find_closest_price_dates(
         hardware_model, purchase_time, price_df, price_colname=price_colname
@@ -409,3 +421,22 @@ def find_purchase_price(
     else:
         print(f"Could not find price for {hardware_model}\n")
         return None, None
+
+
+def find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time):
+    equivalent_release_price = TPU_EQUIVALENT_RELEASE_PRICES.get(hardware_model)
+    if equivalent_release_price is None:
+        print(f"Could not find price for {hardware_model}\n")
+        return None, None
+    # Adjust single-unit prices for additional equipment e.g. CPU, interconnect
+    equivalent_release_price *= SERVER_COST_OVERHEAD
+    # Release date
+    matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    release_date = matching_hardware['Release date'].values[0]
+    years_since_release = (purchase_time - pd.to_datetime(release_date)).days / DAYS_PER_YEAR
+    # Depreciate the value by hardware price-performance trend over the time between release and purchase
+    depreciation = ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR * years_since_release
+    price_value_ooms = np.log10(equivalent_release_price) - depreciation
+    price_value = 10 ** price_value_ooms
+    print(f"Found price for {hardware_model} at {purchase_time}: {price_value}\n")
+    return price_value, None
