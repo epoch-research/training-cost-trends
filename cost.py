@@ -126,7 +126,9 @@ def estimate_amortized_hardware_costs(
 
         hardware_quantity = row['Hardware quantity']
         training_time = row['Training time (hours)']
-        hardware_lifetime = DEFAULT_HARDWARE_LIFETIME
+        matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+        hardware_release_date = get_release_date(hardware_model, hardware_df)
+        hardware_lifetime = get_server_lifetime(hardware_release_date.year)
 
         if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
             # Impute training time
@@ -286,7 +288,8 @@ def estimate_hardware_capex_opex(
         hardware_quantity = row['Hardware quantity']
         training_time = row['Training time (hours)']
         hardware_model = row['Training hardware']
-        hardware_lifetime = DEFAULT_HARDWARE_LIFETIME
+        hardware_release_date = get_release_date(hardware_model, hardware_df)
+        hardware_lifetime = get_server_lifetime(hardware_release_date.year)
 
         if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
             # Impute training time
@@ -307,8 +310,6 @@ def estimate_hardware_capex_opex(
         else:
             training_chip_hours = training_time * hardware_quantity
 
-        total_chip_hours = training_chip_hours  # TODO estimate total experiment time rather than training time?
-
         cost = 0
 
         price_per_chip_hour = price / hardware_lifetime
@@ -321,9 +322,13 @@ def estimate_hardware_capex_opex(
         org = row['Organization']
         pub_year = row['Publication date'].year
         energy_cost = cluster_energy_cost(
-            hardware_model, total_chip_hours, hardware_df, org, pub_year,
+            hardware_model, training_chip_hours, hardware_df, org, pub_year,
         )
         cost += energy_cost
+
+        # Useful for comparing to cloud prices
+        overall_cost_per_chip_hour = cost / training_chip_hours
+        print(f"Overall cost per chip-hour for {hardware_model}:", overall_cost_per_chip_hour)
 
         # Check for base model
         if not pd.isna(row['Base model']):

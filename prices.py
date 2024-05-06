@@ -414,14 +414,14 @@ def find_purchase_price(
         price_date = chosen_price_row['Price date']
 
         # Estimate the release price based on linear depreciation
-        matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
-        release_date = matching_hardware['Release date'].values[0]
-        hours_since_release = (price_date - pd.to_datetime(release_date)).days * 24
-        price_value *= 1 / (1 - hours_since_release / DEFAULT_HARDWARE_LIFETIME)
+        release_date = get_release_date(hardware_model, hardware_df)
+        hours_since_release = (price_date - release_date).days * 24
+        hardware_lifetime = get_server_lifetime(price_date.year)
+        price_value *= 1 / (1 - hours_since_release / hardware_lifetime)
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
         if 'single-unit' in chosen_price_row['Notes'].lower():
             price_value *= SERVER_COST_OVERHEAD
-        print(f"Found server price for {hardware_model} at {price_date}: {price_value}\n")
+        print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
         return price_value, price_id
     else:
         print(f"Could not find price for {hardware_model}\n")
@@ -435,7 +435,7 @@ def find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_tim
         return None, None
     # Adjust single-unit price for additional equipment e.g. CPU, intra-node interconnect
     price_value *= SERVER_COST_OVERHEAD
-    print(f"Found server price for {hardware_model} at {purchase_time}: {price_value}\n")
+    print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
     return price_value, None
 
 
