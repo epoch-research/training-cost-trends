@@ -425,7 +425,7 @@ def find_purchase_price(
         price_value *= 1 / (1 - hours_since_release / hardware_lifetime)
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
         if 'single-unit' in chosen_price_row['Notes'].lower():
-            price_value *= SERVER_COST_OVERHEAD
+            price_value *= get_server_cost_overhead(hardware_model)
         print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
         return price_value, price_id
     else:
@@ -439,7 +439,7 @@ def find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_tim
         print(f"Could not find price for {hardware_model}\n")
         return None, None
     # Adjust single-unit price for additional equipment e.g. CPU, intra-node interconnect
-    price_value *= SERVER_COST_OVERHEAD
+    price_value *= get_server_cost_overhead(hardware_model)
     print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
     return price_value, None
 
