@@ -23,6 +23,12 @@ DEFAULT_CUD = {
         'Price per chip-hour (1-year CUD)': 0.25,
         'Price per chip-hour (3-year CUD)': 0.49,
     },
+    # Assume Lambda Labs has average of above CUDs
+    'Lambda Labs': {
+        'Price per chip-hour (on-demand)': 0,
+        'Price per chip-hour (1-year CUD)': 0.34,
+        'Price per chip-hour (3-year CUD)': 0.56,
+    },
 }
 
 # See https://docs.google.com/document/d/1r0KMbDPy0QVy7Z9PxAS3qJqzX7vK5hzEH1hVkoYUWiY/edit?usp=sharing
@@ -60,18 +66,24 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
         simplified_hardware_model = get_simplified_hardware_model(hardware_model)
         if simplified_hardware_model is not None:
             print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
-            filtered_df = df[df['Hardware model'] == simplified_hardware_model]
+            filtered_df = df
+            if vendor is not None:
+                filtered_df = df[df['Vendor'] == vendor]
             if price_colname is not None:
                 filtered_df = filtered_df.dropna(subset=[price_colname])
+            filtered_df = filtered_df[filtered_df['Hardware model'] == simplified_hardware_model]
             if len(filtered_df) == 0:
                 # try any version of the hardware name (using overlap of simplified name)
                 for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
                     terms = simplified_hardware_model.split()
                     if all([term in full_hardware_model for term in terms]):
                         print(f"Soft matching {hardware_model} to {full_hardware_model}")
-                        filtered_df = df[df['Hardware model'] == full_hardware_model]
+                        filtered_df = df
+                        if vendor is not None:
+                            filtered_df = df[df['Vendor'] == vendor]
                         if price_colname is not None:
                             filtered_df = filtered_df.dropna(subset=[price_colname])
+                        filtered_df = filtered_df[filtered_df['Hardware model'] == simplified_hardware_model]
                         if len(filtered_df) > 0:
                             break
 
@@ -199,7 +211,7 @@ def find_price(
     vendors = [vendor]
     if "TPU" not in hardware_model:
         # TPUs are only available from Google Cloud
-        for possible_vendor in ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud']:
+        for possible_vendor in ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud', 'Lambda Labs']:
             if possible_vendor != vendor:
                 # Means that we try the selected vendor first, then the other vendors
                 vendors.append(possible_vendor)
