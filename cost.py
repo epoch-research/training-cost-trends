@@ -11,7 +11,31 @@ from plotting import *
 from prices import *
 
 
-def estimate_costs(
+def estimate_chip_hours(row, hardware_df):
+    hardware_quantity = row['Hardware quantity']
+    training_time = row['Training time (hours)']
+    if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
+        # Impute training time
+        # TODO: move this to a separate function
+        if not any([pd.isna(row[x]) for x in ['Training compute (FLOP)', 'Training hardware']]):
+            print("Imputing training time from compute and hardware")
+            flop = row['Training compute (FLOP)']
+            hardware_model = row['Training hardware']
+            flop_per_second = get_flop_per_second(hardware_model, hardware_df)
+            flop_utilization = row['Hardware utilization']
+            if pd.isna(flop_utilization):
+                flop_utilization = MEDIAN_UTILIZATION
+
+            training_chip_seconds = flop / (flop_per_second * flop_utilization)
+            training_chip_hours = training_chip_seconds / SECONDS_PER_HOUR
+        else:
+            return None
+    else:
+        training_chip_hours = training_time * hardware_quantity
+    return training_chip_hours
+
+
+def estimate_cloud_costs(
     frontier_pcd_df,
     hardware_df,
     price_df,
@@ -23,10 +47,6 @@ def estimate_costs(
     """
     if impute_pcd_fn is not None:
         frontier_pcd_df = impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
-    else:
-        for _, row in frontier_pcd_df.iterrows():
-            if not(pd.isna(row['Training time (hours)']) or pd.isna(row['Hardware quantity'])):
-                frontier_pcd_df['Training time (chip hours)'] = frontier_pcd_df['Training time (hours)'] * frontier_pcd_df['Hardware quantity']
     
     # TODO: centralize vendor mapping to reduce repetition
     org_to_cloud_vendor = {
@@ -56,8 +76,12 @@ def estimate_costs(
         if price is None:
             return None
 
-        chip_hours = row['Training time (chip hours)']
+        if 'Training time (chip hours)' in row.index:
+            chip_hours = row['Training time (chip hours)']
+        else:
+            chip_hours = estimate_chip_hours(row, hardware_df)
         if np.isnan(chip_hours):
+            print("Unable to estimate chip hours")
             return None
 
         cost = price * chip_hours
@@ -124,30 +148,11 @@ def estimate_amortized_hardware_costs(
         if price is None:
             return None
 
-        hardware_quantity = row['Hardware quantity']
-        training_time = row['Training time (hours)']
-        matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+        hardware_model = row['Training hardware']
         hardware_release_date = get_release_date(hardware_model, hardware_df)
         hardware_lifetime = get_server_lifetime(hardware_release_date.year)
 
-        if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
-            # Impute training time
-            # TODO: move this to a separate function
-            if not any([pd.isna(row[x]) for x in ['Training compute (FLOP)', 'Training hardware']]):
-                print("Imputing training time from compute and hardware")
-                flop = row['Training compute (FLOP)']
-                hardware_model = row['Training hardware']
-                flop_per_second = get_flop_per_second(hardware_model, hardware_df)
-                flop_utilization = row['Hardware utilization']
-                if pd.isna(flop_utilization):
-                    flop_utilization = MEDIAN_UTILIZATION
-
-                training_chip_seconds = flop / (flop_per_second * flop_utilization)
-                training_chip_hours = training_chip_seconds / SECONDS_PER_HOUR
-            else:
-                return None
-        else:
-            training_chip_hours = training_time * hardware_quantity
+        training_chip_hours = estimate_chip_hours(row, hardware_df)
 
         price_per_chip_hour = price / hardware_lifetime
         cost = price_per_chip_hour * training_chip_hours
@@ -285,30 +290,11 @@ def estimate_hardware_capex_opex(
         if price is None:
             return None
 
-        hardware_quantity = row['Hardware quantity']
-        training_time = row['Training time (hours)']
         hardware_model = row['Training hardware']
         hardware_release_date = get_release_date(hardware_model, hardware_df)
         hardware_lifetime = get_server_lifetime(hardware_release_date.year)
 
-        if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
-            # Impute training time
-            # TODO: move this to a separate function
-            if not any([pd.isna(row[x]) for x in ['Training compute (FLOP)', 'Training hardware']]):
-                print("Imputing training time from compute and hardware")
-                flop = row['Training compute (FLOP)']
-                flop_per_second = get_flop_per_second(hardware_model, hardware_df)
-                flop_utilization = row['Hardware utilization']
-                if pd.isna(flop_utilization):
-                    flop_utilization = MEDIAN_UTILIZATION
-
-                training_chip_seconds = flop / (flop_per_second * flop_utilization)
-                training_chip_hours = training_chip_seconds / SECONDS_PER_HOUR
-            else:
-                print("Unable to estimate training chip hours")
-                return None
-        else:
-            training_chip_hours = training_time * hardware_quantity
+        training_chip_hours = estimate_chip_hours(row, hardware_df)
 
         cost = 0
 
