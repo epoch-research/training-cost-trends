@@ -311,7 +311,7 @@ def find_price(
 
     return price_value, price_id
 
-# TODO: remove this function
+
 def find_purchase_price_from_chip_dataset(
     row,
     price_df,
@@ -390,8 +390,8 @@ def find_purchase_price(
     if purchase_time is None:
         return None, None
     
-    # if "TPU" in hardware_model:
-    #     return find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time)
+    if "TPU" in hardware_model:
+        return find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time)
 
     # Filter to prices with exact match of hardware model AND non-empty purchase price    
     closest_price_dates_df = find_closest_price_dates(
