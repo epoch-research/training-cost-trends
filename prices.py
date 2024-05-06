@@ -26,12 +26,12 @@ DEFAULT_CUD = {
 }
 
 # See https://docs.google.com/document/d/1r0KMbDPy0QVy7Z9PxAS3qJqzX7vK5hzEH1hVkoYUWiY/edit?usp=sharing
-# TODO update these prices
+# These numbers have false precision but we keep it to match the calculations.
 TPU_EQUIVALENT_RELEASE_PRICES = {
-    "Google TPU v4": 12000,
-    "Google TPU v3": 12000,
-    "Google TPU v2": 12000,
-    "Google TPU v1": 12000,
+    "Google TPU v4": 12119,
+    "Google TPU v3": 10742,
+    "Google TPU v2": 18583,
+    "Google TPU v1": 11263,
 }
 
 
@@ -409,14 +409,19 @@ def find_purchase_price(
                 chosen_price_row = price_row
                 break
     if not pd.isna(chosen_price_row[price_colname]):
-        # Adjust single-unit prices for additional equipment e.g. CPU, interconnect
-        if 'single-unit' in chosen_price_row['Notes'].lower():
-            price_value = chosen_price_row[price_colname] * SERVER_COST_OVERHEAD
-        else:
-            price_value = chosen_price_row[price_colname]
+        price_value = chosen_price_row[price_colname]
         price_id = chosen_price_row['Price source']
         price_date = chosen_price_row['Price date']
-        print(f"Found price for {hardware_model} at {price_date}: {price_value}\n")
+
+        # Estimate the release price based on linear depreciation
+        matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+        release_date = matching_hardware['Release date'].values[0]
+        hours_since_release = (price_date - pd.to_datetime(release_date)).days * 24
+        price_value *= 1 / (1 - hours_since_release / DEFAULT_HARDWARE_LIFETIME)
+        # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
+        if 'single-unit' in chosen_price_row['Notes'].lower():
+            price_value *= SERVER_COST_OVERHEAD
+        print(f"Found server price for {hardware_model} at {price_date}: {price_value}\n")
         return price_value, price_id
     else:
         print(f"Could not find price for {hardware_model}\n")
@@ -424,19 +429,24 @@ def find_purchase_price(
 
 
 def find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time):
-    equivalent_release_price = TPU_EQUIVALENT_RELEASE_PRICES.get(hardware_model)
-    if equivalent_release_price is None:
+    price_value = TPU_EQUIVALENT_RELEASE_PRICES.get(hardware_model)
+    if price_value is None:
         print(f"Could not find price for {hardware_model}\n")
         return None, None
-    # Adjust single-unit prices for additional equipment e.g. CPU, interconnect
-    equivalent_release_price *= SERVER_COST_OVERHEAD
-    # Release date
-    matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
-    release_date = matching_hardware['Release date'].values[0]
-    years_since_release = (purchase_time - pd.to_datetime(release_date)).days / DAYS_PER_YEAR
-    # Depreciate the value by hardware price-performance trend over the time between release and purchase
-    depreciation = ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR * years_since_release
-    price_value_ooms = np.log10(equivalent_release_price) - depreciation
-    price_value = 10 ** price_value_ooms
-    print(f"Found price for {hardware_model} at {purchase_time}: {price_value}\n")
+    # Adjust single-unit price for additional equipment e.g. CPU, intra-node interconnect
+    price_value *= SERVER_COST_OVERHEAD
+    print(f"Found server price for {hardware_model} at {purchase_time}: {price_value}\n")
     return price_value, None
+
+
+def exponential_depreciated_price(start_price, start_time, end_time):
+    """
+    Returns the depreciated price of a hardware item from the start time to the end time.
+    Uses the ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR parameter to depreciate the value.
+    """
+    years_since = (end_time - pd.to_datetime(start_time)).days / DAYS_PER_YEAR
+    # Depreciate the value by hardware price-performance trend over the time between release and purchase
+    depreciation = ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR * years_since
+    price_value_ooms = np.log10(start_price) - depreciation
+    end_price = 10 ** price_value_ooms
+    return end_price
