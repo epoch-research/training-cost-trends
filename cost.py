@@ -126,7 +126,9 @@ def estimate_amortized_hardware_costs(
 
         hardware_quantity = row['Hardware quantity']
         training_time = row['Training time (hours)']
-        hardware_lifetime = DEFAULT_HARDWARE_LIFETIME
+        matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+        hardware_release_date = get_release_date(hardware_model, hardware_df)
+        hardware_lifetime = get_server_lifetime(hardware_release_date.year)
 
         if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
             # Impute training time
@@ -286,7 +288,8 @@ def estimate_hardware_capex_opex(
         hardware_quantity = row['Hardware quantity']
         training_time = row['Training time (hours)']
         hardware_model = row['Training hardware']
-        hardware_lifetime = DEFAULT_HARDWARE_LIFETIME
+        hardware_release_date = get_release_date(hardware_model, hardware_df)
+        hardware_lifetime = get_server_lifetime(hardware_release_date.year)
 
         if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
             # Impute training time
@@ -307,8 +310,6 @@ def estimate_hardware_capex_opex(
         else:
             training_chip_hours = training_time * hardware_quantity
 
-        total_chip_hours = training_chip_hours  # TODO estimate total experiment time rather than training time?
-
         cost = 0
 
         price_per_chip_hour = price / hardware_lifetime
@@ -321,9 +322,13 @@ def estimate_hardware_capex_opex(
         org = row['Organization']
         pub_year = row['Publication date'].year
         energy_cost = cluster_energy_cost(
-            hardware_model, total_chip_hours, hardware_df, org, pub_year,
+            hardware_model, training_chip_hours, hardware_df, org, pub_year,
         )
         cost += energy_cost
+
+        # Useful for comparing to cloud prices
+        overall_cost_per_chip_hour = cost / training_chip_hours
+        print(f"Overall cost per chip-hour for {hardware_model}:", overall_cost_per_chip_hour)
 
         # Check for base model
         if not pd.isna(row['Base model']):
@@ -370,8 +375,18 @@ def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organizat
     matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
     chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
     if pd.isna(chip_TDP_kw):
-        print("Unable to estimate chip TDP")
-        return None
+        if "TPU v4" in hardware_model:
+            """
+            https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains
+            "Google's Cloud TPU v4 outperforms TPU v3 by 2.1x on average on a per-chip basis and improves performance/Watt by 2.7x."
+            TPU v3 performance per Watt: 123 TFLOPS / 450W = 0.273 TFLOPS/W
+            0.273 * 2.7 = 0.738 TFLOPS/W
+            TPU v4 is 275 TFLOPS => 275 / 0.738 = 373W
+            """
+            chip_TDP_kw = 373 / 1000
+        else:
+            print("Unable to estimate chip TDP")
+            return None
     # Adjust for whole server power draw (CPUs, memory, cooling)
     server_TDP_kw = chip_TDP_kw * chip_to_server_power(hardware_model)
     # Adjust for average power draw

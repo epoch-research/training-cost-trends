@@ -71,6 +71,10 @@ def chip_to_server_power(hardware_model):
     if "TPU" in hardware_model:
         """
         https://gwern.net/doc/ai/scaling/hardware/2021-jouppi.pdf, Table 1
+        TPUv1:
+        - System: 220W
+        - Chip: 75W
+        - Ratio: 2.93
         TPUv2: 
         - System: 460W
         - Chip: 280W
@@ -84,9 +88,11 @@ def chip_to_server_power(hardware_model):
         - Chip: 175W
         - Ratio: 1.57
 
-        Average: 1.56
+        Average of v2, v3 and v4i (v1 seems too dissimilar): 1.56
         """
-        if "v2" in hardware_model:
+        if "v1" in hardware_model:
+            return 2.93
+        elif "v2" in hardware_model:
             return 1.64
         elif "v3" in hardware_model:
             return 1.47
