@@ -54,36 +54,29 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
     :return: The rows from the DataFrame that match the criteria, in order of closest date.
     """
     # Filter the DataFrame based on vendor and hardware model
-    filtered_df = df
-    if vendor is not None:
-        filtered_df = df[df['Vendor'] == vendor]
-    if price_colname is not None:
-        filtered_df = filtered_df.dropna(subset=[price_colname])
-    # Soft matching of hardware model
-    filtered_df = filtered_df[filtered_df['Hardware model'] == hardware_model]
+    def filter_df(_hardware_model):
+        filtered_df = df
+        if vendor is not None:
+            filtered_df = df[df['Vendor'] == vendor]
+        if price_colname is not None:
+            filtered_df = filtered_df.dropna(subset=[price_colname])
+        filtered_df = filtered_df[filtered_df['Hardware model'] == _hardware_model]
+        return filtered_df
+
+    filtered_df = filter_df(hardware_model)
     if len(filtered_df) == 0:
         # No exact match found, try soft matching
         simplified_hardware_model = get_simplified_hardware_model(hardware_model)
         if simplified_hardware_model is not None:
             print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
-            filtered_df = df
-            if vendor is not None:
-                filtered_df = df[df['Vendor'] == vendor]
-            if price_colname is not None:
-                filtered_df = filtered_df.dropna(subset=[price_colname])
-            filtered_df = filtered_df[filtered_df['Hardware model'] == simplified_hardware_model]
+            filtered_df = filter_df(simplified_hardware_model)
             if len(filtered_df) == 0:
                 # try any version of the hardware name (using overlap of simplified name)
                 for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
                     terms = simplified_hardware_model.split()
                     if all([term in full_hardware_model for term in terms]):
                         print(f"Soft matching {hardware_model} to {full_hardware_model}")
-                        filtered_df = df
-                        if vendor is not None:
-                            filtered_df = df[df['Vendor'] == vendor]
-                        if price_colname is not None:
-                            filtered_df = filtered_df.dropna(subset=[price_colname])
-                        filtered_df = filtered_df[filtered_df['Hardware model'] == simplified_hardware_model]
+                        filtered_df = filter_df(full_hardware_model)
                         if len(filtered_df) > 0:
                             break
 
