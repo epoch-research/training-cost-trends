@@ -195,7 +195,7 @@ def estimate_amortized_hardware_costs(
     return frontier_pcd_df
 
 
-def estimate_upfront_server_capex(
+def estimate_hardware_acquisition_cost(
     frontier_pcd_df,
     hardware_df,
     price_df,
@@ -234,6 +234,8 @@ def estimate_upfront_server_capex(
         # training_time = row['Training time (hours)']
         hardware_quantity = row['Hardware quantity']
         cost = hardware_quantity * price
+        # Add interconnect cost
+        cost *= CLUSTER_INTERCONNECT_COST_OVERHEAD
 
         # Check for base model
         if not pd.isna(row['Base model']):
@@ -254,7 +256,10 @@ def estimate_upfront_server_capex(
         print(f"==== System: {row['System']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
+            print("Unable to estimate cost")
             continue
+        else:
+            print("Estimated cost:", cost)
         system_to_cost[row['System']] = cost
 
     print(system_to_cost)
