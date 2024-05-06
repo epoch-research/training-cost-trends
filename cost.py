@@ -91,7 +91,11 @@ def estimate_cloud_costs(
             base_model_name = row['Base model']
             base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
             base_cost = estimate_cost(base_model, system_to_price)
+            if base_model.empty:
+                print("Base model specified, but not found in database")
+                return None
             if base_cost is None:
+                print("Base model found, but unable to estimate cost")
                 return None
             else:
                 cost += base_cost
@@ -100,11 +104,16 @@ def estimate_cloud_costs(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
+        print(f"==== System: {row['System']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
+            print("Unable to estimate cost")
             continue
+        else:
+            print("Estimated cost:", cost)
         system_to_cost[row['System']] = cost
 
+    print("All costs:")
     print(system_to_cost)
 
     frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
@@ -343,6 +352,7 @@ def estimate_hardware_capex_opex(
             print("Estimated cost:", cost)
         system_to_cost[row['System']] = cost
 
+    print("All costs:")
     print(system_to_cost)
 
     frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
