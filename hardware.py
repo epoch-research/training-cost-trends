@@ -18,6 +18,16 @@ SIMPLIFIED_HARDWARE_NAMES = {
     'NVIDIA H100': 'NVIDIA H100',
 }
 
+GPU_HARWARE_ALIASES = [
+    'A100',
+    'V100',
+    'H100',
+    'P100',
+    'K80',
+    'K40',
+    'Titan X',
+]
+
 
 def get_flop_per_second(hardware_model, hardware_df):
     # Get FLOP/second from the hardware database
@@ -88,3 +98,15 @@ def get_server_lifetime(year):
         return 5 * HOURS_PER_YEAR
     else:
         return 4 * HOURS_PER_YEAR
+
+
+def get_server_cost_overhead(hardware_model):
+    if 'A100' in hardware_model:
+        return 1.66
+    elif 'V100' in hardware_model:
+        return 1.69
+    elif 'P100' in hardware_model:
+        return 1.54
+    else:
+        # average
+        return 1.64

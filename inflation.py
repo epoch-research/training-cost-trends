@@ -5,7 +5,7 @@ def adjust_value_for_inflation(row, cost_colname, price_index, to_year_month):
     if pd.isna(row[cost_colname]):
         return row[cost_colname]
     
-    from_date = row['Publication date']
+    from_date = str(row['Publication date'])
     from_year_month = from_date.rsplit('-', maxsplit=1)[0] + '-01'
     from_price_index = price_index[price_index['DATE'] == from_year_month]['PCU518210518210'].values[0]
     to_price_index = price_index[price_index['DATE'] == to_year_month]['PCU518210518210'].values[0]

@@ -15,8 +15,7 @@
         "PaLM (540B)",
         "Minerva (540B)",
         "GPT-4",
-        "Gemini Ultra",
-        "MegaScale (Production)"
+        "Gemini Ultra"
     ],
     "90": [
         "NASv3 (CIFAR-10)",
@@ -30,8 +29,7 @@
         "GPT-3.5 (text-davinci-003)",
         "PaLM 2",
         "Claude 2",
-        "Inflection-2",
-        "Inflection-2.5"
+        "Inflection-2"
     ],
     "85": [
         "AlphaGo Fan",
@@ -67,8 +65,7 @@
         "BlenderBot 3",
         "Llama 2-70B",
         "ChatGLM3",
-        "Qwen-72B",
-        "Llama 3-70B"
+        "Qwen-72B"
     ],
     "75": [
         "DeepSpeech2 (English)",
@@ -135,8 +132,7 @@
         "Taiyi-Stable Diffusion",
         "BloombergGPT",
         "StarCoder",
-        "Skywork-13B",
-        "MM1-30B"
+        "Skywork-13B"
     ],
     "55": [
         "DeepStack",

@@ -24,8 +24,8 @@ https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricin
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC48ads A100 v4 number of GPUs: 2
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC96ads A100 v4 number of GPUs: 4
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.83,1.70,,instance ND96asr A100 v4 number of GPUs: 8x
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA A100 PCIe,NVIDIA,,,,,,15000.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA A100 PCIe,NVIDIA,,,,,,12500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 PCIe,NVIDIA,,,,,,15000.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA A100 PCIe,NVIDIA,,,,,,12500.00,Single-unit list price
 https://web.archive.org/web/20220317020602/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2022-03-17,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,West US 2,3.67,,,,instance NC24ads A100 v4
 https://web.archive.org/web/20220526141119/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-05-26,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,West US 2,3.67,,,,instance NC24ads A100 v4
 https://web.archive.org/web/20220728203654/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-07-28,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,2.40,1.36,,instance NC24ads A100 v4
@@ -37,9 +37,9 @@ https://web.archive.org/web/20230508171615/https://azure.microsoft.com/en-us/pri
 https://web.archive.org/web/20230714001610/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-07-14,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
 https://web.archive.org/web/20230909082839/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-09-09,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
 https://web.archive.org/web/20231121194714/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy copy copy,2023-11-21,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,15000.00,Single-unit list price
 https://web.archive.org/web/20200521074015/https://nvidianews.nvidia.com/news/nvidia-ships-worlds-most-advanced-ai-system-nvidia-dgx-a100-to-fight-covid-19-third-generation-dgx-packs-record-5-petaflops-of-ai-performance,2020-05-21,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,24875.00,"DGX A100, 8 GPU, 320GB. Release price."
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,12500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,15000.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,12500.00,Single-unit list price
 https://web.archive.org/web/20221212030420/https://cloud.google.com/compute/gpus-pricing,2022-12-12,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,Iowa (us-central1),2.93,1.85,1.03,,
 https://web.archive.org/web/20211104020654/https://aws.amazon.com/ec2/instance-types/p4/,2021-11-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
 https://web.archive.org/web/20220125025352/https://aws.amazon.com/ec2/instance-types/p4/,2022-01-25,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
@@ -73,18 +73,18 @@ https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricin
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC12s v2 number of GPUs: 2X
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.28,1.90,1.40,,instance NC24rs v2 number of GPUs: 4X
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC24s v2 number of GPUs: 4X
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2012-01-01,NVIDIA Tesla K40s,NVIDIA,,,,,,5400.00,Single-unit release price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2012-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,5400.00,Single-unit release price
 https://www.techpowerup.com/gpu-specs/tesla-k40s.c2528,2013-11-22,NVIDIA Tesla K40s,NVIDIA,,,,,,7699.00,Single-unit release price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2014-01-01,NVIDIA Tesla K40s,NVIDIA,,,,,,4200.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-01-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2900.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-01-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2300.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA Tesla K40s,NVIDIA,,,,,,540.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA Tesla K40s,NVIDIA,,,,,,290.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2014-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,4200.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2900.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2300.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,540.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,290.00,Single-unit list price
 https://www.anandtech.com/show/8729/nvidia-launches-tesla-k80-gk210-gpu,2014-11-17,NVIDIA Tesla K80,NVIDIA,,,,,,5000.00,Single-unit release price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-01-01,NVIDIA Tesla K80,NVIDIA,,,,,,3700.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-01-01,NVIDIA Tesla K80,NVIDIA,,,,,,2500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA Tesla K80,NVIDIA,,,,,,940.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA Tesla K80,NVIDIA,,,,,,435.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,3700.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,2500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,940.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,435.00,Single-unit list price
 https://web.archive.org/web/20170221212008/https://cloud.google.com/compute/pricing,2017-02-21,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,
 https://web.archive.org/web/20170304211331/https://cloud.google.com/compute/pricing,2017-03-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,
 https://web.archive.org/web/20170523014320/https://cloud.google.com/compute/pricing,2017-05-23,NVIDIA Tesla K80,NVIDIA,Google Cloud,Oregon,1.40,,,,
@@ -96,17 +96,17 @@ https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricin
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC12 have 2 GPUs
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,1.00,0.74,0.53,,instance NC24r number of GPUs: 4X
 https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC24 number of GPUs: 4X
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-01-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5500.00,Single-unit list price
 https://www.techpowerup.com/gpu-specs/tesla-p100-pcie-16-gb.c2888,2016-06-20,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5699.00,Single-unit release price
 https://web.archive.org/web/20160621002700/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2016-06-21,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,16125.00,"DGX-1, 8 GPU, 128GB"
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5500.00,Single-unit list price
 https://web.archive.org/web/20170312174101/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2017-03-12,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,18543.75,"DGX-1, 8 GPU, 128GB"
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-01-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5900.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,3500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,2200.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-01-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,10500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-01-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,7400.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,4400.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,1100.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5900.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,3500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,2200.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,10500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,7400.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,4400.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,1100.00,Single-unit list price
 https://web.archive.org/web/20180608204946/https://aws.amazon.com/ec2/instance-types/p3/,2018-06-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.06,1.99,1.23,,
 https://web.archive.org/web/20190111090822/https://www.microway.com/preconfiguredsystems/nvidia-dgx-station-deep-learning-workstation/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,18457.50,"DGX, 4 GPU, 128GB"
 https://web.archive.org/web/20190111061033/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,19928.75,"DGX-1, 8 GPU, 256GB"
@@ -118,17 +118,17 @@ https://web.archive.org/web/20190610092728/https://aws.amazon.com/ec2/instance-t
 https://web.archive.org/web/20190708105149/https://aws.amazon.com/ec2/instance-types/p3/,2019-07-08,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
 https://web.archive.org/web/20190805130331/https://aws.amazon.com/ec2/instance-types/p3/,2019-08-05,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 PCIe 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-01-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,8500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,10500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,7500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,8500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,10500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,7500.00,Single-unit list price
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-01-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,11500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-01-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,13700.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-01-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,2500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,11500.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,13700.00,Single-unit list price
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,2500.00,Single-unit list price
 https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,18625.00,"Price at release (2017 Q3) for a DGX-1 with 8x V100 GPUs was $149,000. Dividing by 8, the price per GPU is $18,625 including interconnect hardware."
-https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,17250.00,"Price at release (2017 Q3) for a DGXX with 4x V100 GPUs was $69,000. Dividing by 4, the price per GPU is $17250 including interconnect hardware."
+https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,17250.00,"Price at release (2017 Q3) for a DGXS with 4x V100 GPUs was $69,000. Dividing by 4, the price per GPU is $17250 including interconnect hardware."
 https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2018-12-30,NVIDIA V100,NVIDIA,Microsoft Azure,West US 2,3.06,1.95,1.16,,instance NC6 v3
 https://web.archive.org/web/20190806220543/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-08-06,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
 https://web.archive.org/web/20190922202958/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-09-22,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,

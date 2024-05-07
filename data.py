@@ -2,18 +2,24 @@ import json
 import pandas as pd
 
 
-def load_frontier_systems(compute_percentile_threshold=75):
+def load_frontier_systems(compute_threshold_method='top_n', compute_threshold=10):
     """
     Load the frontier systems from the file
 
     Returns a list of the frontier systems
     """
     frontier_systems = []
-    with open('data/frontier_systems_by_window_percentile.json', 'r') as f:
+    with open(f'data/frontier_systems_by_{compute_threshold_method}.json', 'r') as f:
         # Load JSON data
-        frontier_systems_by_percentile = json.load(f)
-        for percentile in range(compute_percentile_threshold, 100, 5):
-            frontier_systems.extend(frontier_systems_by_percentile[str(percentile)])
+        frontier_systems_index = json.load(f)
+        if compute_threshold_method == 'top_n':
+            indices = range(1, compute_threshold+1)
+        elif compute_threshold_method == 'window_percentile':
+            indices = range(compute_threshold, 100, 5)
+        else:
+            raise ValueError(f"Invalid compute_threshold_method: {compute_threshold_method}")
+        for i in indices:
+            frontier_systems.extend(frontier_systems_index[str(i)])
 
     return frontier_systems
 
@@ -31,7 +37,7 @@ def load_price_df():
     return pd.read_csv('data/Hardware prices.csv')
 
 
-def load_data_for_cost_estimation(compute_percentile_threshold=75):
+def load_data_for_cost_estimation(compute_threshold_method='top_n', compute_threshold=10):
     """
     Load the data needed for cost estimation
 
@@ -44,7 +50,8 @@ def load_data_for_cost_estimation(compute_percentile_threshold=75):
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
 
     frontier_systems = load_frontier_systems(
-        compute_percentile_threshold=compute_percentile_threshold
+        compute_threshold_method=compute_threshold_method,
+        compute_threshold=compute_threshold,
     )
     frontier_systems = [_.replace('Î£', 'Σ') for _ in frontier_systems]
     frontier_pcd_df = pcd_df[pcd_df['System'].isin(frontier_systems)]

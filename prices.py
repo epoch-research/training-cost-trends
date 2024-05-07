@@ -23,6 +23,12 @@ DEFAULT_CUD = {
         'Price per chip-hour (1-year CUD)': 0.25,
         'Price per chip-hour (3-year CUD)': 0.49,
     },
+    # Assume Lambda Labs has average of above CUDs
+    'Lambda Labs': {
+        'Price per chip-hour (on-demand)': 0,
+        'Price per chip-hour (1-year CUD)': 0.34,
+        'Price per chip-hour (3-year CUD)': 0.56,
+    },
 }
 
 # See https://docs.google.com/document/d/1r0KMbDPy0QVy7Z9PxAS3qJqzX7vK5hzEH1hVkoYUWiY/edit?usp=sharing
@@ -48,30 +54,29 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
     :return: The rows from the DataFrame that match the criteria, in order of closest date.
     """
     # Filter the DataFrame based on vendor and hardware model
-    filtered_df = df
-    if vendor is not None:
-        filtered_df = df[df['Vendor'] == vendor]
-    if price_colname is not None:
-        filtered_df = filtered_df.dropna(subset=[price_colname])
-    # Soft matching of hardware model
-    filtered_df = filtered_df[filtered_df['Hardware model'] == hardware_model]
+    def filter_df(_hardware_model):
+        filtered_df = df
+        if vendor is not None:
+            filtered_df = df[df['Vendor'] == vendor]
+        if price_colname is not None:
+            filtered_df = filtered_df.dropna(subset=[price_colname])
+        filtered_df = filtered_df[filtered_df['Hardware model'] == _hardware_model]
+        return filtered_df
+
+    filtered_df = filter_df(hardware_model)
     if len(filtered_df) == 0:
         # No exact match found, try soft matching
         simplified_hardware_model = get_simplified_hardware_model(hardware_model)
         if simplified_hardware_model is not None:
             print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
-            filtered_df = df[df['Hardware model'] == simplified_hardware_model]
-            if price_colname is not None:
-                filtered_df = filtered_df.dropna(subset=[price_colname])
+            filtered_df = filter_df(simplified_hardware_model)
             if len(filtered_df) == 0:
                 # try any version of the hardware name (using overlap of simplified name)
                 for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
                     terms = simplified_hardware_model.split()
                     if all([term in full_hardware_model for term in terms]):
                         print(f"Soft matching {hardware_model} to {full_hardware_model}")
-                        filtered_df = df[df['Hardware model'] == full_hardware_model]
-                        if price_colname is not None:
-                            filtered_df = filtered_df.dropna(subset=[price_colname])
+                        filtered_df = filter_df(full_hardware_model)
                         if len(filtered_df) > 0:
                             break
 
@@ -199,7 +204,7 @@ def find_price(
     vendors = [vendor]
     if "TPU" not in hardware_model:
         # TPUs are only available from Google Cloud
-        for possible_vendor in ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud']:
+        for possible_vendor in ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud', 'Lambda Labs']:
             if possible_vendor != vendor:
                 # Means that we try the selected vendor first, then the other vendors
                 vendors.append(possible_vendor)
@@ -380,47 +385,40 @@ def find_purchase_price(
         print(f"Could not find hardware model for {row['System']}\n")
         print()
         return None, None
-    
-    purchase_time = get_purchase_time(row, backup_training_time)
-    if purchase_time is None:
-        return None, None
-    
-    if "TPU" in hardware_model:
-        return find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time)
 
-    # Filter to prices with exact match of hardware model AND non-empty purchase price    
-    closest_price_dates_df = find_closest_price_dates(
-        hardware_model, purchase_time, price_df, price_colname=price_colname
-    )
-    
-    if len(closest_price_dates_df) == 0:
-        print(f"Could not find hardware model after soft matching: {hardware_model}\n")
+    if "TPU" in hardware_model:
+        return find_TPU_equivalent_purchase_price(hardware_model)
+
+    # Use a single alias (e.g. 'A100') to match hardware variants
+    gpu_hardware_alias = None
+    for alias in GPU_HARWARE_ALIASES:
+        if alias in hardware_model and not (',' in hardware_model):
+            # (comma indicates multiple types of hardware, which we don't handle)
+            gpu_hardware_alias = alias
+            break
+    if gpu_hardware_alias is None:
+        print(f"Could not find alias for {hardware_model}")
         return None, None
-    
-    # Search for the price closest to the purchase time
+
+    # Sort price_df by date
+    price_df = price_df.sort_values(by='Price date').dropna(subset=[price_colname])
+    # Search for the best price closest to release date    
+    matching_prices = price_df[price_df['Hardware model'].str.contains(gpu_hardware_alias)]
     chosen_price_row = None
-    for _, price_row in closest_price_dates_df.iterrows():
-        if price_row['Price date'] <= purchase_time:
+    for _, price_row in matching_prices.iterrows():
+        if 'DGX' in price_row['Notes']:
             chosen_price_row = price_row
             break
-    if chosen_price_row is None and price_date_after:
-        for _, price_row in closest_price_dates_df.iterrows():
-            if price_row['Price date'] > purchase_time:
-                chosen_price_row = price_row
-                break
+    if chosen_price_row is None:
+        # Take the earliest price regardless of 'DGX' in the name
+        chosen_price_row = matching_prices.iloc[0]
+    
     if not pd.isna(chosen_price_row[price_colname]):
         price_value = chosen_price_row[price_colname]
         price_id = chosen_price_row['Price source']
-        price_date = chosen_price_row['Price date']
-
-        # Estimate the release price based on linear depreciation
-        release_date = get_release_date(hardware_model, hardware_df)
-        hours_since_release = (price_date - release_date).days * 24
-        hardware_lifetime = get_server_lifetime(price_date.year)
-        price_value *= 1 / (1 - hours_since_release / hardware_lifetime)
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
         if 'single-unit' in chosen_price_row['Notes'].lower():
-            price_value *= SERVER_COST_OVERHEAD
+            price_value *= get_server_cost_overhead(hardware_model)
         print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
         return price_value, price_id
     else:
@@ -428,13 +426,13 @@ def find_purchase_price(
         return None, None
 
 
-def find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time):
+def find_TPU_equivalent_purchase_price(hardware_model):
     price_value = TPU_EQUIVALENT_RELEASE_PRICES.get(hardware_model)
     if price_value is None:
         print(f"Could not find price for {hardware_model}\n")
         return None, None
     # Adjust single-unit price for additional equipment e.g. CPU, intra-node interconnect
-    price_value *= SERVER_COST_OVERHEAD
+    price_value *= get_server_cost_overhead(hardware_model)
     print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
     return price_value, None
 
