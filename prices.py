@@ -385,44 +385,37 @@ def find_purchase_price(
         print(f"Could not find hardware model for {row['System']}\n")
         print()
         return None, None
-    
-    purchase_time = get_purchase_time(row, backup_training_time)
-    if purchase_time is None:
-        return None, None
-    
-    if "TPU" in hardware_model:
-        return find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time)
 
-    # Filter to prices with exact match of hardware model AND non-empty purchase price    
-    closest_price_dates_df = find_closest_price_dates(
-        hardware_model, purchase_time, price_df, price_colname=price_colname
-    )
-    
-    if len(closest_price_dates_df) == 0:
-        print(f"Could not find hardware model after soft matching: {hardware_model}\n")
+    if "TPU" in hardware_model:
+        return find_TPU_equivalent_purchase_price(hardware_model)
+
+    # Use a single alias (e.g. 'A100') to match hardware variants
+    gpu_hardware_alias = None
+    for alias in GPU_HARWARE_ALIASES:
+        if alias in hardware_model and not (',' in hardware_model):
+            # (comma indicates multiple types of hardware, which we don't handle)
+            gpu_hardware_alias = alias
+            break
+    if gpu_hardware_alias is None:
+        print(f"Could not find alias for {hardware_model}")
         return None, None
-    
-    # Search for the price closest to the purchase time
+
+    # Sort price_df by date
+    price_df = price_df.sort_values(by='Price date').dropna(subset=[price_colname])
+    # Search for the best price closest to release date    
+    matching_prices = price_df[price_df['Hardware model'].str.contains(gpu_hardware_alias)]
     chosen_price_row = None
-    for _, price_row in closest_price_dates_df.iterrows():
-        if price_row['Price date'] <= purchase_time:
+    for _, price_row in matching_prices.iterrows():
+        if 'DGX' in price_row['Notes']:
             chosen_price_row = price_row
             break
-    if chosen_price_row is None and price_date_after:
-        for _, price_row in closest_price_dates_df.iterrows():
-            if price_row['Price date'] > purchase_time:
-                chosen_price_row = price_row
-                break
+    if chosen_price_row is None:
+        # Take the earliest price regardless of 'DGX' in the name
+        chosen_price_row = matching_prices.iloc[0]
+    
     if not pd.isna(chosen_price_row[price_colname]):
         price_value = chosen_price_row[price_colname]
         price_id = chosen_price_row['Price source']
-        price_date = chosen_price_row['Price date']
-
-        # Estimate the release price based on linear depreciation
-        release_date = get_release_date(hardware_model, hardware_df)
-        hours_since_release = (price_date - release_date).days * 24
-        hardware_lifetime = get_server_lifetime(release_date.year)
-        price_value *= 1 / (1 - hours_since_release / hardware_lifetime)
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
         if 'single-unit' in chosen_price_row['Notes'].lower():
             price_value *= get_server_cost_overhead(hardware_model)
@@ -433,7 +426,7 @@ def find_purchase_price(
         return None, None
 
 
-def find_TPU_equivalent_purchase_price(hardware_df, hardware_model, purchase_time):
+def find_TPU_equivalent_purchase_price(hardware_model):
     price_value = TPU_EQUIVALENT_RELEASE_PRICES.get(hardware_model)
     if price_value is None:
         print(f"Could not find price for {hardware_model}\n")

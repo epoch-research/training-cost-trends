@@ -18,6 +18,16 @@ SIMPLIFIED_HARDWARE_NAMES = {
     'NVIDIA H100': 'NVIDIA H100',
 }
 
+GPU_HARWARE_ALIASES = [
+    'A100',
+    'V100',
+    'H100',
+    'P100',
+    'K80',
+    'K40',
+    'Titan X',
+]
+
 
 def get_flop_per_second(hardware_model, hardware_df):
     # Get FLOP/second from the hardware database
