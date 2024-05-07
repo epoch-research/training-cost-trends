@@ -421,7 +421,7 @@ def find_purchase_price(
         # Estimate the release price based on linear depreciation
         release_date = get_release_date(hardware_model, hardware_df)
         hours_since_release = (price_date - release_date).days * 24
-        hardware_lifetime = get_server_lifetime(price_date.year)
+        hardware_lifetime = get_server_lifetime(release_date.year)
         price_value *= 1 / (1 - hours_since_release / hardware_lifetime)
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
         if 'single-unit' in chosen_price_row['Notes'].lower():
