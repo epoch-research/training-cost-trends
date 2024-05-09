@@ -273,6 +273,7 @@ def estimate_hardware_capex_opex(
     frontier_pcd_df,
     hardware_df,
     price_df,
+    separate_components=False,
     impute_pcd_fn=None,
     **impute_kwargs,
 ):
@@ -324,11 +325,13 @@ def estimate_hardware_capex_opex(
         energy_cost = cluster_energy_cost(
             hardware_model, training_chip_hours, hardware_df, org, pub_year,
         )
-        cost += energy_cost
-
-        # Useful for comparing to cloud prices
-        overall_cost_per_chip_hour = cost / training_chip_hours
-        print(f"Overall cost per chip-hour for {hardware_model}:", overall_cost_per_chip_hour)
+        if separate_components:
+            cost = {'hardware': cost, 'energy': energy_cost}
+        else:
+            cost += energy_cost
+            # Useful for comparing to cloud prices
+            overall_cost_per_chip_hour = cost / training_chip_hours
+            print(f"Overall cost per chip-hour for {hardware_model}:", overall_cost_per_chip_hour)
 
         # Check for base model
         if not pd.isna(row['Base model']):
@@ -342,7 +345,11 @@ def estimate_hardware_capex_opex(
                 print("Base model found, but unable to estimate cost")
                 return None
             else:
-                cost += base_cost
+                if separate_components:
+                    cost['hardware'] += base_cost['hardware']
+                    cost['energy'] += base_cost['energy']
+                else:
+                    cost += base_cost
 
         return cost
         
