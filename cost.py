@@ -296,67 +296,13 @@ def estimate_hardware_capex_opex(
             continue
         else:
             system_to_price[row['System']] = price
-
-    # Cost estimation
-    # TODO move outside of the function
-    def estimate_cost(row, system_to_price):
-        system = row['System']
-        price = system_to_price.get(system)
-        if price is None:
-            return None
-
-        hardware_model = row['Training hardware']
-        hardware_release_date = get_release_date(hardware_model, hardware_df)
-        hardware_lifetime = get_server_lifetime(hardware_release_date.year)
-
-        training_chip_hours = estimate_chip_hours(row, hardware_df)
-
-        cost = 0
-
-        price_per_chip_hour = price / hardware_lifetime
-        amortized_hardware_cost = price_per_chip_hour * training_chip_hours
-        cost += amortized_hardware_cost
-
-        # Add interconnect cost
-        cost *= CLUSTER_INTERCONNECT_COST_OVERHEAD
-
-        org = row['Organization']
-        pub_year = row['Publication date'].year
-        energy_cost = cluster_energy_cost(
-            hardware_model, training_chip_hours, hardware_df, org, pub_year,
-        )
-        if separate_components:
-            cost = {'hardware': cost, 'energy': energy_cost}
-        else:
-            cost += energy_cost
-            # Useful for comparing to cloud prices
-            overall_cost_per_chip_hour = cost / training_chip_hours
-            print(f"Overall cost per chip-hour for {hardware_model}:", overall_cost_per_chip_hour)
-
-        # Check for base model
-        if not pd.isna(row['Base model']):
-            base_model_name = row['Base model']
-            base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
-            if base_model.empty:
-                print("Base model specified, but not found in database")
-                return None
-            base_cost = estimate_cost(base_model, system_to_price)
-            if base_cost is None:
-                print("Base model found, but unable to estimate cost")
-                return None
-            else:
-                if separate_components:
-                    cost['hardware'] += base_cost['hardware']
-                    cost['energy'] += base_cost['energy']
-                else:
-                    cost += base_cost
-
-        return cost
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
         print(f"==== System: {row['System']} ====")
-        cost = estimate_cost(row, system_to_price)
+        cost = estimate_hardware_capex_opex_cost(
+            row, system_to_price, frontier_pcd_df, hardware_df, separate_components
+        )
         if cost is None:
             print("Unable to estimate cost")
             continue
@@ -367,9 +313,85 @@ def estimate_hardware_capex_opex(
     print("All costs:")
     print(system_to_cost)
 
-    frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
+    if separate_components:
+        # Assign a new column in frontier_pcd_df for each cost component
+        cost_component_names = [
+            'AI accelerator chip cost',
+            'Other server components cost',
+            'Cluster-level interconnect cost',
+            'Energy cost',
+        ]
+        for k in cost_component_names:
+            system_to_component_cost = {
+                system: system_to_cost[system][k] for system in system_to_cost
+            }
+            frontier_pcd_df[k] = frontier_pcd_df['System'].map(system_to_component_cost)
+        frontier_pcd_df['Cost'] = frontier_pcd_df[cost_component_names].sum(axis=1)
+    else:
+        frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
 
     return frontier_pcd_df
+
+
+def estimate_hardware_capex_opex_cost(
+    row, system_to_price, frontier_pcd_df, hardware_df, separate_components=False,
+):
+    system = row['System']
+    price = system_to_price.get(system)
+    if price is None:
+        return None
+
+    hardware_model = row['Training hardware']
+    hardware_release_date = get_release_date(hardware_model, hardware_df)
+    hardware_lifetime = get_server_lifetime(hardware_release_date.year)
+
+    training_chip_hours = estimate_chip_hours(row, hardware_df)
+
+    price_per_chip_hour = price / hardware_lifetime
+    amortized_hardware_cost = price_per_chip_hour * training_chip_hours
+
+    interconnect_cost = (CLUSTER_INTERCONNECT_COST_OVERHEAD - 1) * amortized_hardware_cost
+
+    org = row['Organization']
+    pub_year = row['Publication date'].year
+    energy_cost = cluster_energy_cost(
+        hardware_model, training_chip_hours, hardware_df, org, pub_year,
+    )
+    if separate_components:
+        ai_chip_cost = amortized_hardware_cost / get_server_cost_overhead(hardware_model)
+        extra_server_cost = amortized_hardware_cost - ai_chip_cost
+        cost = {
+            'AI accelerator chip cost': ai_chip_cost,
+            'Other server components cost': extra_server_cost,
+            'Cluster-level interconnect cost': interconnect_cost,
+            'Energy cost': energy_cost,
+        }
+    else:
+        cost = amortized_hardware_cost + interconnect_cost + energy_cost
+        # Useful for comparing to cloud prices
+        overall_cost_per_chip_hour = cost / training_chip_hours
+        print(f"Overall cost per chip-hour for {hardware_model}:", overall_cost_per_chip_hour)
+
+    # Check for base model
+    if not pd.isna(row['Base model']):
+        base_model_name = row['Base model']
+        base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
+        if base_model.empty:
+            print("Base model specified, but not found in database")
+            return None
+        base_cost = estimate_hardware_capex_opex_cost(
+            base_model, system_to_price, frontier_pcd_df, hardware_df, separate_components,
+        )
+        if base_cost is None:
+            print("Base model found, but unable to estimate cost")
+            return None
+        else:
+            if separate_components:
+                for k in cost:
+                    cost[k] += base_cost[k]
+            else:
+                cost += base_cost
+    return cost
 
 
 def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organization, year):
