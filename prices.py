@@ -89,27 +89,68 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
     return closest_row_df
 
 
-def get_purchase_time(row, backup_training_time=True):
-    if pd.isna(row['Training time (hours)']):
-        if backup_training_time:
-            print(f"No training time found, assuming {MEDIAN_TRAINING_TIME_DAYS}\n")
-            return row['Publication date'] - pd.Timedelta(days=MEDIAN_TRAINING_TIME_DAYS)
+def get_training_start_date(row, backup_training_time=True):
+    # Account for time between publication and training end
+    # Special case for models where the gap is abnormally large
+    if 'Gemini Ultra' in row['System']:
+        # https://blog.google/technology/ai/google-io-2023-keynote-sundar-pichai/#ai-responsibility
+        # "This includes our next-generation foundation model, Gemini, which is still in training."
+        # So might have been even earlier, but 
+        training_start_date = pd.to_datetime('2023-05-10')
+    elif 'GPT-4' in row['System']:
+        # https://arxiv.org/abs/2303.08774
+        # "This system card analyzes GPT-4 [...] Since it finished training in August of 2022 [...]"
+        training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
+        training_start_date = pd.to_datetime('2022-08-15') - training_time
+    elif 'GPT-3.5' in row['System']:
+        # https://web.archive.org/web/20230314165432/https://openai.com/research/gpt-4
+        # "A year [before March 14 2023], we trained GPT-3.5 as a first “test run” of the system."
+        training_start_date = pd.to_datetime('2022-03-14')
+    elif 'GPT-3' in row['System']:
+        """
+        1. Shevlane (2022)
+        https://uploads-ssl.webflow.com/614b70a71b9f71c9c240c7a7/6262a1a55526a373cc93207d_Shevlane%20dissertation%20preprint.pdf
+        p.66 of the PDF: A senior member of OpenAI (specified anonymously on p.27 of the PDF) 
+        told the author "GPT-3 existed for a long time before the paper came out. We delayed the 
+        paper. [...] But it's months, it doesn't really count."
+        p.67 of the PDF: CAMERON said "Firstly, [the idea for a commercial API for GPT-3] 
+        started out as a research API. It probably was . . . early January 2020."
+
+        2. We think it plausibly could have been produced soon after the Microsoft deal was 
+        announced in July 2019. Supposing the announcement coincided with Microsoft giving 
+        OpenAI access to the necessary compute, and OpenAI already having almost everything 
+        about GPT-3 planned in advance, and it took less than 1 month to train, then GPT-3 could 
+        have been produced in August 2019.
+
+        3. So we estimate August to January as our 90% CI, and halfway between (October) as the
+        central estimate.
+        """
+        training_start_date = pd.to_datetime('2019-10-01')
+    else:
+        if pd.isna(row['Training time (hours)']):
+            if backup_training_time:
+                print(f"No training time found, assuming {MEDIAN_TRAINING_TIME_DAYS}\n")
+                training_time = pd.Timedelta(days=MEDIAN_TRAINING_TIME_DAYS)
+            else:
+                print(f"No training time found\n")
+                return None
         else:
-            print(f"No training time found\n")
-            return None
-    
-    # Subtract training time plus 2 months from publication date
-    training_time_offset = pd.Timedelta(hours=int(row['Training time (hours)']))
-    low_buffer_time_offset = pd.Timedelta(days=30)
-    mid_buffer_time_offset = pd.Timedelta(days=60)
-    high_buffer_time_offset = pd.Timedelta(days=150)
+            training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
+        # TODO: test different buffer times: e.g. 15 days, 90 days
+        buffer_time = pd.Timedelta(days=30)
+        training_start_date = row['Publication date'] - (training_time + buffer_time)
+    return training_start_date
 
-    high_purchase_time = row['Publication date'] - (training_time_offset + low_buffer_time_offset)
-    mid_purchase_time = row['Publication date'] - (training_time_offset + mid_buffer_time_offset)
-    low_purchase_time = row['Publication date'] - (training_time_offset + high_buffer_time_offset)
 
-    # TODO: sample from distribution of purchase times
-    return mid_purchase_time
+def get_acquisition_date(row, backup_training_time=True):
+    training_start_date = get_training_start_date(row, backup_training_time)
+    if training_start_date is None:
+        return None
+    # Account for time between hardware acquisition and training start
+    # TODO: test different buffer times: e.g. 30 days, 150 days
+    buffer_time = pd.Timedelta(days=60)
+    acquisition_date = training_start_date - buffer_time
+    return acquisition_date
 
 
 def select_vendor(row, org_to_cloud_vendor, default_vendor=True):
@@ -128,20 +169,20 @@ def select_vendor(row, org_to_cloud_vendor, default_vendor=True):
 
 def find_price_for_vendor_and_hardware_model(
     closest_price_dates_df,
-    purchase_time,
+    acquisition_date,
     price_colname,
     price_date_after=True,
 ):
     price_per_chip_hour = None
     for i, price_row in closest_price_dates_df.iterrows():
-        if price_row['Price date'] <= purchase_time:
+        if price_row['Price date'] <= acquisition_date:
             price_per_chip_hour = price_row[price_colname]
             price_id = price_row['Price source']
             price_date = price_row['Price date']
             break
     if price_per_chip_hour is None:
         for i, price_row in closest_price_dates_df.iterrows():
-            if price_date_after and price_row['Price date'] > purchase_time:
+            if price_date_after and price_row['Price date'] > acquisition_date:
                 price_per_chip_hour = price_row[price_colname]
                 price_id = price_row['Price source']
                 price_date = price_row['Price date']
@@ -178,9 +219,8 @@ def find_price(
     backup_price_type=True,
     backup_training_time=True,
 ):
-    print(f"==== System: {row['System']} ====")
-    purchase_time = get_purchase_time(row, backup_training_time)
-    if purchase_time is None:
+    acquisition_date = get_acquisition_date(row, backup_training_time)
+    if acquisition_date is None:
         return None, None
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
@@ -198,9 +238,9 @@ def find_price(
         print(f"Could not find vendor for {row['System']}\n")
         print()
         return None, None
-    print(f"Trying {hardware_model} at {purchase_time}")
+    print(f"Trying {hardware_model} at {acquisition_date}")
 
-    # Find the price of the hardware at the time of purchase
+    # Find the price of the hardware at the time of acquisition
     vendors = [vendor]
     if "TPU" not in hardware_model:
         # TPUs are only available from Google Cloud
@@ -225,12 +265,12 @@ def find_price(
         for vendor in vendors:
             print(f"Trying {vendor}, {price_type}")
             closest_price_dates_df = find_closest_price_dates(
-                hardware_model, purchase_time, price_df, vendor,
+                hardware_model, acquisition_date, price_df, vendor,
             )
             # TODO: is it better to try a different vendor before a different date?
             price_value, price_id, price_date = find_price_for_vendor_and_hardware_model(
                 closest_price_dates_df, 
-                purchase_time,
+                acquisition_date,
                 price_type,
                 price_date_after=price_date_after,
             )
@@ -238,7 +278,7 @@ def find_price(
                 if backup_price_type:
                     price_value = apply_cud(price_value, vendor, price_type, price_colname)
                 print(f"Found price: {price_value} at {price_date}")
-                print("Difference between purchase time and price date:", purchase_time - price_date, "\n")
+                print("Difference between acquisition date and price date:", acquisition_date - price_date, "\n")
                 break
             # else: try again with a different vendor, price type
             if not backup_vendor:
@@ -250,157 +290,21 @@ def find_price(
         if price_value is not None:
             break
 
-    """
-    TODO
-    If the hardware type was already imputed, and we did not find any price for that hardware type
-    from any cloud provider, then try the next nearest neighbor for the hardware type.
-    """
-
-    # if price is None:
-    #     """
-    #     We did not find any price from any cloud provider for the given hardware type. 
-    #     So estimate a price from the FLOP/second performance of the GPU
-    #     and the general trend in FLOP/$ for ML GPUs.
-    #     # TODO: can we get a trend in cloud price FLOP/$ specifically?
-    #     """
-    #     print("Estimating price from FLOP/s and FLOP/$ trend")
-    #     # Get the FLOP/second performance of the GPU from the hardware database
-    #     flop_per_second_columns = [  # ordered by preference
-    #         'FP16 Tensor Core',
-    #         'Tensor Float 32 (TF32)',
-    #         'FP32 (single precision) Performance (FLOP/s)',
-    #     ]
-    #     for col in flop_per_second_columns:
-    #         hardware_df_match = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
-    #         flop_per_second = hardware_df_match[col].values[0]
-    #         if not pd.isna(flop_per_second):
-    #             flop_per_second_column = col
-    #             break
-    #     if pd.isna(flop_per_second):
-    #         print(f"Could not find FLOP/s for {hardware_model}")
-    #         return None
-        
-    #     """
-    #     Calculate the FLOP/$ for ML GPUs at the time of purchase
-    #     This is based on "FP32 price-performance" plot in the blog post:
-    #     https://epochai.org/blog/trends-in-machine-learning-hardware
-    #     Assumes a 2-year hardware replacement time.
-    #     TODO: may want to use a different hardware replacement time, e.g. 4 years
-    #     """ 
-    #     if '16' in flop_per_second_column:
-    #         flop_per_second_per_dollar_slope = 1 / 7
-    #         # Assume a 2x improvement in FLOP/$ for FP16 over FP32
-    #         flop_per_second_per_dollar_intercept = 15.55 + np.log10(2)
-    #     else:
-    #         # Use FP32
-    #         flop_per_second_per_dollar_slope = 1 / 7  # OOMs/year
-    #         flop_per_second_per_dollar_intercept = 15.55  # OOMs - at Jan 1, 2004
-        
-    #     intercept_date = pd.to_datetime('2004-01-01')
-    #     purchase_time_offset = purchase_time - intercept_date
-    #     purchase_time_offset_years = purchase_time_offset.days / DAYS_PER_YEAR
-    #     flop_per_dollar = 10 ** (flop_per_second_per_dollar_intercept + \
-    #         flop_per_second_per_dollar_slope * purchase_time_offset_years)
-    #     # Calculate the price of the hardware at the time of purchase
-    #     price_per_chip_second = flop_per_second / flop_per_dollar
-    #     # Conver to price per hour
-    #     price = price_per_chip_second * SECONDS_PER_HOUR
-
-    #     print(f"Estimated price: {price}")
-    #     print()
-
     return price_value, price_id
 
 
-def find_purchase_price_from_chip_dataset(
-    row,
-    price_df,
-    hardware_df,
-    pcd_hardware_model_colname,
-    price_colname,
-):
-    print(f"==== System: {row['System']} ====")
-    hardware_model = row[pcd_hardware_model_colname]
-    if pd.isna(hardware_model):
-        print(f"Could not find hardware model for {row['System']}\n")
-        print()
-        return None, None
-    
-    print(f"Trying {hardware_model}")
-    # TODO remove placeholder - want to look up in price_df not hardware_df
-    filtered_df = hardware_df.loc[hardware_df['Name of the hardware'] == hardware_model]
-    if len(filtered_df) == 0:
-        print(f"Could not find hardware model for {hardware_model}\n")
-        print()
-        return None, None
-    
-    price_value = filtered_df['Release price (USD)'].values[0]
-    if pd.isna(price_value):
-        simplified_hardware_model = SIMPLIFIED_HARDWARE_NAMES.get(hardware_model)
-        if simplified_hardware_model is not None:
-            print(f"Soft matching {hardware_model} to {simplified_hardware_model}")
-            filtered_df = hardware_df[hardware_df['Name of the hardware'] == simplified_hardware_model]
-            if len(filtered_df) == 0:
-                # try any version of the hardware name (using overlap of simplified name)
-                for full_hardware_model in SIMPLIFIED_HARDWARE_NAMES.keys():
-                    terms = simplified_hardware_model.split()
-                    if all([term in full_hardware_model for term in terms]):
-                        print(f"Soft matching {hardware_model} to {full_hardware_model}")
-                        filtered_df = hardware_df[hardware_df['Name of the hardware'] == full_hardware_model]
-                        if len(filtered_df) > 0:
-                            break
-    
-    if len(filtered_df) == 0:
-        print(f"Could not find hardware model for {hardware_model}\n")
-        print()
-        return None, None
-    price_value = filtered_df['Release price (USD)'].values[0]
-    if pd.isna(price_value):
-        print(f"Could not find price for {hardware_model}\n")
-        print()
-        return None, None
-    else:
-        print(f"Found price: {price_value}")
-        print()
-    
-    price_value = float(price_value[1:])  # remove dollar sign
-
-    price_id = None  # TODO
-
-    return price_value, price_id
-
-
-def find_purchase_price(
-    row,
-    price_df,
-    hardware_df,
-    pcd_hardware_model_colname,
-    price_colname,
-    price_date_after=True,
-    backup_training_time=True,
-):
-    print(f"==== System: {row['System']} ====")
-    hardware_model = row[pcd_hardware_model_colname]
-    if pd.isna(hardware_model):
-        print(f"Could not find hardware model for {row['System']}\n")
-        print()
-        return None, None
-
-    if "TPU" in hardware_model:
-        return find_TPU_equivalent_purchase_price(hardware_model)
-
+def find_gpu_acquisition_price(price_df, hardware_model, price_colname):
     # Use a single alias (e.g. 'A100') to match hardware variants
     gpu_hardware_alias = None
     for alias in GPU_HARWARE_ALIASES:
-        if alias in hardware_model and not (',' in hardware_model):
-            # (comma indicates multiple types of hardware, which we don't handle)
+        if alias in hardware_model:
             gpu_hardware_alias = alias
             break
     if gpu_hardware_alias is None:
         print(f"Could not find alias for {hardware_model}")
         return None, None
 
-    # Sort price_df by date
+    # Sort price_df by date - we want the earliest price
     price_df = price_df.sort_values(by='Price date').dropna(subset=[price_colname])
     # Search for the best price closest to release date    
     matching_prices = price_df[price_df['Hardware model'].str.contains(gpu_hardware_alias)]
@@ -414,37 +318,111 @@ def find_purchase_price(
         chosen_price_row = matching_prices.iloc[0]
     
     if not pd.isna(chosen_price_row[price_colname]):
-        price_value = chosen_price_row[price_colname]
-        price_id = chosen_price_row['Price source']
-        # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
-        if 'single-unit' in chosen_price_row['Notes'].lower():
-            price_value *= get_server_cost_overhead(hardware_model)
-        print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
-        return price_value, price_id
+        return chosen_price_row
     else:
         print(f"Could not find price for {hardware_model}\n")
         return None, None
+    
 
-
-def find_TPU_equivalent_purchase_price(hardware_model):
+def find_TPU_equivalent_acquisition_price(hardware_model):
     price_value = TPU_EQUIVALENT_RELEASE_PRICES.get(hardware_model)
     if price_value is None:
         print(f"Could not find price for {hardware_model}\n")
         return None, None
-    # Adjust single-unit price for additional equipment e.g. CPU, intra-node interconnect
-    price_value *= get_server_cost_overhead(hardware_model)
-    print(f"Estimated the server release price for {hardware_model}: {price_value}\n")
-    return price_value, None
+    return price_value
 
 
-def exponential_depreciated_price(start_price, start_time, end_time):
+def depreciate_by_hardware_progress(initial_price, start_date, end_date):
     """
-    Returns the depreciated price of a hardware item from the start time to the end time.
-    Uses the ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR parameter to depreciate the value.
+    Depreciate the price of hardware over time by the hardware price-performance trend,
+    using the ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR parameter.
     """
-    years_since = (end_time - pd.to_datetime(start_time)).days / DAYS_PER_YEAR
-    # Depreciate the value by hardware price-performance trend over the time between release and purchase
+    years_since = (end_date - pd.to_datetime(start_date)).days / DAYS_PER_YEAR
+    # Depreciate the value by hardware price-performance trend over the time period
     depreciation = ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR * years_since
-    price_value_ooms = np.log10(start_price) - depreciation
+    price_value_ooms = np.log10(initial_price) - depreciation
     end_price = 10 ** price_value_ooms
     return end_price
+
+
+def find_hardware_acquisition_price(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+):
+    hardware_model = row[pcd_hardware_model_colname]
+    if pd.isna(hardware_model):
+        print(f"Could not find hardware model for {row['System']}\n")
+        return [None] * 4
+    if ',' in hardware_model: 
+        # comma indicates multiple types of hardware, which we don't handle
+        print(f"Skipping {hardware_model}\n")
+        return [None] * 4
+    if "TPU" in hardware_model:
+        price_id = None
+        price_value = find_TPU_equivalent_acquisition_price(hardware_model)
+        # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
+        price_value *= get_server_cost_overhead(hardware_model)
+        # Assume the TPU was acquired at the public release date
+        acquisition_date = get_release_date(hardware_model, hardware_df)
+    else:
+        chosen_price_row = find_gpu_acquisition_price(price_df, hardware_model, price_colname)
+        price_id = chosen_price_row['Price source']
+        price_value = chosen_price_row[price_colname]
+        price_date = chosen_price_row['Price date']
+        release_date = get_release_date(hardware_model, hardware_df)
+        if price_date < release_date + pd.Timedelta(days=90):
+            # Assume at least 3 months between release and when someone first acquired it
+            acquisition_date = release_date + pd.Timedelta(days=90)
+        else:
+            acquisition_date = price_date
+        # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
+        if 'single-unit' in chosen_price_row['Notes'].lower():
+            price_value *= get_server_cost_overhead(hardware_model)
+    return price_value, price_id, acquisition_date, hardware_model
+    
+
+def get_hardware_acquisition_price(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+):
+    price_value, price_id, acquisition_date, hardware_model = find_hardware_acquisition_price(
+        row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
+    )
+    if price_value is None:
+        return None, None
+    print(
+        f"Estimated the value of {hardware_model} server, " +
+        f"available from {acquisition_date}: {price_value}\n"
+    )
+    return price_value, price_id
+
+
+def get_hardware_value_at_training_start(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+    backup_training_time=True,
+):
+    price_value, price_id, acquisition_date, hardware_model = find_hardware_acquisition_price(
+        row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
+    )
+    if price_value is None:
+        return None, None
+    # Depreciate the price due to hardware progress since being acquired
+    training_start_date = get_training_start_date(row, backup_training_time)
+    price_value = depreciate_by_hardware_progress(
+        price_value, acquisition_date, training_start_date
+    )
+    print(
+        f"Estimated the value of {hardware_model} server, available from {acquisition_date} " +
+        f"and used from {training_start_date}: {price_value}\n"
+    )
+    return price_value, price_id

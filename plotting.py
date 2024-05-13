@@ -223,3 +223,18 @@ def prettify_bar_chart(fig, rotate_x_labels=True, **chart_args):
         fig.update_xaxes(tickangle=70)
 
     return fig
+
+def get_cost_plot_title(estimation_method, compute_threshold_method, compute_threshold):
+    if compute_threshold_method == 'window_percentile':
+        title_suffix = f' to train top {100 - compute_threshold}% most compute-intensive ML models'
+    elif compute_threshold_method == 'top_n':
+        title_suffix = f' to train the running top-{compute_threshold} most compute-intensive ML models'
+
+    plot_title_lookup = {
+        'cloud': 'Cloud compute cost' + title_suffix,
+        'amortized': 'Amortized cost of hardware' + title_suffix,
+        'hardware-acquisition': 'Acquisition cost of hardware' + title_suffix,
+        'hardware-capex-opex': 'Hardware CapEx + OpEx' + title_suffix,
+    }
+
+    return plot_title_lookup[estimation_method]
