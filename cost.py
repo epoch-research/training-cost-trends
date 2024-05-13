@@ -216,7 +216,7 @@ def estimate_hardware_acquisition_cost(
 
     for i, row in frontier_pcd_df.iterrows():
         print(f"==== System: {row['System']} ====")
-        price, _ = find_hardware_acquisition_price(
+        price, _ = get_hardware_acquisition_price(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
