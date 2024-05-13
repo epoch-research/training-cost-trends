@@ -61,6 +61,7 @@ def estimate_cloud_costs(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
+        print(f"==== System: {row['System']} ====")
         price, _ = find_price(row, price_df, hardware_df, pcd_hardware_model_colname, price_colname, org_to_cloud_vendor)
         if price is None:
             continue
@@ -140,7 +141,7 @@ def estimate_amortized_hardware_costs(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        # TODO
+        print(f"==== System: {row['System']} ====")
         price, _ = get_hardware_value_at_training_start(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
@@ -214,8 +215,8 @@ def estimate_hardware_acquisition_cost(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        # TODO
-        price, _ = find_acquisition_price(
+        print(f"==== System: {row['System']} ====")
+        price, _ = find_hardware_acquisition_price(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
@@ -288,7 +289,7 @@ def estimate_hardware_capex_opex(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        # TODO
+        print(f"==== System: {row['System']} ====")
         price, _ = get_hardware_value_at_training_start(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )

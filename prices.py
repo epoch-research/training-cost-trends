@@ -219,7 +219,6 @@ def find_price(
     backup_price_type=True,
     backup_training_time=True,
 ):
-    print(f"==== System: {row['System']} ====")
     acquisition_date = get_acquisition_date(row, backup_training_time)
     if acquisition_date is None:
         return None, None
@@ -330,8 +329,6 @@ def find_TPU_equivalent_acquisition_price(hardware_model):
     if price_value is None:
         print(f"Could not find price for {hardware_model}\n")
         return None, None
-    # Adjust single-unit price for additional equipment e.g. CPU, intra-node interconnect
-    price_value *= get_server_cost_overhead(hardware_model)
     return price_value
 
 
@@ -348,6 +345,64 @@ def depreciate_by_hardware_progress(initial_price, start_date, end_date):
     return end_price
 
 
+def find_hardware_acquisition_price(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+):
+    hardware_model = row[pcd_hardware_model_colname]
+    if pd.isna(hardware_model):
+        print(f"Could not find hardware model for {row['System']}\n")
+        return [None] * 4
+    if ',' in hardware_model: 
+        # comma indicates multiple types of hardware, which we don't handle
+        print(f"Skipping {hardware_model}\n")
+        return [None] * 4
+    if "TPU" in hardware_model:
+        price_id = None
+        price_value = find_TPU_equivalent_acquisition_price(hardware_model)
+        # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
+        price_value *= get_server_cost_overhead(hardware_model)
+        # Assume the TPU was acquired at the public release date
+        acquisition_date = get_release_date(hardware_model, hardware_df)
+    else:
+        chosen_price_row = find_gpu_acquisition_price(price_df, hardware_model, price_colname)
+        price_id = chosen_price_row['Price source']
+        price_value = chosen_price_row[price_colname]
+        price_date = chosen_price_row['Price date']
+        release_date = get_release_date(hardware_model, hardware_df)
+        if price_date < release_date + pd.Timedelta(days=90):
+            # Assume at least 3 months between release and when someone first acquired it
+            acquisition_date = release_date + pd.Timedelta(days=90)
+        else:
+            acquisition_date = price_date
+        # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
+        if 'single-unit' in chosen_price_row['Notes'].lower():
+            price_value *= get_server_cost_overhead(hardware_model)
+    return price_value, price_id, acquisition_date, hardware_model
+    
+
+def get_hardware_acquisition_price(
+    row,
+    price_df,
+    hardware_df,
+    pcd_hardware_model_colname,
+    price_colname,
+):
+    price_value, price_id, acquisition_date, hardware_model = find_hardware_acquisition_price(
+        row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
+    )
+    if price_value is None:
+        return None, None
+    print(
+        f"Estimated the value of {hardware_model} server, " +
+        f"available from {acquisition_date}: {price_value}\n"
+    )
+    return price_value, price_id
+
+
 def get_hardware_value_at_training_start(
     row,
     price_df,
@@ -356,46 +411,13 @@ def get_hardware_value_at_training_start(
     price_colname,
     backup_training_time=True,
 ):
-    print(f"==== System: {row['System']} ====")
-    hardware_model = row[pcd_hardware_model_colname]
-    if pd.isna(hardware_model):
-        print(f"Could not find hardware model for {row['System']}\n")
+    price_value, price_id, acquisition_date, hardware_model = find_hardware_acquisition_price(
+        row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
+    )
+    if price_value is None:
         return None, None
-    if ',' in hardware_model: 
-        # comma indicates multiple types of hardware, which we don't handle
-        print(f"Skipping {hardware_model}\n")
-        return None, None
-    
+    # Depreciate the price due to hardware progress since being acquired
     training_start_date = get_training_start_date(row, backup_training_time)
-    
-    if "TPU" in hardware_model:
-        # Assume the TPU was acquired at the public release date
-        acquisition_date = get_release_date(hardware_model, hardware_df)
-        price_value = find_TPU_equivalent_acquisition_price(hardware_model)
-        # Depreciate the price due to hardware progress since being acquired
-        price_value = depreciate_by_hardware_progress(
-            price_value, acquisition_date, training_start_date
-        )
-        print(
-            f"Estimated the value of {hardware_model} server, available from {acquisition_date} " +
-            f"and used from {training_start_date}: {price_value}\n")
-        return price_value, None
-
-    chosen_price_row = find_gpu_acquisition_price(price_df, hardware_model, price_colname)
-    price_id = chosen_price_row['Price source']
-
-    price_value = chosen_price_row[price_colname]
-    price_date = chosen_price_row['Price date']
-    release_date = get_release_date(hardware_model, hardware_df)
-    if price_date < release_date + pd.Timedelta(days=90):
-        # Assume at least 3 months between release and when someone first acquired it
-        acquisition_date = release_date + pd.Timedelta(days=90)
-    else:
-        acquisition_date = price_date
-
-    # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
-    if 'single-unit' in chosen_price_row['Notes'].lower():
-        price_value *= get_server_cost_overhead(hardware_model)
     price_value = depreciate_by_hardware_progress(
         price_value, acquisition_date, training_start_date
     )
