@@ -12,15 +12,15 @@ from prices import *
 
 
 def estimate_chip_hours(row, hardware_df):
+    if not pd.isna(row['Training chip-hours']):
+        return row['Training chip-hours']
     hardware_quantity = row['Hardware quantity']
     training_time = row['Training time (hours)']
     if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
-        # Impute training time
-        # TODO: move this to a separate function
-        if not any([pd.isna(row[x]) for x in ['Training compute (FLOP)', 'Training hardware']]):
+        flop = row['Training compute (FLOP)']
+        hardware_model = row['Training hardware']
+        if not any([pd.isna(x) for x in [flop, hardware_model]]):
             print("Imputing training time from compute and hardware")
-            flop = row['Training compute (FLOP)']
-            hardware_model = row['Training hardware']
             flop_per_second = get_flop_per_second(hardware_model, hardware_df)
             flop_utilization = row['Hardware utilization']
             if pd.isna(flop_utilization):
