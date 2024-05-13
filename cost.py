@@ -141,7 +141,7 @@ def estimate_amortized_hardware_costs(
 
     for i, row in frontier_pcd_df.iterrows():
         # TODO
-        price, _ = find_acquisition_price(
+        price, _ = get_hardware_value_at_training_start(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
@@ -289,7 +289,7 @@ def estimate_hardware_capex_opex(
 
     for i, row in frontier_pcd_df.iterrows():
         # TODO
-        price, _ = find_acquisition_price(
+        price, _ = get_hardware_value_at_training_start(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
