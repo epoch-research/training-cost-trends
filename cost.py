@@ -141,7 +141,7 @@ def estimate_amortized_hardware_costs(
 
     for i, row in frontier_pcd_df.iterrows():
         # TODO
-        price, _ = find_purchase_price(
+        price, _ = find_acquisition_price(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
@@ -215,7 +215,7 @@ def estimate_hardware_acquisition_cost(
 
     for i, row in frontier_pcd_df.iterrows():
         # TODO
-        price, _ = find_purchase_price(
+        price, _ = find_acquisition_price(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
@@ -289,7 +289,7 @@ def estimate_hardware_capex_opex(
 
     for i, row in frontier_pcd_df.iterrows():
         # TODO
-        price, _ = find_purchase_price(
+        price, _ = find_acquisition_price(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
@@ -342,12 +342,10 @@ def estimate_hardware_capex_opex_cost(
         return None
 
     hardware_model = row['Training hardware']
-    hardware_release_date = get_release_date(hardware_model, hardware_df)
-    hardware_lifetime = get_server_lifetime(hardware_release_date.year)
 
     training_chip_hours = estimate_chip_hours(row, hardware_df)
 
-    price_per_chip_hour = price / hardware_lifetime
+    price_per_chip_hour = price * HARDWARE_REPLACEMENT_PER_YEAR / HOURS_PER_YEAR
     amortized_hardware_cost = price_per_chip_hour * training_chip_hours
 
     interconnect_cost = (CLUSTER_INTERCONNECT_COST_OVERHEAD - 1) * amortized_hardware_cost
