@@ -10,4 +10,4 @@ ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR = 0.14  # https://epochai.org/blog/trends
 # 0.14 OOMs/year of hardware progress => optimum of 0.14 * np.log(10) replacements/year
 # https://epochai.org/blog/trends-in-machine-learning-hardware
 # https://epochai.org/blog/the-longest-training-run#a-simple-framework-for-training-run-lengths
-HARDWARE_REPLACEMENT_PER_YEAR = 0.31
+HARDWARE_REPLACEMENT_PER_YEAR = 0.32
