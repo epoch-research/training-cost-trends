@@ -100,7 +100,10 @@ def get_training_start_date(row, backup_training_time=True):
     elif 'GPT-4' in row['System']:
         # https://arxiv.org/abs/2303.08774
         # "This system card analyzes GPT-4 [...] Since it finished training in August of 2022 [...]"
-        training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
+        try:
+            training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
+        except ValueError:
+            training_time = pd.Timedelta(hours=0)
         training_start_date = pd.to_datetime('2022-08-15') - training_time
     elif 'GPT-3.5' in row['System']:
         # https://web.archive.org/web/20230314165432/https://openai.com/research/gpt-4
@@ -138,7 +141,10 @@ def get_training_start_date(row, backup_training_time=True):
             training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
         # TODO: test different buffer times: e.g. 15 days, 90 days
         buffer_time = pd.Timedelta(days=30)
-        training_start_date = row['Publication date'] - (training_time + buffer_time)
+        try:
+            training_start_date = row['Publication date'] - (training_time + buffer_time)
+        except TypeError:
+            training_start_date = pd.to_datetime(row['Publication date']) - (training_time + buffer_time)
     return training_start_date
 
 

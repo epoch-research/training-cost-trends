@@ -144,5 +144,6 @@ def energy_price(year):
         2021: 0.0718,
         2022: 0.0832,
         2023: 0.0806,
+        2024: 0.0806,
     }
     return prices[year]

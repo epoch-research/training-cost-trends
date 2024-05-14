@@ -12,8 +12,6 @@ from prices import *
 
 
 def estimate_chip_hours(row, hardware_df):
-    if not pd.isna(row['Training chip-hours']):
-        return row['Training chip-hours']
     hardware_quantity = row['Hardware quantity']
     training_time = row['Training time (hours)']
     if any([np.isnan(x) for x in [hardware_quantity, training_time]]):
@@ -73,7 +71,10 @@ def estimate_cloud_costs(
     # TODO move outside of the function
     def estimate_cost(row, system_to_price):
         system = row['System']
-        price = system_to_price.get(system)
+        try:
+            price = system_to_price.get(system)
+        except TypeError:
+            price = None
         if price is None:
             return None
 
@@ -81,7 +82,7 @@ def estimate_cloud_costs(
             chip_hours = row['Training time (chip hours)']
         else:
             chip_hours = estimate_chip_hours(row, hardware_df)
-        if np.isnan(chip_hours):
+        if (chip_hours is None) or np.isnan(chip_hours):
             print("Unable to estimate chip hours")
             return None
 
@@ -154,7 +155,10 @@ def estimate_amortized_hardware_costs(
     # TODO move outside of the function
     def estimate_cost(row, system_to_price):
         system = row['System']
-        price = system_to_price.get(system)
+        try:
+            price = system_to_price.get(system)
+        except TypeError:
+            price = None
         if price is None:
             return None
 
@@ -184,7 +188,10 @@ def estimate_amortized_hardware_costs(
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
         print(f"==== System: {row['System']} ====")
-        cost = estimate_cost(row, system_to_price)
+        try:
+            cost = estimate_cost(row, system_to_price)
+        except TypeError:
+            pass
         if cost is None:
             continue
         system_to_cost[row['System']] = cost
@@ -228,7 +235,10 @@ def estimate_hardware_acquisition_cost(
     # TODO move outside of the function
     def estimate_cost(row, system_to_price):
         system = row['System']
-        price = system_to_price.get(system)
+        try:
+            price = system_to_price.get(system)
+        except TypeError:
+            price = None
         if price is None:
             return None
         
@@ -347,12 +357,15 @@ def estimate_hardware_capex_opex_cost(
     training_chip_hours = estimate_chip_hours(row, hardware_df)
 
     price_per_chip_hour = price * HARDWARE_REPLACEMENT_PER_YEAR / HOURS_PER_YEAR
-    amortized_hardware_cost = price_per_chip_hour * training_chip_hours
+    try:
+        amortized_hardware_cost = price_per_chip_hour * training_chip_hours
+    except TypeError:
+        amortized_hardware_cost = 0
 
     interconnect_cost = (CLUSTER_INTERCONNECT_COST_OVERHEAD - 1) * amortized_hardware_cost
 
     org = row['Organization']
-    pub_year = row['Publication date'].year
+    pub_year = pd.to_datetime(row['Publication date']).year
     energy_cost = cluster_energy_cost(
         hardware_model, training_chip_hours, hardware_df, org, pub_year,
     )
@@ -368,7 +381,10 @@ def estimate_hardware_capex_opex_cost(
     else:
         cost = amortized_hardware_cost + interconnect_cost + energy_cost
         # Useful for comparing to cloud prices
-        overall_cost_per_chip_hour = cost / training_chip_hours
+        try:
+            overall_cost_per_chip_hour = cost / training_chip_hours
+        except TypeError:
+            overall_cost_per_chip_hour = cost
         print(f"Overall cost per chip-hour for {hardware_model}:", overall_cost_per_chip_hour)
 
     # Check for base model
@@ -422,5 +438,8 @@ def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organizat
     server_power_kw = server_TDP_kw * server_TDP_fraction(hardware_model)
     # Adjust for data center power distribution and cooling
     adj_server_power_kw = server_power_kw * power_usage_effectiveness(organization)
-    cluster_kwh = adj_server_power_kw * total_chip_hours
+    try:
+        cluster_kwh = adj_server_power_kw * total_chip_hours
+    except TypeError:
+        cluster_kwh = 0
     return cluster_kwh * energy_price(year)
