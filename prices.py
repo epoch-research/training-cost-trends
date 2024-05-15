@@ -361,6 +361,10 @@ def find_hardware_acquisition_price(
         print(f"Skipping {hardware_model}\n")
         return [None] * 4
     if "TPU" in hardware_model:
+        # Uncomment to test the effect of removing TPUs.
+        # print(f"Skipping TPU {hardware_model}")
+        # return [None] * 4
+    
         price_id = None
         price_value = find_TPU_equivalent_acquisition_price(hardware_model)
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
