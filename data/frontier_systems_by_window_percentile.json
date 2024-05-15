@@ -11,7 +11,6 @@
         "Meena",
         "GPT-3 175B (davinci)",
         "Megatron-Turing NLG 530B",
-        "ERNIE 3.0 Titan",
         "PaLM (540B)",
         "Minerva (540B)",
         "GPT-4",
@@ -24,7 +23,9 @@
         "mT5-XXL",
         "Switch",
         "Gopher (280B)",
+        "ERNIE 3.0 Titan",
         "Chinchilla",
+        "Flan-PaLM 540B",
         "U-PaLM (540B)",
         "GPT-3.5 (text-davinci-003)",
         "PaLM 2",
@@ -34,6 +35,8 @@
     "85": [
         "AlphaGo Fan",
         "AlphaGo Lee",
+        "JFT",
+        "AmoebaNet-A (F=448)",
         "Megatron-LM (8.3B)",
         "OpenAI Five Rerun",
         "Turing-NLG",
@@ -46,9 +49,7 @@
         "Grok-1"
     ],
     "80": [
-        "JFT",
         "OpenAI TI7 DOTA 1v1",
-        "AmoebaNet-A (F=448)",
         "IMPALA",
         "BigGAN-deep 512x512",
         "GPT-2 (1.5B)",
@@ -61,7 +62,6 @@
         "ST-MoE",
         "Flamingo",
         "Parti",
-        "GLM-130B",
         "BlenderBot 3",
         "Llama 2-70B",
         "ChatGLM3",
@@ -78,6 +78,7 @@
         "ProtT5-XXL",
         "GOAT",
         "GPT-NeoX-20B",
+        "GLM-130B",
         "ViT-22B",
         "LLaMA-65B",
         "PanGu-\u03a3",
@@ -101,6 +102,7 @@
     ],
     "65": [
         "ResNet-152 (ImageNet)",
+        "ConvS2S (ensemble of 8 models)",
         "YOLOv3",
         "Transformer (Adaptive Input Embeddings)",
         "BERT-Large-CAS (PTB+WT2+WT103)",
@@ -108,16 +110,17 @@
         "ELECTRA",
         "Conformer + Wav2vec 2.0 + Noisy Student",
         "PLUG",
-        "ProtT5-XXL-BFD",
         "ProtBERT-BFD",
+        "ProtT5-XXL-BFD",
         "Florence",
         "Stable Diffusion (LDM-KL-8-G)",
         "CoCa",
         "Falcon-40B",
+        "BloombergGPT",
+        "Skywork-13B",
         "FunSearch"
     ],
     "60": [
-        "ConvS2S (ensemble of 8 models)",
         "PNASNet-5",
         "Mesh-TensorFlow Transformer 2.9B (translation)",
         "T5-3B",
@@ -129,10 +132,7 @@
         "XGLM-7.5B",
         "ESM2-15B",
         "PaLI",
-        "Taiyi-Stable Diffusion",
-        "BloombergGPT",
-        "StarCoder",
-        "Skywork-13B"
+        "Nemotron-3-8B"
     ],
     "55": [
         "DeepStack",
@@ -147,8 +147,11 @@
         "T0-XXL",
         "Student of Games",
         "Whisper",
+        "Taiyi-Stable Diffusion",
+        "StarCoder",
+        "WizardCoder-15.5B",
         "Llama 2-7B",
-        "Nemotron-3-8B"
+        "FinGPT-13B"
     ],
     "50": [
         "BIDAF",
@@ -163,28 +166,27 @@
         "DeBERTa",
         "XGLM",
         "RETRO-7B",
-        "Imagen",
-        "NLLB",
+        "Flan-T5 11B",
         "LLaMA-7B"
     ],
     "45": [
+        "RetinaNet-R101",
         "Transformer + Simple Recurrent Unit",
         "Sandwich Transformer",
         "German ELECTRA Large",
         "wave2vec 2.0 LARGE",
         "CPM-Large",
         "HuBERT",
+        "Imagen",
         "ProGen2-xlarge",
+        "NLLB",
         "OmegaPLM",
         "WizardLM-7B",
         "Pangu-Weather",
-        "Jais",
-        "CogVLM",
-        "CogAgent"
+        "Jais"
     ],
     "40": [
         "Part-of-sentence tagging model",
-        "RetinaNet-R101",
         "GL-LWGC-AWD-MoS-LSTM + dynamic evaluation (WT2)",
         "Transformer-XL (257M)",
         "KataGo",
@@ -194,11 +196,10 @@
         "ESM1-670M (UR50/D)",
         "ViT-G/14",
         "SEER",
-        "N\u00dcWA",
-        "Gato",
         "Tranception",
-        "Nucleotide Transformer",
-        "GraphCast"
+        "CogVLM",
+        "GraphCast",
+        "CogAgent"
     ],
     "35": [
         "Named Entity Recognition model",
@@ -206,10 +207,12 @@
         "ResNet-152 + ObjectNet",
         "Feedback Transformer",
         "AlphaFold-Multimer",
+        "N\u00dcWA",
         "ViT-G (model soup)",
+        "Gato",
+        "Nucleotide Transformer",
         "VideoMAE V2",
         "Segment Anything Model",
-        "DINOv2",
         "PeptideBERT"
     ],
     "30": [
@@ -230,11 +233,14 @@
         "CodeT5-large",
         "EVA-01",
         "Ankh_large",
-        "AudioGen"
+        "AudioGen",
+        "DINOv2"
     ],
     "25": [
         "VD-LSTM+REAL Large",
+        "ULM-FiT",
         "Big-Little Net (speech)",
+        "Decoupled weight decay regularization",
         "Hanabi 4 player",
         "Transformer-XL Large + Phrase Induction",
         "Tensorized Transformer (257M)",
@@ -247,7 +253,6 @@
         "PolyCoder",
         "GenSLM",
         "Ankh_base",
-        "BLIP-2 (Q-Former)",
         "Incoder-6.7B"
     ],
     "20": [
@@ -255,14 +260,13 @@
         "Fraternal dropout + AWD-LSTM 3-layer (WT2)",
         "4 layer QRNN (h=2500)",
         "Dropout-LSTM+Noise(Bernoulli) (WT2)",
-        "Decoupled weight decay regularization",
         "Cross-lingual alignment",
         "DLRM-2020",
         "Base LM + kNN LM + Continuous Cache",
         "ConSERT",
         "Masked Autoencoders",
-        "AR-LDM",
         "Hybrid H3-2.7B",
+        "BLIP-2 (Q-Former)",
         "Flan T5-XXL + BLIP-2",
         "DiT-XL/2"
     ],
@@ -278,8 +282,7 @@
         "EfficientNetV2",
         "Adaptive Input Transformer + RD",
         "DNABERT",
-        "BERT-RBP",
-        "Fusion in Encoder",
+        "AR-LDM",
         "Discriminator Guidance",
         "DDPM-IP (CelebA)",
         "ONE-PEACE"
@@ -292,8 +295,10 @@
         "SRU++ Large",
         "Transformer local-attention (NesT-B)",
         "ProteinBERT",
+        "BERT-RBP",
         "BEIT-3",
         "DiffDock",
+        "Fusion in Encoder",
         "LLaVA 1.5"
     ],
     "5": [

@@ -16,6 +16,10 @@ def load_frontier_systems(compute_threshold_method='top_n', compute_threshold=10
             indices = range(1, compute_threshold+1)
         elif compute_threshold_method == 'window_percentile':
             indices = range(compute_threshold, 100, 5)
+        elif compute_threshold_method == 'backward_window_percentile':
+            pass
+        elif compute_threshold_method == 'residual_from_trend':
+            pass
         else:
             raise ValueError(f"Invalid compute_threshold_method: {compute_threshold_method}")
         for i in indices:
