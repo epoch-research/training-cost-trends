@@ -90,3 +90,43 @@ def chow_test(data1, data2, features, target, logy=False):
     #     print("There is no statistically significant difference between the two regressions.")
 
     return F_stat, p_value
+
+
+def regression_slope_t_test(data1, data2, features, target, logy=False):
+    data1 = data1.dropna(subset=features + [target])
+    X1 = data1[features].to_numpy()
+    X1 = sm.add_constant(X1)  # Add a constant term to the features
+    y1 = data1[target].to_numpy()
+
+    data2 = data2.dropna(subset=features + [target])
+    X2 = data2[features].to_numpy()
+    X2 = sm.add_constant(X2)
+    y2 = data2[target].to_numpy()
+
+    if logy:
+        y1 = np.log10(y1)
+        y2 = np.log10(y2)
+
+    # Separate regressions
+    model1 = sm.OLS(y1, X1).fit()
+    model2 = sm.OLS(y2, X2).fit()
+
+    # Get the slopes and standard errors
+    b1, SE1 = model1.params[1], model1.bse[1]
+    b2, SE2 = model2.params[1], model2.bse[1]
+
+    # Calculate the test statistic
+    t_stat = (b1 - b2) / np.sqrt(SE1**2 + SE2**2)
+
+    # Degrees of freedom
+    df1 = X1.shape[0] - 2
+    df2 = X2.shape[0] - 2
+    df = df1 + df2
+
+    # Calculate the p-value
+    p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df))
+
+    print(f"Test statistic: {t_stat}")
+    print(f"p-value: {p_value}")
+
+    return t_stat, p_value
