@@ -373,6 +373,7 @@ def find_hardware_acquisition_price(
         price_value = chosen_price_row[price_colname]
         price_date = chosen_price_row['Price date']
         release_date = get_release_date(hardware_model, hardware_df)
+        # TODO test different buffer times: e.g. 0 days, 180 days
         if price_date < release_date + pd.Timedelta(days=90):
             # Assume at least 3 months between release and when someone first acquired it
             acquisition_date = release_date + pd.Timedelta(days=90)
@@ -418,6 +419,10 @@ def get_hardware_value_at_training_start(
         return None, None
     # Depreciate the price due to hardware progress since being acquired
     training_start_date = get_training_start_date(row, backup_training_time)
+    if 'TPU' not in hardware_model and training_start_date < acquisition_date:
+        # For TPUs, training could have started before public availability
+        # But for GPUs, training can only start after acquisition
+        training_start_date = acquisition_date
     price_value = depreciate_by_hardware_progress(
         price_value, acquisition_date, training_start_date
     )
