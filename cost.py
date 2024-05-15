@@ -346,7 +346,11 @@ def estimate_hardware_capex_opex_cost(
 
     training_chip_hours = estimate_chip_hours(row, hardware_df)
 
-    price_per_chip_hour = price * HARDWARE_REPLACEMENT_PER_YEAR / HOURS_PER_YEAR
+    # Hardware progress rate k OOMs/year 
+    # => optimal to replace k * np.log(10) per year
+    # See https://epochai.org/blog/the-longest-training-run#a-simple-framework-for-training-run-lengths
+    hardware_replacement_per_year = ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR * np.log(10)
+    price_per_chip_hour = price * hardware_replacement_per_year / HOURS_PER_YEAR
     amortized_hardware_cost = price_per_chip_hour * training_chip_hours
 
     interconnect_cost = (CLUSTER_INTERCONNECT_COST_OVERHEAD - 1) * amortized_hardware_cost
