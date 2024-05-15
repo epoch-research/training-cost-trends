@@ -136,7 +136,7 @@ def get_training_start_date(row, backup_training_time=True):
                 return None
         else:
             training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
-        # TODO: test different buffer times: e.g. 15 days, 90 days
+        # Can test different buffer times here: e.g. 15 days, 90 days
         buffer_time = pd.Timedelta(days=30)
         training_start_date = row['Publication date'] - (training_time + buffer_time)
     return training_start_date
@@ -373,10 +373,11 @@ def find_hardware_acquisition_price(
         price_value = chosen_price_row[price_colname]
         price_date = chosen_price_row['Price date']
         release_date = get_release_date(hardware_model, hardware_df)
-        # TODO test different buffer times: e.g. 0 days, 180 days
-        if price_date < release_date + pd.Timedelta(days=90):
+        # Can test different buffer times here: e.g. 0 days, 180 days
+        buffer_time = pd.Timedelta(days=90)
+        if price_date < release_date + buffer_time:
             # Assume at least 3 months between release and when someone first acquired it
-            acquisition_date = release_date + pd.Timedelta(days=90)
+            acquisition_date = release_date + buffer_time
         else:
             acquisition_date = price_date
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
