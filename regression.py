@@ -84,11 +84,6 @@ def chow_test(data1, data2, features, target, logy=False):
     print(f"Chow Test F-statistic: {F_stat}")
     print(f"p-value: {p_value}")
 
-    # if p_value < 0.05:
-    #     print("There is a statistically significant difference between the two regressions.")
-    # else:
-    #     print("There is no statistically significant difference between the two regressions.")
-
     return F_stat, p_value
 
 
@@ -115,6 +110,9 @@ def regression_slope_t_test(data1, data2, features, target, logy=False):
     b1, SE1 = model1.params[1], model1.bse[1]
     b2, SE2 = model2.params[1], model2.bse[1]
 
+    print(f"Slope 1: {b1:.2f} (SE: {SE1:.2f})")
+    print(f"Slope 2: {b2:.2f} (SE: {SE2:.2f})")
+
     # Calculate the test statistic
     t_stat = (b1 - b2) / np.sqrt(SE1**2 + SE2**2)
 
@@ -126,7 +124,7 @@ def regression_slope_t_test(data1, data2, features, target, logy=False):
     # Calculate the p-value
     p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df))
 
-    print(f"Test statistic: {t_stat}")
-    print(f"p-value: {p_value}")
+    print(f"Test statistic: {t_stat:.2f}")
+    print(f"p-value: {p_value:.2f}")
 
     return t_stat, p_value
