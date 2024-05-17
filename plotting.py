@@ -228,7 +228,7 @@ def get_cost_plot_title(estimation_method, compute_threshold_method, compute_thr
     if compute_threshold_method == 'window_percentile':
         title_suffix = f' to train top {100 - compute_threshold}% most compute-intensive ML models'
     elif compute_threshold_method == 'backward_window_percentile':
-        title_suffix = f' to train models with more compute than {100 - compute_threshold}% of models the year before'
+        title_suffix = f' to train models with more compute than {compute_threshold}% of models the year before'
     elif compute_threshold_method == 'top_n':
         title_suffix = f' to train the running top-{compute_threshold} most compute-intensive ML models'
     elif compute_threshold_method == 'residual_from_trend':
