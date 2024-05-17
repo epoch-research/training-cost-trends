@@ -9,6 +9,7 @@ from inflation import *
 from parameters import *
 from plotting import *
 from prices import *
+from utils import *
 
 
 def estimate_chip_hours(row, hardware_df):
@@ -61,7 +62,7 @@ def estimate_cloud_costs(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         price, _ = find_price(row, price_df, hardware_df, pcd_hardware_model_colname, price_colname, org_to_cloud_vendor)
         if price is None:
             continue
@@ -105,7 +106,7 @@ def estimate_cloud_costs(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
             print("Unable to estimate cost")
@@ -141,7 +142,7 @@ def estimate_amortized_hardware_costs(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         price, _ = get_hardware_value_at_training_start(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
@@ -183,7 +184,7 @@ def estimate_amortized_hardware_costs(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
             continue
@@ -215,7 +216,7 @@ def estimate_hardware_acquisition_cost(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         price, _ = get_hardware_acquisition_price(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
@@ -254,7 +255,7 @@ def estimate_hardware_acquisition_cost(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
             print("Unable to estimate cost")
@@ -289,7 +290,7 @@ def estimate_hardware_capex_opex(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         price, _ = get_hardware_value_at_training_start(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
@@ -300,7 +301,7 @@ def estimate_hardware_capex_opex(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['System']} ====")
         cost = estimate_hardware_capex_opex_cost(
             row, system_to_price, frontier_pcd_df, hardware_df, separate_components
         )
