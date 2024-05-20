@@ -101,6 +101,9 @@ def get_server_lifetime(year):
 
 
 def get_server_cost_overhead(hardware_model):
+    # TODO add the source of these numbers.
+    # They are based on comparisons of prices in our database,
+    # where we have both a server cost and a single GPU cost.
     if 'A100' in hardware_model:
         return 1.66
     elif 'V100' in hardware_model:
