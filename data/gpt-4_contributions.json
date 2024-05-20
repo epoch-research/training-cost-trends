@@ -1,0 +1,371 @@
+{
+    "Pretraining": {
+        "Core contributors": [
+            "Christopher Berner", "Greg Brockman", "Trevor Cai", "David Farhi", 
+            "Chris Hesse", "Shantanu Jain", "Kyle Kosic", "Jakub Pachocki",
+            "Alex Paino", "Mikhail Pavlov", "Michael Petrov", "Nick Ryder",
+            "Szymon Sidor", "Nikolas Tezak", "Phil Tillet", "Amin Tootoonchian",
+            "Qiming Yuan", "Wojciech Zaremba"
+        ],
+        "Compute cluster scaling": [
+            "Christopher Berner", "Oleg Boiko", "Andrew Cann", "Ben Chess",
+            "Christian Gibson", "Mateusz Litwin", "Emy Parparita", "Henri Roussez",
+            "Eric Sigler", "Akila Welihinda"
+        ],
+        "Data": [
+            "Sandhini Agarwal", "Suchir Balaji", "Mo Bavarian", "Che Chang",
+            "Sheila Dunning", "Leo Gao", "Jonathan Gordon", "Peter Hoeschele",
+            "Shawn Jain", "Shantanu Jain", "Roger Jiang", "Heewoo Jun",
+            "Łukasz Kaiser", "Nitish Shirish Keskar", "Jong Wook Kim",
+            "Aris Konstantinidis", "Chak Ming Li", "Todor Markov", "Bianca Martin",
+            "David Mély", "Oleg Murk", "Hyeonwoo Noh", "Long Ouyang", "Alex Paino",
+            "Vitchyr Pong", "Alec Radford", "Nick Ryder", "John Schulman",
+            "Daniel Selsam", "Ian Sohl", "Chelsea Voss", "Lilian Weng",
+            "Clemens Winter", "Tao Xu", "Qiming Yuan", "Wojciech Zaremba"  
+        ],
+        "Distributed training infrastructure": [
+            "Greg Brockman", "Trevor Cai", "Chris Hesse", "Shantanu Jain",
+            "Yongjik Kim", "Kyle Kosic", "Mateusz Litwin", "Jakub Pachocki",
+            "Mikhail Pavlov", "Szymon Sidor", "Nikolas Tezak", "Madeleine Thompson",
+            "Amin Tootoonchian", "Qiming Yuan"
+        ],
+        "Hardware correctness": [
+            "Greg Brockman", "Shantanu Jain", "Kyle Kosic", "Michael Petrov",
+            "Nikolas Tezak", "Amin Tootoonchian", "Chelsea Voss", "Qiming Yuan"
+        ],
+        "Optimization & architecture": [
+            "Igor Babuschkin", "Mo Bavarian", "Adrien Ecoffet", "David Farhi",
+            "Jesse Han", "Ingmar Kanitscheider", "Daniel Levy", "Jakub Pachocki", 
+            "Alex Paino", "Mikhail Pavlov", "Nick Ryder", "Szymon Sidor", "Jie Tang",
+            "Jerry Tworek", "Tao Xu"
+        ],
+        "Training run babysitting": [
+            "Suchir Balaji", "Mo Bavarian", "Greg Brockman", "Trevor Cai",
+            "Chris Hesse", "Shantanu Jain", "Roger Jiang", "Yongjik Kim",
+            "Kyle Kosic", "Mateusz Litwin", "Jakub Pachocki", "Alex Paino",
+            "Mikhail Pavlov", "Michael Petrov", "Nick Ryder", "Szymon Sidor",
+            "Nikolas Tezak", "Madeleine Thompson", "Phil Tillet", "Amin Tootoonchian",
+            "Chelsea Voss", "Ben Wang", "Tao Xu", "Qiming Yuan"
+        ]
+    },
+    "Long context": {
+        "Core contributors": [
+            "Gabriel Goh", "Łukasz Kaiser", "Ben Wang", "Clemens Winter"  
+        ],
+        "Long context research": [
+            "Mo Bavarian", "Gabriel Goh", "Heewoo Jun", "Łukasz Kaiser",
+            "Chak Ming Li", "Ben Wang", "Clemens Winter"
+        ],
+        "Long context kernels": [
+            "Phil Tillet"
+        ]
+    },
+    "Vision": {
+        "Core contributors": [
+            "Trevor Cai", "Mark Chen", "Casey Chu", "Chris Hesse", "Shengli Hu",
+            "Yongjik Kim", "Jamie Kiros", "Daniel Levy", "Christine McLeavey",
+            "David Mély", "Hyeonwoo Noh", "Mikhail Pavlov", "Raul Puri",
+            "Amin Tootoonchian"  
+        ],
+        "Architecture research": [
+            "Casey Chu", "Jamie Kiros", "Christine McLeavey", "Hyeonwoo Noh",
+            "Raul Puri", "Alec Radford", "Aditya Ramesh"
+        ],
+        "Compute cluster scaling": [
+            "Andrew Cann", "Rory Carmichael", "Christian Gibson", "Henri Roussez",
+            "Akila Welihinda"
+        ],
+        "Distributed training infrastructure": [
+            "Trevor Cai", "Yunxing Dai", "Chris Hesse", "Brandon Houghton",
+            "Yongjik Kim", "Łukasz Kondraciuk", "Hyeonwoo Noh", "Mikhail Pavlov",
+            "Raul Puri", "Nikolas Tezak", "Amin Tootoonchian", "Tianhao Zheng"  
+        ],
+        "Hardware correctness": [
+            "Oleg Boiko", "Trevor Cai", "Michael Petrov", "Alethea Power"
+        ],
+        "Data": [
+            "Jong Wook Kim", "David Mély", "Reiichiro Nakano", "Hyeonwoo Noh",
+            "Long Ouyang", "Raul Puri", "Pranav Shyam", "Tao Xu"
+        ],
+        "Alignment data": [
+            "Long Ouyang"
+        ],
+        "Training run babysitting": [
+            "Trevor Cai", "Kyle Kosic", "Daniel Levy", "David Mély",
+            "Reiichiro Nakano", "Hyeonwoo Noh", "Mikhail Pavlov", "Raul Puri",
+            "Amin Tootoonchian"
+        ],
+        "Deployment & post-training": [
+            "Ilge Akkaya", "Mark Chen", "Jamie Kiros", "Rachel Lim",
+            "Reiichiro Nakano", "Raul Puri", "Jiayi Weng"
+        ]
+    },
+    "Reinforcement Learning & Alignment": {
+        "Core contributors": [
+            "Greg Brockman", "Arka Dhar", "Liam Fedus", "Tarun Gogineni",
+            "Rapha Gontijo-Lopes", "Joshua Gross", "Johannes Heidecke",
+            "Joost Huizinga", "Teddy Lee", "Jan Leike", "Ryan Lowe", "Luke Metz",
+            "Long Ouyang", "John Schulman", "Jerry Tworek", "Carroll Wainwright",
+            "Jonathan Ward", "Jiayi Weng", "Sarah Yoo", "Wojciech Zaremba", "Chong Zhang",
+            "Shengjia Zhao", "Barret Zoph"
+        ],
+        "Dataset contributions": [
+            "Diogo Almeida", "Mo Bavarian", "Juan Felipe Cerón Uribe",
+            "Tyna Eloundou", "Liam Fedus", "Tarun Gogineni", "Rapha Gontijo-Lopes",
+            "Jonathan Gordon", "Joost Huizinga", "Shawn Jain", "Roger Jiang",
+            "Łukasz Kaiser", "Christina Kim", "Jan Leike", "Chak Ming Li",
+            "Stephanie Lin", "Ryan Lowe", "Jacob Menick", "Luke Metz",
+            "Pamela Mishkin", "Tong Mu", "Oleg Murk", "Ashvin Nair", "Long Ouyang",
+            "Alex Passos", "Michael (Rai) Pokorny", "Vitchyr Pong", "Shibani Santurkar",
+            "Daniel Selsam", "Sarah Shoker", "Carroll Wainwright", "Matt Wiethoff",
+            "Jeff Wu", "Kai Xiao", "Kevin Yu", "Marvin Zhang", "Chong Zhang",
+            "William Zhuk", "Barret Zoph"
+        ],
+        "Data infrastructure": [
+            "Irwan Bello", "Lenny Bogdonoff", "Juan Felipe Cerón Uribe",
+            "Joshua Gross", "Shawn Jain", "Haozhun Jin", "Christina Kim",
+            "Aris Konstantinidis", "Teddy Lee", "David Medina", "Jacob Menick",
+            "Luke Metz", "Ashvin Nair", "Long Ouyang", "Michael (Rai) Pokorny",
+            "Vitchyr Pong", "John Schulman", "Jonathan Ward", "Jiayi Weng",
+            "Matt Wiethoff", "Sarah Yoo", "Kevin Yu", "Wojciech Zaremba",
+            "William Zhuk", "Barret Zoph"  
+        ],
+        "ChatML format": [
+            "Ilge Akkaya", "Christina Kim", "Chak Ming Li", "Rachel Lim", 
+            "Jacob Menick", "Luke Metz", "Andrey Mishchenko", "Vitchyr Pong",
+            "John Schulman", "Carroll Wainwright", "Barret Zoph"
+        ],
+        "Model safety": [
+            "Josh Achiam", "Steven Adler", "Juan Felipe Cerón Uribe",
+            "Hyung Won Chung", "Tyna Eloundou", "Rapha Gontijo-Lopes",
+            "Shixiang Shane Gu", "Johannes Heidecke", "Joost Huizinga", "Teddy Lee",
+            "Jan Leike", "Stephanie Lin", "Ryan Lowe", "Todor Markov", "Luke Metz",
+            "Tong Mu", "Shibani Santurkar", "John Schulman", "Andrea Vallone",
+            "Carroll Wainwright", "Jason Wei", "Lilian Weng", "Kai Xiao",
+            "Chong Zhang", "Marvin Zhang", "Barret Zoph"
+        ],  
+        "Refusals": [
+            "Juan Felipe Cerón Uribe", "Tyna Eloundou", "Johannes Heidecke",
+            "Joost Huizinga", "Jan Leike", "Stephanie Lin", "Ryan Lowe",
+            "Pamela Mishkin", "Tong Mu", "Carroll Wainwright", "Lilian Weng",
+            "Kai Xiao", "Chong Zhang", "Barret Zoph"
+        ],
+        "Foundational RLHF and InstructGPT work": [
+            "Diogo Almeida", "Joost Huizinga", "Roger Jiang", "Jan Leike",
+            "Stephanie Lin", "Ryan Lowe", "Pamela Mishkin", "Dan Mossing",
+            "Long Ouyang", "Katarina Slama", "Carroll Wainwright", "Jeff Wu",
+            "Kai Xiao", "Marvin Zhang"  
+        ],
+        "Flagship training runs": [
+            "Greg Brockman", "Liam Fedus", "Johannes Heidecke", "Joost Huizinga",
+            "Roger Jiang", "Kyle Kosic", "Luke Metz", "Ashvin Nair", "Jiayi Weng",
+            "Chong Zhang", "Shengjia Zhao", "Barret Zoph"
+        ],
+        "Code capability": [
+            "Ilge Akkaya", "Mo Bavarian", "Jonathan Gordon", "Shawn Jain",
+            "Haozhun Jin", "Teddy Lee", "Chak Ming Li", "Oleg Murk", "Ashvin Nair",
+            "Vitchyr Pong", "Benjamin Sokolowsky", "Jerry Tworek", "Matt Wiethoff",
+            "Sarah Yoo", "Kevin Yu", "Wojciech Zaremba", "William Zhuk"  
+        ]
+    },
+    "Evaluation & analysis": {
+        "Core contributors": [
+            "Sandhini Agarwal", "Lama Ahmad", "Mo Bavarian", "Tyna Eloundou",
+            "Andrew Kondrich", "Gretchen Krueger", "Michael Lampe", "Pamela Mishkin",
+            "Benjamin Sokolowsky", "Jack Rae", "Chelsea Voss", "Alvin Wang",
+            "Kai Xiao", "Marvin Zhang"
+        ],
+        "OpenAI Evals library": [
+            "Shixiang Shane Gu", "Angela Jiang", "Logan Kilpatrick", "Andrew Kondrich",
+            "Pamela Mishkin", "Jakub Pachocki", "Ted Sanders", "Jessica Shieh", 
+            "Alvin Wang", "Marvin Zhang"
+        ],
+        "Model-graded evaluation infrastructure": [
+            "Liam Fedus", "Rapha Gontijo-Lopes", "Shixiang Shane Gu", "Andrew Kondrich",
+            "Michael (Rai) Pokorny", "Wojciech Zaremba", "Chong Zhang", "Marvin Zhang",
+            "Shengjia Zhao", "Barret Zoph"
+        ],
+        "Acceleration forecasting": [
+            "Alan Hickey", "Daniel Kokotajlo", "Cullen O'Keefe", "Sarah Shoker"
+        ],
+        "ChatGPT evaluations": [
+            "Juan Felipe Cerón Uribe", "Hyung Won Chung", "Rapha Gontijo-Lopes",
+            "Liam Fedus", "Luke Metz", "Michael Rai Pokorny", "Jason Wei",
+            "Shengjia Zhao", "Barret Zoph"
+        ],
+        "Capability evaluations": [
+            "Sully Chen", "Tyna Eloundou", "Shengli Hu", "Roger Jiang", "Jamie Kiros",
+            "Teddy Lee", "Scott Mayer McKinney", "Jakub Pachocki", "Alex Paino",
+            "Giambattista Parascandolo", "Boris Power", "Raul Puri", "Jack Rae", 
+            "Nick Ryder", "Ted Sanders", "Szymon Sidor", "Benjamin Sokolowsky",
+            "Chelsea Voss", "Alvin Wang", "Rowan Zellers", "Juntang Zhuang"  
+        ],
+        "Coding evaluations": [
+            "Ilge Akkaya", "Mo Bavarian", "Jonathan Gordon", "Shawn Jain", "Chak Ming Li",
+            "Oleg Murk", "Vitchyr Pong", "Benjamin Sokolowsky", "Jerry Tworek",
+            "Kevin Yu", "Wojciech Zaremba"
+            ],
+        "Real-world use case evaluations": [
+        "Andrew Kondrich", "Joe Palermo", "Boris Power", "Ted Sanders"
+        ],
+        "Contamination investigations": [
+        "Adrien Ecoffet", "Roger Jiang", "Ingmar Kanitscheider", "Scott Mayer McKinney",
+        "Alex Paino", "Giambattista Parascandolo", "Jack Rae", "Qiming Yuan"
+        ],
+        "Instruction following and API evals": [
+        "Diogo Almeida", "Carroll Wainwright", "Marvin Zhang"
+        ],
+        "Novel capability discovery": [
+        "Filipe de Avila Belbute Peres", "Kevin Button", "Fotis Chantzis",
+        "Mike Heaton", "Wade Hickey", "Xin Hu", "Andrew Kondrich", "Matt Knight",
+        "Andrew Mayne", "Jake McNeil", "Vinnie Monaco", "Joe Palermo",
+        "Joel Parish", "Boris Power", "Bob Rotsted", "Ted Sanders"
+        ],
+        "Vision evaluations": [
+        "Shixiang Shane Gu", "Shengli Hu", "Jamie Kiros", "Hyeonwoo Noh",
+        "Raul Puri", "Rowan Zellers"
+        ],
+        "Economic impact evaluation": [
+        "Tyna Eloundou", "Sam Manning", "Aalok Mehta", "Pamela Mishkin"
+        ],
+        "Non-proliferation, international humanitarian law & national security red teaming": [
+        "Sarah Shoker"
+        ],
+        "Overreliance analysis": [
+        "Miles Brundage", "Michael Lampe", "Pamela Mishkin"
+        ],
+        "Privacy and PII evaluations": [
+        "Michael Lampe", "Vinnie Monaco", "Ashley Pantuliano"
+        ],
+        "Safety and policy evaluations": [
+        "Josh Achiam", "Sandhini Agarwal", "Lama Ahmad", "Jeff Belgum",
+        "Tyna Eloundou", "Johannes Heidecke", "Shengli Hu", "Joost Huizinga",
+        "Jamie Kiros", "Gretchen Krueger", "Michael Lampe", "Stephanie Lin",
+        "Ryan Lowe", "Todor Markov", "Vinnie Monaco", "Tong Mu", "Raul Puri",
+        "Girish Sastry", "Andrea Vallone", "Carroll Wainwright", "CJ Weinmann",
+        "Lilian Weng", "Kai Xiao", "Chong Zhang"
+        ],
+        "OpenAI adversarial testers": [
+            "Josh Achiam", "Steven Adler", "Lama Ahmad", "Shyamal Anadkat", "Red Avila",
+            "Gabriel Bernadett-Shapiro", "Anna-Luisa Brakman", "Tim Brooks", "Miles Brundage",
+            "Chelsea Carlson", "Derek Chen", "Hyung Won Chung", "Jeremiah Currier",
+            "Daniel Kokotajlo", "David Dohan", "Adrien Ecoffet", "Vik Goel", "Ryan Greene",
+            "Johannes Heidecke", "Alan Hickey", "Shengli Hu", "Joost Huizinga", "Janko",
+            "Tomer Kaftan", "Ali Kamali", "Nitish Shirish Keskar", "Tabarak Khan",
+            "Hendrik Kirchner", "Daniel Kokotajlo", "Gretchen Krueger", "Michael Lampe",
+            "Teddy Lee", "Molly Lin", "Ryan Lowe", "Todor Markov", "Jake McNeil",
+            "Pamela Mishkin", "Vinnie Monaco", "Daniel Mossing", "Tong Mu", "Oleg Murk",
+            "Cullen O'Keefe", "Joe Palermo", "Giambattista Parascandolo", "Joel Parish",
+            "Boris Power", "Alethea Power", "Cameron Raymond", "Francis Real", "Bob Rotsted",
+            "Mario Salterelli", "Sam Wolrich", "Ted Sanders", "Girish Sastry", "Sarah Shoker",
+            "Shyamal Anadkat", "Yang Song", "Natalie Staudacher", "Madeleine Thompson",
+            "Elizabeth Tseng", "Chelsea Voss", "Jason Wei", "Chong Zhang"
+        ],
+        "System card & broader impacts analysis": [
+        "Steven Adler", "Sandhini Agarwal", "Lama Ahmad", "Janko Altenschmidt", "Jeff Belgum",
+        "Gabriel Bernadett-Shapiro", "Miles Brundage", "Derek Chen", "Tyna Eloundou", "Liam Fedus",
+        "Leo Gao", "Vik Goel", "Johannes Heidecke", "Alan Hickey", "Shengli Hu", "Joost Huizinga",
+        "Daniel Kokotajlo", "Gretchen Krueger", "Michael Lampe", "Jade Leung", "Stephanie Lin",
+        "Ryan Lowe", "Kim Malfacini", "Todor Markov", "Bianca Martin", "Aalok Mehta",
+        "Pamela Mishkin", "Tong Mu", "Richard Ngo", "Cullen O'Keefe", "Joel Parish",
+        "Rai Pokorny", "Bob Rotsted", "Girish Sastry", "Sarah Shoker", "Andrea Vallone",
+        "Carroll Wainwright", "CJ Weinmann", "Lilian Weng", "Dave Willner", "Kai Xiao",
+        "Chong Zhang"
+        ]
+    },
+    "Deployment": {
+        "Core contributors": [
+        "Steven Adler", "Sandhini Agarwal", "Derek Chen", "Atty Eleti",
+        "Joanne Jang", "Angela Jiang", "Tomer Kaftan", "Rachel Lim",
+        "Kim Malfacini", "Bianca Martin", "Evan Morikawa",
+        "Henrique Ponde de Oliveira Pinto", "Heather Schmidt", "Maddie Simens",
+        "Felipe Petroski Such", "Andrea Vallone", "Lilian Weng", "Dave Willner",
+        "Michael Wu"
+        ],
+        "Inference research": [
+        "Paul Baltescu", "Scott Gray", "Yuchen He", "Arvind Neelakantan",
+        "Michael Wu"
+        ],
+        "GPT-4 API & ChatML deployment": [
+        "Greg Brockman", "Brooke Chan", "Chester Cho", "Atty Eleti",
+        "Rachel Lim", "Andrew Peng", "Michelle Pokrass", "Sherwin Wu"
+        ],
+        "GPT-4 web experience": [
+        "Valerie Balcom", "Lenny Bogdonoff", "Jason Chen", "Dave Cummings",
+        "Noah Deutsch", "Mike Heaton", "Paul McMillan", "Rajeev Nayak",
+        "Joel Parish", "Adam Perelman", "Eric Sigler", "Nick Turley",
+        "Arun Vijayvergiya", "Chelsea Voss"
+        ],
+        "Inference infrastructure": [
+        "Brooke Chan", "Scott Gray", "Chris Hallacy", "Kenny Hsu", "Tomer Kaftan",
+        "Rachel Lim", "Henrique Ponde de Oliveira Pinto", "Raul Puri",
+        "Heather Schmidt", "Felipe Petroski Such"
+        ],
+        "Reliability engineering": [
+        "Haiming Bao", "Madelaine Boyd", "Ben Chess", "Damien Deville",
+        "Yufei Guo", "Vishal Kuo", "Ikai Lan", "Michelle Pokrass", "Carl Ross",
+        "David Schnurr", "Jordan Sitkin", "Felipe Petroski Such"
+        ],
+        "Trust & safety engineering": [
+        "Jeff Belgum", "Madelaine Boyd", "Vik Goel"
+        ],
+        "Trust & safety monitoring and response": [
+        "Janko Altenschmidt", "Anna-Luisa Brakman", "Derek Chen",
+        "Florencia Leoni Aleman", "Molly Lin", "Cameron Raymond", "CJ Weinmann",
+        "Dave Willner", "Samuel Wolrich"
+        ],
+        "Trust & safety policy": [
+        "Rosie Campbell", "Kim Malfacini", "Andrea Vallone", "Dave Willner"
+        ],
+        "Deployment compute": [
+        "Peter Hoeschele", "Evan Morikawa"
+        ],
+        "Product management": [
+        "Jeff Harris", "Joanne Jang", "Angela Jiang"
+        ]
+        },
+    "Additional contributions": {
+        "General": ["Sam Altman", "Katie Mayer", "Bob McGrew", "Mira Murati", "Ilya Sutskever",
+        "Peter Welinder"
+        ],
+        "Blog post & paper content": [
+        "Sandhini Agarwal", "Greg Brockman", "Miles Brundage", "Adrien Ecoffet",
+        "Tyna Eloundou", "David Farhi", "Johannes Heidecke", "Shengli Hu", "Joost Huizinga",
+        "Roger Jiang", "Gretchen Krueger", "Jan Leike", "Daniel Levy", "Stephanie Lin",
+        "Ryan Lowe", "Tong Mu", "Hyeonwoo Noh", "Jakub Pachocki", "Jack Rae",
+        "Kendra Rimbach", "Shibani Santurkar", "Szymon Sidor", "Benjamin Sokolowsky",
+        "Jie Tang", "Chelsea Voss", "Kai Xiao", "Rowan Zellers", "Chong Zhang",
+        "Marvin Zhang"
+        ],
+        "Communications": [
+        "Ruby Chen", "Cory Decareaux", "Thomas Degry", "Steve Dowling", "Niko Felix",
+        "Elie Georges", "Anna Makanju", "Andrew Mayne", "Aalok Mehta", "Elizabeth Proehl",
+        "Kendra Rimbach", "Natalie Summers", "Justin Jay Wang", "Hannah Wong"
+        ],
+        "Compute allocation support": [
+        "Theresa Lopez", "Elizabeth Tseng"
+        ],
+        "Contracting, revenue, pricing, & finance support": [
+        "Brooke Chan", "Denny Jin", "Billie Jonn", "Patricia Lue", "Kyla Sheppard",
+        "Lauren Workman"
+        ],
+        "Launch partners & product operations": [
+        "Filipe de Avila Belbute Peres", "Brittany Carey", "Simón Posada Fishman",
+        "Isabella Fulford", "Teddy Lee", "Yaniv Markovski", "Tolly Powell",
+        "Toki Sherbakov", "Jessica Shieh", "Natalie Staudacher", "Preston Tuggle"
+        ],
+        "Legal": [
+        "Jake Berdine", "Che Chang", "Sheila Dunning", "Ashley Pantuliano"
+        ],
+        "Security & privacy engineering": [
+        "Kevin Button", "Fotis Chantzis", "Wade Hickey", "Xin Hu", "Shino Jomoto",
+        "Matt Knight", "Jake McNeil", "Vinnie Monaco", "Joel Parish", "Bob Rotsted"
+        ],
+        "System administration & on-call support": [
+        "Morgan Grafstein", "Francis Real", "Mario Saltarelli"
+        ],
+        "Authorship & credit attribution": [
+        "David Farhi"
+        ]
+    }
+}

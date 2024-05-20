@@ -146,3 +146,76 @@ def energy_price(year):
         2023: 0.0806,
     }
     return prices[year]
+
+
+# https://www.nrel.gov/docs/fy20osti/73901.pdf
+# Converted by ChatGPT, only checked a few values for accuracy
+us_state_energy_prices_mmbtu = {
+    "Hawaii": 67.17,
+    "Alaska": 47.89,
+    "Rhode Island": 42.69,
+    "Washington": 13.49,
+    "Montana": 15.38,
+    "Texas": 15.69,
+    "California": 37.31,
+    "Oregon": 17.54,
+    "Nevada": 18.03,
+    "Idaho": 19.52,
+    "Utah": 17.97,
+    "Arizona": 18.91,
+    "New Mexico": 18.04,
+    "Colorado": 22.45,
+    "Wyoming": 21.99,
+    "North Dakota": 22.37,
+    "South Dakota": 22.97,
+    "Nebraska": 20.27,
+    "Kansas": 22.11,
+    "Oklahoma": 15.89,
+    "Minnesota": 21.61,
+    "Iowa": 18.19,
+    "Missouri": 17.80,
+    "Arkansas": 16.06,
+    "Louisiana": 15.55,
+    "Wisconsin": 21.96,
+    "Illinois": 21.09,
+    "Michigan": 19.08,
+    "Indiana": 17.10,
+    "Ohio": 18.18,
+    "Kentucky": 17.55,
+    "Tennessee": 18.05,
+    "Mississippi": 17.46,
+    "Alabama": 18.13,
+    "Florida": 22.94,
+    "Georgia": 18.46,
+    "South Carolina": 18.18,
+    "North Carolina": 18.13,
+    "Virginia": 17.36,
+    "West Virginia": 16.75,
+    "Pennsylvania": 21.48,
+    "New York": 26.98,
+    "New Jersey": 19.47,
+    "Delaware": 24.53,
+    "Maryland": 22.10,
+    "Vermont": 21.09,
+    "New Hampshire": 22.79,
+    "Massachusetts": 29.65,
+    "Connecticut": 24.12,
+    "Maine": 38.40
+}
+
+US_STATE_ENERGY_PRICES_PER_KWH = {state: price / 293.071 for state, price in us_state_energy_prices_mmbtu.items()}
+
+# Common data center states in the US
+data_center_states = [
+    "Virginia",
+    "Texas",
+    "California",
+    "New York",
+    "Illinois",
+    "Oregon",
+    "Nevada",
+    "Washington",
+    "Georgia",
+    "Ohio",
+    "North Carolina"
+]
