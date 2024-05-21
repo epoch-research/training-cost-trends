@@ -122,80 +122,6 @@ def estimate_cloud_costs(
     return frontier_pcd_df
 
 
-def estimate_amortized_hardware_costs(
-    frontier_pcd_df,
-    hardware_df,
-    price_df,
-    impute_pcd_fn=None,
-    **impute_kwargs,
-):
-    """
-    Full pipeline for estimating amortized hardware costs
-    """
-    print("Estimating amortized hardware costs")
-    if impute_pcd_fn is not None:
-        frontier_pcd_df = impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
-    
-    pcd_hardware_model_colname = 'Training hardware'
-    price_colname = 'Price (hardware purchase)'
-    system_to_price = {}
-
-    for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
-        price, _ = get_hardware_value_at_training_start(
-            row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
-        )
-        if price is None:
-            continue
-        else:
-            system_to_price[row['System']] = price
-
-    # Cost estimation
-    # TODO move outside of the function
-    def estimate_cost(row, system_to_price):
-        system = row['System']
-        price = system_to_price.get(system)
-        if price is None:
-            return None
-
-        hardware_model = row['Training hardware']
-        hardware_release_date = get_release_date(hardware_model, hardware_df)
-        hardware_lifetime = get_server_lifetime(hardware_release_date.year)
-
-        training_chip_hours = estimate_chip_hours(row, hardware_df)
-
-        price_per_chip_hour = price / hardware_lifetime
-        cost = price_per_chip_hour * training_chip_hours
-
-        # Check for base model
-        if not pd.isna(row['Base model']):
-            base_model_name = row['Base model']
-            base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
-            if base_model.empty:
-                return None
-            base_cost = estimate_cost(base_model, system_to_price)
-            if base_cost is None:
-                return None
-            else:
-                cost += base_cost
-
-        return cost
-        
-    system_to_cost = {}
-    for i, row in frontier_pcd_df.iterrows():
-        print(f"==== System: {row['System']} ====")
-        cost = estimate_cost(row, system_to_price)
-        if cost is None:
-            continue
-        system_to_cost[row['System']] = cost
-
-    print(system_to_cost)
-
-    frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
-
-    return frontier_pcd_df
-
-
 def estimate_hardware_acquisition_cost(
     frontier_pcd_df,
     hardware_df,
@@ -270,7 +196,7 @@ def estimate_hardware_acquisition_cost(
     return frontier_pcd_df
 
 
-def estimate_hardware_capex_opex(
+def estimate_hardware_capex_energy(
     frontier_pcd_df,
     hardware_df,
     price_df,
@@ -279,7 +205,7 @@ def estimate_hardware_capex_opex(
     **impute_kwargs,
 ):
     """
-    Full pipeline for estimating the sum of amortized hardware CapEx and OpEx
+    Full pipeline for estimating the sum of amortized hardware CapEx and energy cost
     """
     if impute_pcd_fn is not None:
         frontier_pcd_df = impute_pcd_fn(frontier_pcd_df, **impute_kwargs)
@@ -301,7 +227,7 @@ def estimate_hardware_capex_opex(
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
         print(f"==== System: {row['System']} ====")
-        cost = estimate_hardware_capex_opex_cost(
+        cost = estimate_hardware_capex_energy_cost(
             row, system_to_price, frontier_pcd_df, hardware_df, separate_components
         )
         if cost is None:
@@ -334,7 +260,7 @@ def estimate_hardware_capex_opex(
     return frontier_pcd_df
 
 
-def estimate_hardware_capex_opex_cost(
+def estimate_hardware_capex_energy_cost(
     row, system_to_price, frontier_pcd_df, hardware_df, separate_components=False,
 ):
     system = row['System']
@@ -382,7 +308,7 @@ def estimate_hardware_capex_opex_cost(
         if base_model.empty:
             print("Base model specified, but not found in database")
             return None
-        base_cost = estimate_hardware_capex_opex_cost(
+        base_cost = estimate_hardware_capex_energy_cost(
             base_model, system_to_price, frontier_pcd_df, hardware_df, separate_components,
         )
         if base_cost is None:
