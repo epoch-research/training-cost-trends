@@ -228,13 +228,13 @@ def get_cost_plot_title(estimation_method, compute_threshold_method, compute_thr
     if compute_threshold_method == 'window_percentile':
         title_suffix = f' to train top {100 - compute_threshold}% most compute-intensive ML models'
     elif compute_threshold_method == 'top_n':
-        title_suffix = f' to train the running top-{compute_threshold} most compute-intensive ML models'
+        title_suffix = f'<br>for the top-{compute_threshold} most compute-intensive ML models over time'
 
     plot_title_lookup = {
         'cloud': 'Cloud compute cost' + title_suffix,
         'amortized': 'Amortized cost of hardware' + title_suffix,
         'hardware-acquisition': 'Acquisition cost of hardware' + title_suffix,
-        'hardware-capex-opex': 'Hardware CapEx + OpEx' + title_suffix,
+        'hardware-capex-opex': 'Amortized hardware CapEx + energy cost of final training run' + title_suffix,
     }
 
     return plot_title_lookup[estimation_method]
