@@ -88,6 +88,8 @@ def chow_test(data1, data2, features, target, logy=False):
 
 
 def regression_slope_t_test(data1, data2, features, target, logy=False):
+    common_systems = data1['System'].isin(data2['System'])
+
     data1 = data1.dropna(subset=features + [target])
     X1 = data1[features].to_numpy()
     X1 = sm.add_constant(X1)  # Add a constant term to the features
@@ -98,9 +100,15 @@ def regression_slope_t_test(data1, data2, features, target, logy=False):
     X2 = sm.add_constant(X2)
     y2 = data2[target].to_numpy()
 
+    data12 = data1.loc[common_systems].dropna(subset=features + [target])
+    X12 = data12[features].to_numpy()
+    X12 = sm.add_constant(X12)
+    y12 = data12[target].to_numpy()
+
     if logy:
         y1 = np.log10(y1)
         y2 = np.log10(y2)
+        y12 = np.log10(y12)
 
     # Separate regressions
     model1 = sm.OLS(y1, X1).fit()
@@ -113,8 +121,15 @@ def regression_slope_t_test(data1, data2, features, target, logy=False):
     print(f"Slope 1: {b1:.2f} (SE: {SE1:.2f})")
     print(f"Slope 2: {b2:.2f} (SE: {SE2:.2f})")
 
+    # get residuals of overlapping data as predicted by each model
+    residuals_model1 = y12 - model1.predict(exog=X12)
+    residuals_model2 = y12 - model2.predict(exog=X12)
+
+    # get the correlation coefficient between residuals according to each model
+    rho = np.corrcoef(residuals_model1, residuals_model2)[0, 1]
+
     # Calculate the test statistic
-    t_stat = (b1 - b2) / np.sqrt(SE1**2 + SE2**2)
+    t_stat = (b1 - b2) / np.sqrt(SE1 ** 2 + SE2 ** 2 - 2 * SE1 * SE2 * rho)
 
     # Degrees of freedom
     df1 = X1.shape[0] - 2
@@ -124,7 +139,6 @@ def regression_slope_t_test(data1, data2, features, target, logy=False):
     # Calculate the p-value
     p_value = 2 * (1 - stats.t.cdf(abs(t_stat), df))
 
+    print(f"Correlation between methods: {rho:.2f}")
     print(f"Test statistic: {t_stat:.2f}")
     print(f"p-value: {p_value:.2f}")
-
-    return t_stat, p_value
