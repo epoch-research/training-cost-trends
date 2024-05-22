@@ -89,6 +89,17 @@ def lognorm_from_ci(p_low, p_high, ci, num_samples):
     return dist
 
 
+def norm_from_ci(p_low, p_high, ci, num_samples):
+    ci_low = 50 - ci / 2
+    ci_high = 50 + ci / 2
+    # Solve for mu and sigma
+    sigma = (p_high - p_low) / (stats.norm.ppf(ci_high/100) - stats.norm.ppf(ci_low/100))
+    mu = p_low - stats.norm.ppf(ci_low/100) * sigma
+    # Generate normal samples
+    dist = np.random.normal(loc=mu, scale=sigma, size=num_samples)
+    return dist
+
+
 def print_median_and_ci(samples, ci=[5, 95]):
     median_value = np.median(samples)
     lower_percentile, upper_percentile = np.percentile(samples, ci)
