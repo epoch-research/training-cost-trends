@@ -162,7 +162,7 @@ def estimate_hardware_acquisition_cost(
         hardware_quantity = row['Hardware quantity']
         cost = hardware_quantity * price
         # Add interconnect cost
-        cost *= CLUSTER_INTERCONNECT_COST_OVERHEAD
+        cost *= 1 / (1 - CLUSTER_INTERCONNECT_COST_FRACTION)
 
         # Check for base model
         if not pd.isna(row['Base model']):
@@ -279,7 +279,7 @@ def estimate_hardware_capex_energy_cost(
     price_per_chip_hour = price * hardware_replacement_per_year / HOURS_PER_YEAR
     amortized_hardware_cost = price_per_chip_hour * training_chip_hours
 
-    interconnect_cost = (CLUSTER_INTERCONNECT_COST_OVERHEAD - 1) * amortized_hardware_cost
+    interconnect_cost = amortized_hardware_cost * CLUSTER_INTERCONNECT_COST_FRACTION / (1 - CLUSTER_INTERCONNECT_COST_FRACTION)
 
     org = row['Organization']
     pub_year = row['Publication date'].year
