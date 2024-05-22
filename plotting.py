@@ -231,8 +231,7 @@ def get_cost_plot_title(estimation_method, compute_threshold_method, compute_thr
         title_suffix = f' for the top-{compute_threshold} most compute-intensive ML models over time'
 
     plot_title_lookup = {
-        'cloud': 'Cloud compute cost' + title_suffix,
-        'amortized': 'Amortized cost of hardware' + title_suffix,
+        'cloud': 'Cloud compute cost of final training run<br>' + title_suffix,
         'hardware-acquisition': 'Acquisition cost of hardware' + title_suffix,
         'hardware-capex-energy': 'Amortized hardware CapEx + energy cost of final training run<br>' + title_suffix,
     }
