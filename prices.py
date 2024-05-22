@@ -136,8 +136,8 @@ def get_training_start_date(row, backup_training_time=True):
                 return None
         else:
             training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
-        # Can test different buffer times here: e.g. 15 days, 90 days
-        buffer_time = pd.Timedelta(days=30)
+        # Can test different buffer times here: e.g. 20 days, 180 days
+        buffer_time = pd.Timedelta(days=60)
         training_start_date = row['Publication date'] - (training_time + buffer_time)
     return training_start_date
 
