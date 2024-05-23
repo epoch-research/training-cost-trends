@@ -31,13 +31,14 @@ DEFAULT_CUD = {
     },
 }
 
-# See https://docs.google.com/document/d/1r0KMbDPy0QVy7Z9PxAS3qJqzX7vK5hzEH1hVkoYUWiY/edit?usp=sharing
-# These numbers have false precision but we keep it to match the calculations.
+
+# These numbers are kept precise to match our calculations
+# Even though they have high uncertainty
 TPU_EQUIVALENT_RELEASE_PRICES = {
-    "Google TPU v4": 12119,
-    "Google TPU v3": 10742,
-    "Google TPU v2": 18583,
-    "Google TPU v1": 11263,
+    "Google TPU v1": 5463,
+    "Google TPU v2": 5054,
+    "Google TPU v3": 5276,
+    "Google TPU v4": 5167,
 }
 
 
@@ -404,7 +405,7 @@ def get_hardware_acquisition_price(
         return None, None
     print(
         f"Estimated the value of {hardware_model} server, " +
-        f"available from {acquisition_date}: {price_value}\n"
+        f"available from {acquisition_date}: {price_value} per chip\n"
     )
     return price_value, price_id
 
@@ -433,6 +434,6 @@ def get_hardware_value_at_training_start(
     )
     print(
         f"Estimated the value of {hardware_model} server, available from {acquisition_date} " +
-        f"and used from {training_start_date}: {price_value}\n"
+        f"and used from {training_start_date}: {price_value} per chip\n"
     )
     return price_value, price_id
