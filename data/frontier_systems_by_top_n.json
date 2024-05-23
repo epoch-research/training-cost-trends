@@ -1,154 +1,152 @@
 {
     "1": [
-        "AlphaGo Zero",
-        "AlphaGo Lee",
-        "Megatron-Turing NLG 530B",
         "AlphaGo Master",
+        "Megatron-Turing NLG 530B",
         "Minerva (540B)",
         "GPT-4",
+        "AlphaGo Zero",
+        "AlphaGo Lee",
+        "GNMT",
         "PaLM (540B)",
-        "Gemini Ultra",
-        "GNMT"
+        "Gemini 1.0 Ultra"
     ],
     "2": [
-        "NASv3 (CIFAR-10)",
-        "Yuan 1.0",
-        "Inflection-2",
+        "U-PaLM (540B)",
         "GPT-3 175B (davinci)",
         "PaLM 2",
-        "U-PaLM (540B)",
-        "Gopher (280B)",
+        "NASv3 (CIFAR-10)",
+        "Yuan 1.0",
+        "ERNIE 3.0 Titan",
         "GPT-3.5 (text-davinci-003)",
-        "ERNIE 3.0 Titan"
+        "Gopher (280B)",
+        "Inflection-2"
     ],
     "3": [
-        "AlphaZero",
-        "Claude 2",
-        "OpenAI Five",
-        "Xception",
         "Meena",
-        "Megatron-BERT",
+        "Claude 2",
         "DeepSpeech2 (English)",
+        "Xception",
+        "Megatron-BERT",
+        "OpenAI Five",
+        "AlphaZero",
         "GLaM"
     ],
     "4": [
-        "HyperCLOVA",
-        "Falcon-180B",
-        "AlphaStar",
-        "ResNeXt-101 32x48d",
         "Flan-PaLM 540B",
-        "Chinchilla"
+        "Falcon-180B",
+        "Chinchilla",
+        "ResNeXt-101 32x48d",
+        "AlphaStar"
     ],
     "5": [
-        "ResNet-152 (ImageNet)",
-        "JFT",
-        "LaMDA",
         "Switch",
-        "Libratus",
-        "FTW",
-        "Megatron-LM (8.3B)",
         "Grok-1",
         "T5-11B",
-        "mT5-XXL"
+        "Libratus",
+        "FTW",
+        "JFT",
+        "ResNet-152 (ImageNet)",
+        "LaMDA",
+        "mT5-XXL",
+        "Megatron-LM (8.3B)"
     ],
     "6": [
-        "OpenAI TI7 DOTA 1v1",
+        "OPT-175B",
         "PolyNet",
-        "ByT5-XXL",
-        "OPT-175B"
+        "OpenAI TI7 DOTA 1v1"
     ],
     "7": [
+        "ProtT5-XXL",
         "GPT-2 (1.5B)",
-        "Parti",
-        "ProtT5-XXL"
+        "ByT5-XXL",
+        "Parti"
     ],
     "8": [
         "XLNet",
-        "BlenderBot 3",
         "OpenAI Five Rerun",
-        "BLOOM-176B",
+        "GOAT",
         "MoE",
-        "GOAT"
+        "BlenderBot 3",
+        "BLOOM-176B"
     ],
     "9": [
-        "BigGAN-deep 512x512",
+        "Turing-NLG",
+        "GLM-130B",
         "DALL-E",
         "AlphaCode",
-        "RoBERTa Large",
         "ST-MoE",
-        "Turing-NLG",
-        "GLM-130B"
+        "BigGAN-deep 512x512",
+        "RoBERTa Large"
     ],
     "10": [
-        "Meta Pseudo Labels",
-        "iGPT-XL"
+        "iGPT-XL",
+        "Transformer (Adaptive Input Embeddings)",
+        "Meta Pseudo Labels"
     ],
     "11": [
-        "ConvS2S (ensemble of 8 models)",
-        "Llama 2-70B",
-        "MnasNet-A1 + SSDLite",
-        "ChatGLM3",
-        "AmoebaNet-A (F=448)",
-        "BIDAF",
         "xTrimoPGLM -100B",
-        "LLaMA-65B"
+        "LLaMA-65B",
+        "AmoebaNet-A (F=448)",
+        "MnasNet-A1 + SSDLite",
+        "GPT-NeoX-20B",
+        "Llama 2-70B",
+        "ChatGLM3",
+        "BIDAF",
+        "ConvS2S (ensemble of 8 models)"
     ],
     "12": [
         "PNASNet-5",
-        "Flamingo",
         "DeepStack",
+        "Qwen-72B",
         "MnasNet-A3",
-        "GPT-NeoX-20B",
-        "Qwen-72B"
+        "Flamingo"
     ],
     "13": [
-        "FLAN 137B",
-        "IMPALA",
-        "ContextNet + Noisy Student",
-        "ProtBERT-BFD",
         "ViT-22B",
-        "GShard (dense)",
+        "ProtBERT-BFD",
         "PanGu-\u03a3",
-        "PLUG"
+        "PLUG",
+        "GShard (dense)",
+        "ContextNet + Noisy Student",
+        "FLAN 137B",
+        "IMPALA"
     ],
     "14": [
-        "iGPT-L",
         "ProtT5-XXL-BFD",
-        "CoAtNet",
-        "BERT-Large-CAS (PTB+WT2+WT103)"
+        "iGPT-L",
+        "CoAtNet"
     ],
     "15": [
+        "BERT-Large-CAS (PTB+WT2+WT103)",
         "Yi-34B"
     ],
     "16": [
+        "Big Transformer for Back-Translation",
+        "UL2",
         "Transformer",
         "AlexaTM 20B",
-        "CLIP (ViT L/14@336px)",
-        "Big Transformer for Back-Translation",
-        "BERT-Large"
+        "Florence",
+        "CLIP (ViT L/14@336px)"
     ],
     "17": [
         "Part-of-sentence tagging model",
-        "Florence",
-        "UL2"
+        "BERT-Large"
     ],
     "18": [
         "Conformer + Wav2vec 2.0 + Noisy Student",
-        "Mesh-TensorFlow Transformer 4.9B (language modelling)",
         "ALBERT-xxlarge",
-        "Galactica",
-        "T5-3B"
+        "Galactica"
     ],
     "19": [
-        "ELECTRA",
-        "Transformer (Adaptive Input Embeddings)",
         "CogView",
-        "YOLOv3"
+        "T5-3B",
+        "YOLOv3",
+        "Mesh-TensorFlow Transformer 4.9B (language modelling)",
+        "ELECTRA",
+        "BASIC-L"
     ],
     "20": [
-        "LSTM (Hebbian, Cache, MbPA)",
-        "Noisy Student (L2)",
-        "BASIC-L",
-        "Named Entity Recognition model"
+        "Named Entity Recognition model",
+        "LSTM (Hebbian, Cache, MbPA)"
     ]
 }

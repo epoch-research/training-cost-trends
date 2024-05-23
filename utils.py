@@ -96,3 +96,24 @@ def print_safely(input_string):
     except UnicodeEncodeError:
         encoded_string = ''.join([char if char.encode('ascii', 'ignore') else f'\\u{ord(char):04x}' for char in input_string])
         print(f"Could not print original string due to encoding error. Printing modified version: {encoded_string}")
+
+
+def list_models(arr: list[list]) -> list:
+    """Takes a list of lists of models (from models_priority.ipynb) and returns a flat list."""
+    output = []
+    for item in arr:
+        if type(item) is list:
+            for element in item:
+                output.append(element)
+        elif type(item) is str:
+            output.append(item)
+    return output
+
+
+def select_models(models_dict: dict, rank: int, ascending: bool = True) -> list:
+    output = []
+    compare = lambda a, b, gt: (a >= b) if gt else (a < b)
+    for k, v in models_dict.items():
+        if compare(int(k), rank, ascending):
+            output.append(v)
+    return output
