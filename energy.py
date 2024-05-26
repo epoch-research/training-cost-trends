@@ -1,3 +1,4 @@
+import pandas as pd
 
 
 def power_usage_effectiveness(organization):
@@ -147,3 +148,108 @@ def energy_price(year):
         2024: 0.0806,  # placeholder
     }
     return prices[year]
+
+
+def cluster_power_capacity(hardware_model, hardware_quantity, hardware_df, organization):
+    """
+    hardware_model: name of the hardware used for the training run
+    hardware_quantity: number of chips used for the training run
+    hardware_df: DataFrame containing hardware specs
+    organization: name of the organization who did the training
+
+    Returns the power capacity in kilowatts required to do the training run.
+    """
+    matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
+    if pd.isna(chip_TDP_kw):
+        if "TPU v4" in hardware_model:
+            """
+            https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains
+            "Google's Cloud TPU v4 outperforms TPU v3 by 2.1x on average on a per-chip basis and improves performance/Watt by 2.7x."
+            TPU v3 performance per Watt: 123 TFLOPS / 450W = 0.273 TFLOPS/W
+            0.273 * 2.7 = 0.738 TFLOPS/W
+            TPU v4 is 275 TFLOPS => 275 / 0.738 = 373W
+            """
+            chip_TDP_kw = 373 / 1000
+        else:
+            print("Unable to estimate chip TDP")
+            return None
+    # Adjust for whole server power draw (CPUs, memory, cooling)
+    server_TDP_kw = chip_TDP_kw * chip_to_server_power(hardware_model)
+    # Adjust for data center power distribution and cooling
+    adj_server_power_kw = server_TDP_kw * power_usage_effectiveness(organization)
+    cluster_kw = adj_server_power_kw * hardware_quantity
+    return cluster_kw
+
+
+# https://www.nrel.gov/docs/fy20osti/73901.pdf
+# Converted by ChatGPT, only checked a few values for accuracy
+us_state_energy_prices_mmbtu = {
+    "Hawaii": 67.17,
+    "Alaska": 47.89,
+    "Rhode Island": 42.69,
+    "Washington": 13.49,
+    "Montana": 15.38,
+    "Texas": 15.69,
+    "California": 37.31,
+    "Oregon": 17.54,
+    "Nevada": 18.03,
+    "Idaho": 19.52,
+    "Utah": 17.97,
+    "Arizona": 18.91,
+    "New Mexico": 18.04,
+    "Colorado": 22.45,
+    "Wyoming": 21.99,
+    "North Dakota": 22.37,
+    "South Dakota": 22.97,
+    "Nebraska": 20.27,
+    "Kansas": 22.11,
+    "Oklahoma": 15.89,
+    "Minnesota": 21.61,
+    "Iowa": 18.19,
+    "Missouri": 17.80,
+    "Arkansas": 16.06,
+    "Louisiana": 15.55,
+    "Wisconsin": 21.96,
+    "Illinois": 21.09,
+    "Michigan": 19.08,
+    "Indiana": 17.10,
+    "Ohio": 18.18,
+    "Kentucky": 17.55,
+    "Tennessee": 18.05,
+    "Mississippi": 17.46,
+    "Alabama": 18.13,
+    "Florida": 22.94,
+    "Georgia": 18.46,
+    "South Carolina": 18.18,
+    "North Carolina": 18.13,
+    "Virginia": 17.36,
+    "West Virginia": 16.75,
+    "Pennsylvania": 21.48,
+    "New York": 26.98,
+    "New Jersey": 19.47,
+    "Delaware": 24.53,
+    "Maryland": 22.10,
+    "Vermont": 21.09,
+    "New Hampshire": 22.79,
+    "Massachusetts": 29.65,
+    "Connecticut": 24.12,
+    "Maine": 38.40
+}
+
+US_STATE_ENERGY_PRICES_PER_KWH = {state: price / 293.071 for state, price in us_state_energy_prices_mmbtu.items()}
+
+# Common data center states in the US
+data_center_states = [
+    "Virginia",
+    "Texas",
+    "California",
+    "New York",
+    "Illinois",
+    "Oregon",
+    "Nevada",
+    "Washington",
+    "Georgia",
+    "Ohio",
+    "North Carolina"
+]

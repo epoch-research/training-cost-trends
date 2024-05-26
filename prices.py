@@ -31,13 +31,14 @@ DEFAULT_CUD = {
     },
 }
 
-# See https://docs.google.com/document/d/1r0KMbDPy0QVy7Z9PxAS3qJqzX7vK5hzEH1hVkoYUWiY/edit?usp=sharing
-# These numbers have false precision but we keep it to match the calculations.
+
+# These numbers are kept precise to match our calculations
+# Even though they have high uncertainty
 TPU_EQUIVALENT_RELEASE_PRICES = {
-    "Google TPU v4": 12119,
-    "Google TPU v3": 10742,
-    "Google TPU v2": 18583,
-    "Google TPU v1": 11263,
+    "Google TPU v1": 5463,
+    "Google TPU v2": 5054,
+    "Google TPU v3": 5276,
+    "Google TPU v4": 5167,
 }
 
 
@@ -136,8 +137,8 @@ def get_training_start_date(row, backup_training_time=True):
                 return None
         else:
             training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
-        # TODO: test different buffer times: e.g. 15 days, 90 days
-        buffer_time = pd.Timedelta(days=30)
+        # Can test different buffer times here: e.g. 20 days, 180 days
+        buffer_time = pd.Timedelta(days=60)
         training_start_date = row['Publication date'] - (training_time + buffer_time)
     return training_start_date
 
@@ -361,6 +362,10 @@ def find_hardware_acquisition_price(
         print(f"Skipping {hardware_model}\n")
         return [None] * 4
     if "TPU" in hardware_model:
+        # Uncomment to test the effect of removing TPUs.
+        # print(f"Skipping TPU {hardware_model}")
+        # return [None] * 4
+    
         price_id = None
         price_value = find_TPU_equivalent_acquisition_price(hardware_model)
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
@@ -375,9 +380,11 @@ def find_hardware_acquisition_price(
         price_value = chosen_price_row[price_colname]
         price_date = chosen_price_row['Price date']
         release_date = get_release_date(hardware_model, hardware_df)
-        if price_date < release_date + pd.Timedelta(days=90):
+        # Can test different buffer times here: e.g. 0 days, 180 days
+        buffer_time = pd.Timedelta(days=90)
+        if price_date < release_date + buffer_time:
             # Assume at least 3 months between release and when someone first acquired it
-            acquisition_date = release_date + pd.Timedelta(days=90)
+            acquisition_date = release_date + buffer_time
         else:
             acquisition_date = price_date
         # Adjust single-unit prices for additional equipment e.g. CPU, intra-node interconnect
@@ -400,7 +407,7 @@ def get_hardware_acquisition_price(
         return None, None
     print(
         f"Estimated the value of {hardware_model} server, " +
-        f"available from {acquisition_date}: {price_value}\n"
+        f"available from {acquisition_date}: {price_value} per chip\n"
     )
     return price_value, price_id
 
@@ -420,11 +427,15 @@ def get_hardware_value_at_training_start(
         return None, None
     # Depreciate the price due to hardware progress since being acquired
     training_start_date = get_training_start_date(row, backup_training_time)
+    if 'TPU' not in hardware_model and training_start_date < acquisition_date:
+        # For TPUs, training could have started before public availability
+        # But for GPUs, training can only start after acquisition
+        training_start_date = acquisition_date
     price_value = depreciate_by_hardware_progress(
         price_value, acquisition_date, training_start_date
     )
     print(
         f"Estimated the value of {hardware_model} server, available from {acquisition_date} " +
-        f"and used from {training_start_date}: {price_value}\n"
+        f"and used from {training_start_date}: {price_value} per chip\n"
     )
     return price_value, price_id
