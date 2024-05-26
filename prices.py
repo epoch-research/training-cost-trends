@@ -374,6 +374,8 @@ def find_hardware_acquisition_price(
         acquisition_date = get_release_date(hardware_model, hardware_df)
     else:
         chosen_price_row = find_gpu_acquisition_price(price_df, hardware_model, price_colname)
+        if chosen_price_row is (None, None):
+            return [None] * 4
         price_id = chosen_price_row['Price source']
         price_value = chosen_price_row[price_colname]
         price_date = chosen_price_row['Price date']
