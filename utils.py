@@ -99,7 +99,7 @@ def print_safely(input_string):
 
 
 def list_models(arr: list[list]) -> list:
-    """Takes a list of lists of models (from models_priority.ipynb) and returns a flat list."""
+    """Takes a list of lists of models (from ml_models_priority.ipynb) and returns a flat list."""
     output = []
     for item in arr:
         if type(item) is list:
