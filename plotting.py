@@ -226,7 +226,7 @@ def prettify_bar_chart(fig, rotate_x_labels=True, **chart_args):
 
 def get_cost_plot_title(estimation_method, compute_threshold_method, compute_threshold):
     if compute_threshold_method == 'window_percentile':
-        title_suffix = f' to train top {100 - compute_threshold}% most compute-intensive ML models'
+        title_suffix = f' to train models with more compute than {compute_threshold}% of models the year before and after'
     elif compute_threshold_method == 'backward_window_percentile':
         title_suffix = f' to train models with more compute than {compute_threshold}% of models the year before'
     elif compute_threshold_method == 'top_n':
