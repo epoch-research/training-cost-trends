@@ -1,3 +1,4 @@
+import pandas as pd
 
 
 def power_usage_effectiveness(organization):
@@ -146,6 +147,38 @@ def energy_price(year):
         2023: 0.0806,
     }
     return prices[year]
+
+
+def cluster_power_capacity(hardware_model, hardware_quantity, hardware_df, organization):
+    """
+    hardware_model: name of the hardware used for the training run
+    hardware_quantity: number of chips used for the training run
+    hardware_df: DataFrame containing hardware specs
+    organization: name of the organization who did the training
+
+    Returns the power capacity in kilowatts required to do the training run.
+    """
+    matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
+    if pd.isna(chip_TDP_kw):
+        if "TPU v4" in hardware_model:
+            """
+            https://cloud.google.com/blog/topics/systems/tpu-v4-enables-performance-energy-and-co2e-efficiency-gains
+            "Google's Cloud TPU v4 outperforms TPU v3 by 2.1x on average on a per-chip basis and improves performance/Watt by 2.7x."
+            TPU v3 performance per Watt: 123 TFLOPS / 450W = 0.273 TFLOPS/W
+            0.273 * 2.7 = 0.738 TFLOPS/W
+            TPU v4 is 275 TFLOPS => 275 / 0.738 = 373W
+            """
+            chip_TDP_kw = 373 / 1000
+        else:
+            print("Unable to estimate chip TDP")
+            return None
+    # Adjust for whole server power draw (CPUs, memory, cooling)
+    server_TDP_kw = chip_TDP_kw * chip_to_server_power(hardware_model)
+    # Adjust for data center power distribution and cooling
+    adj_server_power_kw = server_TDP_kw * power_usage_effectiveness(organization)
+    cluster_kw = adj_server_power_kw * hardware_quantity
+    return cluster_kw
 
 
 # https://www.nrel.gov/docs/fy20osti/73901.pdf
