@@ -36,6 +36,7 @@
         "Chinchilla",
         "Falcon-180B",
         "Flan-PaLM 540B",
+        "HyperCLOVA 82B",
         "ResNeXt-101 32x48d"
     ],
     "5": [
@@ -80,29 +81,28 @@
     ],
     "10": [
         "Meta Pseudo Labels",
-        "Transformer (Adaptive Input Embeddings)",
         "iGPT-XL"
     ],
     "11": [
         "AmoebaNet-A (F=448)",
         "BIDAF",
         "ChatGLM3",
+        "ContextNet + Noisy Student",
         "ConvS2S (ensemble of 8 models)",
-        "GPT-NeoX-20B",
         "LLaMA-65B",
         "Llama 2-70B",
-        "MnasNet-A1 + SSDLite",
+        "MnasNet-A3",
         "xTrimoPGLM -100B"
     ],
     "12": [
         "DeepStack",
         "Flamingo",
-        "MnasNet-A3",
+        "GPT-NeoX-20B",
+        "MnasNet-A1 + SSDLite",
         "PNASNet-5",
         "Qwen-72B"
     ],
     "13": [
-        "ContextNet + Noisy Student",
         "FLAN 137B",
         "GShard (dense)",
         "IMPALA",
@@ -112,41 +112,44 @@
         "ViT-22B"
     ],
     "14": [
+        "BERT-Large-CAS (PTB+WT2+WT103)",
         "CoAtNet",
         "ProtT5-XXL-BFD",
         "iGPT-L"
     ],
     "15": [
-        "BERT-Large-CAS (PTB+WT2+WT103)",
         "Yi-34B"
     ],
     "16": [
         "AlexaTM 20B",
+        "BERT-Large",
         "Big Transformer for Back-Translation",
         "CLIP (ViT L/14@336px)",
-        "Florence",
-        "Transformer",
-        "UL2"
+        "Transformer"
     ],
     "17": [
-        "BERT-Large",
-        "Part-of-sentence tagging model"
+        "Florence",
+        "Part-of-sentence tagging model",
+        "UL2"
     ],
     "18": [
         "ALBERT-xxlarge",
-        "Conformer + Wav2vec 2.0 + Noisy Student",
-        "Galactica"
+        "Galactica",
+        "Mesh-TensorFlow Transformer 4.9B (language modelling)",
+        "T5-3B"
     ],
     "19": [
-        "BASIC-L",
         "CogView",
+        "Conformer + Wav2vec 2.0 + Noisy Student",
         "ELECTRA",
-        "Mesh-TensorFlow Transformer 4.9B (language modelling)",
-        "T5-3B",
+        "Transformer (Adaptive Input Embeddings) WT103",
         "YOLOv3"
     ],
     "20": [
+        "BASIC-L",
         "LSTM (Hebbian, Cache, MbPA)",
-        "Named Entity Recognition model"
+        "Llama 2-34B",
+        "Named Entity Recognition model",
+        "Noisy Student (L2)"
     ]
 }
