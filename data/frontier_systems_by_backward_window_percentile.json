@@ -12,7 +12,7 @@
         "OpenAI Five",
         "Meena",
         "GPT-3 175B (davinci)",
-        "HyperCLOVA",
+        "HyperCLOVA 82B",
         "Megatron-Turing NLG 530B",
         "Yuan 1.0",
         "Gopher (280B)",
@@ -26,7 +26,7 @@
         "PaLM 2",
         "Claude 2",
         "Inflection-2",
-        "Gemini Ultra"
+        "Gemini 1.0 Ultra"
     ],
     "90": [
         "NASv3 (CIFAR-10)",
@@ -104,7 +104,7 @@
     "70": [
         "Libratus",
         "IMPALA",
-        "Transformer (Adaptive Input Embeddings)",
+        "Transformer (Adaptive Input Embeddings) WT103",
         "T5-3B",
         "Noisy Student (L2)",
         "ALBERT-xxlarge",
