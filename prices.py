@@ -93,7 +93,7 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
 def get_training_start_date(row, backup_training_time=True):
     # Account for time between publication and training end
     # Special case for models where the gap is abnormally large
-    if 'Gemini Ultra' in row['System']:
+    if 'Gemini 1.0 Ultra' in row['System']:
         # https://blog.google/technology/ai/google-io-2023-keynote-sundar-pichai/#ai-responsibility
         # "This includes our next-generation foundation model, Gemini, which is still in training."
         # So might have been even earlier, but 
@@ -303,7 +303,7 @@ def find_gpu_acquisition_price(price_df, hardware_model, price_colname):
             break
     if gpu_hardware_alias is None:
         print(f"Could not find alias for {hardware_model}")
-        return None, None
+        return None
 
     # Sort price_df by date - we want the earliest price
     price_df = price_df.sort_values(by='Price date').dropna(subset=[price_colname])
@@ -322,7 +322,7 @@ def find_gpu_acquisition_price(price_df, hardware_model, price_colname):
         return chosen_price_row
     else:
         print(f"Could not find price for {hardware_model}\n")
-        return None, None
+        return None
     
 
 def find_TPU_equivalent_acquisition_price(hardware_model):
@@ -374,7 +374,7 @@ def find_hardware_acquisition_price(
         acquisition_date = get_release_date(hardware_model, hardware_df)
     else:
         chosen_price_row = find_gpu_acquisition_price(price_df, hardware_model, price_colname)
-        if chosen_price_row is (None, None):
+        if chosen_price_row is None:
             return [None] * 4
         price_id = chosen_price_row['Price source']
         price_value = chosen_price_row[price_colname]

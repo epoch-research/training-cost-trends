@@ -36,7 +36,7 @@
         "Flan-PaLM 540B",
         "Chinchilla",
         "Falcon-180B",
-        "HyperCLOVA",
+        "HyperCLOVA 82B",
         "ResNeXt-101 32x48d"
     ],
     "5": [
@@ -81,7 +81,7 @@
     ],
     "10": [
         "Meta Pseudo Labels",
-        "Transformer (Adaptive Input Embeddings)",
+        "Transformer (Adaptive Input Embeddings) WT103",
         "iGPT-XL"
     ],
     "11": [

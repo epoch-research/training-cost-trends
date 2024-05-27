@@ -185,7 +185,7 @@
         "Flan T5-XXL + BLIP-2",
         "BLIP-2 (Q-Former)",
         "YOLOv3",
-        "Transformer (Adaptive Input Embeddings)",
+        "Transformer (Adaptive Input Embeddings) WT103",
         "Sandwich Transformer",
         "ResNet-152 (ImageNet)",
         "S4",
@@ -345,7 +345,7 @@
     ],
     "85": [
         "mT5-XXL",
-        "HyperCLOVA",
+        "HyperCLOVA 82B",
         "Yi-34B",
         "Galactica",
         "ViT-22B",
@@ -399,7 +399,7 @@
         "AlphaGo Master",
         "AlphaGo Zero",
         "GPT-4",
-        "Gemini Ultra",
+        "Gemini 1.0 Ultra",
         "Samuel Neural Checkers",
         "Perceptron (1960)",
         "Pandemonium (morse)"
