@@ -161,6 +161,9 @@ def estimate_hardware_acquisition_cost(
         
         # training_time = row['Training time (hours)']
         hardware_quantity = row['Hardware quantity']
+        if pd.isna(hardware_quantity):
+            print("No hardware quantity found")
+            return None
         cost = hardware_quantity * price
         # Add interconnect cost
         cost *= 1 / (1 - CLUSTER_INTERCONNECT_COST_FRACTION)
