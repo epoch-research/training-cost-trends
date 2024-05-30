@@ -37,7 +37,6 @@ def server_TDP_fraction(hardware_model):
         Higher FLOP/s utilization values (>55%) may correlate with higher power usage than this.
         But overall this data suggests that TPUs use a lower fraction of TDP than NVIDIA GPUs.
         """
-        # TODO: 90% CI of 0.3 to 0.8
         return 0.43
     else:
         """
@@ -61,7 +60,6 @@ def server_TDP_fraction(hardware_model):
         For a typical new multi-megawatt data center, the authors assume the server's average 
         power draw is 75% of peak power. Note this number is not AI-specific.
         """
-        # TODO: 90% CI of 0.5 to 1.0
         return 0.75
     
 
