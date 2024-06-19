@@ -89,17 +89,8 @@ def estimate_cloud_costs(
 
         # Check for base model
         if not pd.isna(row['Base model']):
-            base_model_name = row['Base model']
-            base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
-            base_cost = estimate_cost(base_model, system_to_price)
-            if base_model.empty:
-                print("Base model specified, but not found in database")
-                return None
-            if base_cost is None:
-                print("Base model found, but unable to estimate cost")
-                return None
-            else:
-                cost += base_cost
+            print(f"Skipping {system} because it is a fine-tuned version of a base model")
+            return None
 
         return cost
         
@@ -169,15 +160,8 @@ def estimate_hardware_acquisition_cost(
 
         # Check for base model
         if not pd.isna(row['Base model']):
-            base_model_name = row['Base model']
-            base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
-            if base_model.empty:
-                return None
-            base_cost = estimate_cost(base_model, system_to_price)
-            if base_cost is None:
-                return None
-            else:
-                cost += base_cost
+            print(f"Skipping {system} because it is a fine-tuned version of a base model")
+            return None
 
         return cost
         
@@ -306,23 +290,9 @@ def estimate_hardware_capex_energy_cost(
 
     # Check for base model
     if not pd.isna(row['Base model']):
-        base_model_name = row['Base model']
-        base_model = frontier_pcd_df[frontier_pcd_df['System'] == base_model_name].squeeze()
-        if base_model.empty:
-            print("Base model specified, but not found in database")
-            return None
-        base_cost = estimate_hardware_capex_energy_cost(
-            base_model, system_to_price, frontier_pcd_df, hardware_df, separate_components,
-        )
-        if base_cost is None:
-            print("Base model found, but unable to estimate cost")
-            return None
-        else:
-            if separate_components:
-                for k in cost:
-                    cost[k] += base_cost[k]
-            else:
-                cost += base_cost
+        print(f"Skipping {system} because it is a fine-tuned version of a base model")
+        return None
+
     return cost
 
 
