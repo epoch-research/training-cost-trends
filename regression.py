@@ -30,12 +30,41 @@ def get_predictions(model, data, features):
     return pred_df
 
 
-def print_growth_rates(model):
+def print_growth_rates(model, ci=90, round_digits=None):
+    ooms = model.params[1]
+    conf_int = model.conf_int(alpha=1 - ci / 100)
+    ooms_low = conf_int[1][0]
+    ooms_high = conf_int[1][1]
+
+    factor = ooms_to_factor_per_year(ooms)
+    factor_low = ooms_to_factor_per_year(ooms_low)
+    factor_high = ooms_to_factor_per_year(ooms_high)
+
+    slope_doubling_time = ooms_to_doubling_time_months(ooms)
+    doubling_time_high = ooms_to_doubling_time_months(ooms_low)
+    doubling_time_low = ooms_to_doubling_time_months(ooms_high)
+
+    if round_digits is not None:
+        ooms = np.round(ooms, round_digits)
+        ooms_low = np.round(ooms_low, round_digits)
+        ooms_high = np.round(ooms_high, round_digits)
+
+        factor = np.round(factor, round_digits)
+        factor_low = np.round(factor_low, round_digits)
+        factor_high = np.round(factor_high, round_digits)
+
+        slope_doubling_time = np.round(slope_doubling_time, round_digits)
+        doubling_time_low = np.round(doubling_time_low, round_digits)
+        doubling_time_high = np.round(doubling_time_high, round_digits)
+
     print(f"N={model.nobs}")
     print(f"R^2={model.rsquared:.2f}")
-    print(f"{model.params[1]:.2f} OOMs/year (95% CI: {model.conf_int()[1][0]:.2f}, {model.conf_int()[1][1]:.2f})")
-    print(f"{ooms_to_factor_per_year(model.params[1]):.1f}x/year (95% CI: {ooms_to_factor_per_year(model.conf_int()[1][0]):.1f}x, {ooms_to_factor_per_year(model.conf_int()[1][1]):.1f}x)")
-    print(f"doubling time of {ooms_to_doubling_time_months(model.params[1]):.0f} months (95% CI: {ooms_to_doubling_time_months(model.conf_int()[1][1]):.0f}, {ooms_to_doubling_time_months(model.conf_int()[1][0]):.0f})")
+    print(f"{ooms} OOMs/year ({ci}% CI: {ooms_low}, {ooms_high})")
+    print(f"{factor}x/year ({ci}% CI: {factor_low}x, {factor_high}x)")
+    print(
+        f"doubling time of {slope_doubling_time} months ({ci}% CI: " + 
+        f"{doubling_time_low}, {doubling_time_high})"
+    )
 
 
 def chow_test(data1, data2, features, target, logy=False):
