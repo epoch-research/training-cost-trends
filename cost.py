@@ -147,6 +147,7 @@ def estimate_hardware_acquisition_cost(
         system = row['System']
         price = system_to_price.get(system)
         if price is None:
+            print("No hardware price found")
             return None
         
         # training_time = row['Training time (hours)']
