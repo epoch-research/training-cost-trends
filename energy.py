@@ -134,6 +134,11 @@ def energy_price(year):
     Previous years: https://www.statista.com/statistics/190680/us-industrial-consumer-price-estimates-for-retail-electricity-since-1970/
     """
     prices = {
+        2010: 0.0677,
+        2011: 0.0682,
+        2012: 0.0667,
+        2013: 0.0689,
+        2014: 0.0710,
         2015: 0.0691,
         2016: 0.0676,
         2017: 0.0688,
