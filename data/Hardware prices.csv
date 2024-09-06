@@ -1,4 +1,7 @@
 ﻿Price source,Price date,Hardware model,Manufacturer (from Hardware model),Vendor,Location,Price per chip-hour (on-demand),Price per chip-hour (1-year CUD),Price per chip-hour (3-year CUD),Price (hardware purchase),Notes
+https://www.techpowerup.com/gpu-specs/geforce-gtx-580.c270,2010-11-09,NVIDIA GeForce GTX 580,NVIDIA,,,,,,499.00,Single-unit release price
+https://www.techpowerup.com/gpu-specs/geforce-gtx-titan.c1996,2013-02-19,NVIDIA GeForce GTX TITAN,NVIDIA,,,,,,999.00,Single-unit release price
+https://www.techpowerup.com/gpu-specs/geforce-gtx-titan-black.c2549,2014-02-18,NVIDIA GeForce GTX Titan Black,NVIDIA,,,,,,999.00,Single-unit release price
 https://web.archive.org/web/20181009102635/https://cloud.google.com/tpu/docs/pricing,2018-10-09,Google TPU v2,Google,Google Cloud,US,1.13,,,,
 https://web.archive.org/web/20181011013513/https://cloud.google.com/tpu/docs/pricing,2018-10-11,Google TPU v3,Google,Google Cloud,US,2.00,,,,
 https://web.archive.org/web/20181011013513/https://cloud.google.com/tpu/docs/pricing,2018-10-11,Google TPU v3,Google,Google Cloud,Europe,2.20,,,,
