@@ -26,6 +26,9 @@ GPU_HARWARE_ALIASES = [
     'K80',
     'K40',
     'Titan X',
+    'GTX 580',
+    'GTX TITAN',
+    'Titan Black',
 ]
 
 
