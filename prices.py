@@ -229,7 +229,7 @@ def find_price(
         print()
         return None, None
     
-    # Uncomment to test the effect of removing TPUs.
+    # Uncomment to exclude TPUs (the "no-TPUs" setting).
     # if 'TPU' in hardware_model:
     #     print(f"Skipping TPU {hardware_model}")
     #     return None, None
@@ -362,7 +362,7 @@ def find_hardware_acquisition_price(
         print(f"Skipping {hardware_model}\n")
         return [None] * 4
     if "TPU" in hardware_model:
-        # Uncomment to test the effect of removing TPUs.
+        # Uncomment to exclude TPUs (the "no-TPUs" setting).
         # print(f"Skipping TPU {hardware_model}")
         # return [None] * 4
     
