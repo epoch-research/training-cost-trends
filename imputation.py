@@ -228,7 +228,7 @@ def drop_random_values(target_df, target_col, reference_df, reference_col, num_d
     known_values = target_df[target_col].notna() & reference_df[reference_col].notna()
     # select num_drop random rows that have known values
     filtered_df = target_df[known_values]
-    holdout_values = filtered_df.sample(n=num_drop)
+    holdout_values = filtered_df.sample(n=num_drop, random_state=DEFAULT_RNG)
     dropped_df = target_df.copy()
     dropped_df.loc[holdout_values.index, target_col] = np.nan
     return dropped_df, holdout_values
