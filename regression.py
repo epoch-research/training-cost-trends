@@ -22,10 +22,10 @@ def fit_ols_regression(data, features, target, logy=False):
     return results
 
 
-def get_predictions(model, data, features):
+def get_predictions(model, data, features, ci=90):
     X = data[features].to_numpy()
     X = sm.add_constant(X)
-    pred_df = model.get_prediction(X).summary_frame()
+    pred_df = model.get_prediction(X).summary_frame(alpha=1 - ci / 100)
     pred_df[features] = data[features]
     return pred_df
 
