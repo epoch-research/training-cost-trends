@@ -1,155 +1,181 @@
 {
     "1": [
         "AlphaGo Lee",
-        "AlphaGo Master",
         "AlphaGo Zero",
+        "FLAN 137B",
         "GNMT",
         "GPT-4",
+        "GPT-4 Turbo",
         "Gemini 1.0 Ultra",
-        "Megatron-Turing NLG 530B",
+        "Jurassic-1-Jumbo",
         "Minerva (540B)",
         "PaLM (540B)"
     ],
     "2": [
-        "ERNIE 3.0 Titan",
+        "AlphaGo Master",
+        "EXAONE 1.0",
         "GPT-3 175B (davinci)",
-        "GPT-3.5 (text-davinci-003)",
-        "Gopher (280B)",
-        "Inflection-2",
+        "GPT-3.5",
+        "GPT-4o",
+        "Megatron-Turing NLG 530B",
         "NASv3 (CIFAR-10)",
         "PaLM 2",
-        "U-PaLM (540B)",
-        "Yuan 1.0"
+        "U-PaLM (540B)"
     ],
     "3": [
+        "AlphaStar",
         "AlphaZero",
+        "Amazon Titan",
         "Claude 2",
-        "DeepSpeech2 (English)",
-        "GLaM",
+        "Claude 3.5 Sonnet",
+        "Gopher (280B)",
+        "Inflection-2",
+        "Llama 3.1-405B",
         "Meena",
-        "Megatron-BERT",
         "OpenAI Five",
         "Xception"
     ],
     "4": [
-        "AlphaStar",
-        "Chinchilla",
+        "Claude 3 Opus",
+        "DeepSpeech2 (English)",
+        "ERNIE 3.0 Titan",
         "Falcon-180B",
         "Flan-PaLM 540B",
-        "HyperCLOVA 82B",
-        "ResNeXt-101 32x48d"
+        "GLM-4 (0116)",
+        "Gemini 1.5 Pro",
+        "JFT",
+        "Megatron-BERT",
+        "ResNeXt-101 32x48d",
+        "T5-11B",
+        "Yuan 1.0"
     ],
     "5": [
-        "FTW",
-        "Grok-1",
-        "JFT",
-        "LaMDA",
-        "Libratus",
+        "GLaM",
+        "Grok-2",
         "Megatron-LM (8.3B)",
-        "ResNet-152 (ImageNet)",
+        "Nemotron-4 340B",
+        "OpenAI TI7 DOTA 1v1",
+        "ResNet-200",
+        "RoBERTa Large",
+        "SAF R-CNN",
         "Switch",
-        "T5-11B",
         "mT5-XXL"
     ],
     "6": [
-        "OPT-175B",
-        "OpenAI TI7 DOTA 1v1",
-        "PolyNet"
+        "Chinchilla",
+        "Doubao-pro",
+        "Grok-1",
+        "HyperCLOVA 82B",
+        "Libratus",
+        "Mistral Large",
+        "Mistral Large 2",
+        "Noisy Student (L2)",
+        "XLNet"
     ],
     "7": [
         "ByT5-XXL",
         "GPT-2 (1.5B)",
-        "Parti",
-        "ProtT5-XXL"
+        "GShard (dense)",
+        "MoE-Multi",
+        "PolyNet",
+        "ProtT5-XXL",
+        "T5-3B",
+        "XLM-RoBERTa"
     ],
     "8": [
-        "BLOOM-176B",
-        "BlenderBot 3",
-        "GOAT",
-        "MoE",
-        "OpenAI Five Rerun",
-        "XLNet"
+        "Aramco Metabrain AI",
+        "BigGAN-deep 512x512",
+        "LaMDA",
+        "OPT-175B",
+        "ResNet-152 (ImageNet)"
     ],
     "9": [
-        "AlphaCode",
-        "BigGAN-deep 512x512",
+        "Codex",
         "DALL-E",
-        "GLM-130B",
-        "RoBERTa Large",
-        "ST-MoE",
-        "Turing-NLG"
+        "MegaScale (Production)",
+        "Meta Pseudo Labels",
+        "Parti",
+        "ResNet-101 (ImageNet)",
+        "iGPT-XL"
     ],
     "10": [
-        "Meta Pseudo Labels",
-        "iGPT-XL"
+        "BlenderBot 3",
+        "ConvS2S (ensemble of 8 models)",
+        "Inflection-2.5",
+        "InstructGPT 175B",
+        "MnasNet-A1 + SSDLite",
+        "OpenAI Five Rerun"
     ],
     "11": [
         "AmoebaNet-A (F=448)",
-        "BIDAF",
-        "ChatGLM3",
-        "ContextNet + Noisy Student",
-        "ConvS2S (ensemble of 8 models)",
-        "LLaMA-65B",
-        "Llama 2-70B",
+        "Big Transformer for Back-Translation",
         "MnasNet-A3",
-        "xTrimoPGLM -100B"
+        "Reka Core",
+        "Turing-NLG",
+        "ViT-G/14"
     ],
     "12": [
+        "BLOOM-176B",
         "DeepStack",
-        "Flamingo",
-        "GPT-NeoX-20B",
-        "MnasNet-A1 + SSDLite",
-        "PNASNet-5",
-        "Qwen-72B"
+        "LLaMA-65B",
+        "Llama 3-70B"
     ],
     "13": [
-        "FLAN 137B",
-        "GShard (dense)",
-        "IMPALA",
+        "AlphaCode",
+        "BERT-Large-CAS (PTB+WT2+WT103)",
+        "Llama 2-70B",
         "PLUG",
-        "PanGu-\u03a3",
+        "PNASNet-5",
         "ProtBERT-BFD",
-        "ViT-22B"
+        "ST-MoE",
+        "xTrimoPGLM -100B"
     ],
     "14": [
-        "BERT-Large-CAS (PTB+WT2+WT103)",
-        "CoAtNet",
-        "ProtT5-XXL-BFD",
-        "iGPT-L"
+        "IMPALA",
+        "InternLM",
+        "LUKE",
+        "PanGu-\u03a3",
+        "ProtT5-XXL-BFD"
     ],
     "15": [
-        "Yi-34B"
+        "BIDAF",
+        "CoAtNet",
+        "ContextNet + Noisy Student",
+        "GLM-130B",
+        "HR-ResNet101"
     ],
     "16": [
-        "AlexaTM 20B",
-        "BERT-Large",
-        "Big Transformer for Back-Translation",
-        "CLIP (ViT L/14@336px)",
-        "Transformer"
+        "Flamingo",
+        "GPT-4o mini",
+        "GPT-NeoX-20B",
+        "Gemini 1.0 Pro",
+        "Llama 3.1-70B",
+        "Qwen-72B"
     ],
     "17": [
-        "Florence",
-        "Part-of-sentence tagging model",
-        "UL2"
+        "BERT-Large",
+        "Transformer",
+        "iGPT-L"
     ],
     "18": [
-        "ALBERT-xxlarge",
-        "Galactica",
-        "Mesh-TensorFlow Transformer 4.9B (language modelling)",
-        "T5-3B"
+        "DBRX",
+        "Florence",
+        "Yi-34B"
     ],
     "19": [
+        "ALBERT-xxlarge",
+        "CLIP (ViT L/14@336px)",
         "CogView",
-        "Conformer + Wav2vec 2.0 + Noisy Student",
-        "ELECTRA",
-        "Transformer (Adaptive Input Embeddings) WT103",
-        "YOLOv3"
+        "Mesh-TensorFlow Transformer 4.9B (language)",
+        "Qwen2-72B"
     ],
     "20": [
-        "BASIC-L",
+        "ELECTRA",
+        "Generative BST",
         "LSTM (Hebbian, Cache, MbPA)",
-        "Llama 2-34B",
-        "Named Entity Recognition model",
-        "Noisy Student (L2)"
+        "MuseNet",
+        "Qwen1.5-72B",
+        "Qwen2.5-72B",
+        "YOLOv3"
     ]
 }

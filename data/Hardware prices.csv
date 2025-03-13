@@ -1,146 +1,406 @@
-﻿Price source,Price date,Hardware model,Manufacturer (from Hardware model),Vendor,Location,Price per chip-hour (on-demand),Price per chip-hour (1-year CUD),Price per chip-hour (3-year CUD),Price (hardware purchase),Notes
-https://www.techpowerup.com/gpu-specs/geforce-gtx-580.c270,2010-11-09,NVIDIA GeForce GTX 580,NVIDIA,,,,,,499.00,Single-unit release price
-https://www.techpowerup.com/gpu-specs/geforce-gtx-titan.c1996,2013-02-19,NVIDIA GeForce GTX TITAN,NVIDIA,,,,,,999.00,Single-unit release price
-https://www.techpowerup.com/gpu-specs/geforce-gtx-titan-black.c2549,2014-02-18,NVIDIA GeForce GTX Titan Black,NVIDIA,,,,,,999.00,Single-unit release price
-https://web.archive.org/web/20181009102635/https://cloud.google.com/tpu/docs/pricing,2018-10-09,Google TPU v2,Google,Google Cloud,US,1.13,,,,
-https://web.archive.org/web/20181011013513/https://cloud.google.com/tpu/docs/pricing,2018-10-11,Google TPU v3,Google,Google Cloud,US,2.00,,,,
-https://web.archive.org/web/20181011013513/https://cloud.google.com/tpu/docs/pricing,2018-10-11,Google TPU v3,Google,Google Cloud,Europe,2.20,,,,
-https://web.archive.org/web/20190701021000/https://cloud.google.com/tpu/pricing,2019-07-01,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,
-https://web.archive.org/web/20190728061708/https://cloud.google.com/tpu/pricing,2019-07-28,Google TPU v3,Google,Google Cloud,Netherlands (europe-west4),2.00,1.26,0.90,,
-https://web.archive.org/web/20190831055832/https://cloud.google.com/tpu/pricing,2019-08-31,Google TPU v3,Google,Google Cloud,Netherlands (europe-west4),2.00,1.26,0.90,,
-https://web.archive.org/web/20191226151615/https://cloud.google.com/tpu/pricing,2019-12-06,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,
-https://web.archive.org/web/20201202160025/https://cloud.google.com/tpu/pricing,2020-12-02,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,
-https://web.archive.org/web/20210307231531/https://cloud.google.com/tpu/pricing,2021-03-07,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,
-https://web.archive.org/web/20211008140911/https://cloud.google.com/tpu/pricing,2021-10-08,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,
-https://web.archive.org/web/20211117224813/https://cloud.google.com/tpu/pricing,2021-11-17,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,
-https://web.archive.org/web/20220511211849/https://cloud.google.com/tpu/pricing,2022-05-11,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,
-https://web.archive.org/web/20220911040357/https://cloud.google.com/tpu/pricing,2022-09-11,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,
-https://web.archive.org/web/20230601141218/https://cloud.google.com/tpu/pricing,2023-06-01,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,
-https://web.archive.org/web/20210615052658/https://aws.amazon.com/ec2/instance-types/p4/,2021-06-15,NVIDIA A100,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,p4d.24xlarge
-https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,p4d.24xlarge
-https://web.archive.org/web/20210411041826/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-04-11,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.40,1.44,,
-https://web.archive.org/web/20210615231408/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-06-15,NVIDIA A100,NVIDIA,Microsoft Azure,West US 2,3.40,2.35,1.36,,instance ND96asr A100 v4 
-https://web.archive.org/web/20210716090503/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-07-16,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,
-https://web.archive.org/web/20210813114749/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-08-13,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,
-https://web.archive.org/web/20220120172902/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-01-20,NVIDIA A100,NVIDIA,Microsoft Azure,West US 2,3.40,2.35,1.36,,instance ND96asr A100 v4 
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC24ads A100 v4 number of GPUs: 1
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC48ads A100 v4 number of GPUs: 2
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC96ads A100 v4 number of GPUs: 4
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.83,1.70,,instance ND96asr A100 v4 number of GPUs: 8x
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 PCIe,NVIDIA,,,,,,15000.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA A100 PCIe,NVIDIA,,,,,,12500.00,Single-unit list price
-https://web.archive.org/web/20220317020602/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2022-03-17,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,West US 2,3.67,,,,instance NC24ads A100 v4
-https://web.archive.org/web/20220526141119/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-05-26,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,West US 2,3.67,,,,instance NC24ads A100 v4
-https://web.archive.org/web/20220728203654/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-07-28,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,2.40,1.36,,instance NC24ads A100 v4
-https://web.archive.org/web/20220912080457/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy,2022-09-12,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,2.40,1.36,,instance NC24ads A100 v4
-https://web.archive.org/web/20221115193106/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-11-15,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://web.archive.org/web/20230128121104/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy copy,2023-01-28,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://web.archive.org/web/20230321095612/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-03-21,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://web.archive.org/web/20230508171615/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-05-08,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://web.archive.org/web/20230714001610/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-07-14,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://web.archive.org/web/20230909082839/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-09-09,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://web.archive.org/web/20231121194714/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy copy copy,2023-11-21,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4
-https://web.archive.org/web/20200521074015/https://nvidianews.nvidia.com/news/nvidia-ships-worlds-most-advanced-ai-system-nvidia-dgx-a100-to-fight-covid-19-third-generation-dgx-packs-record-5-petaflops-of-ai-performance,2020-05-21,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,24875.00,"DGX A100, 8 GPU, 320GB. Release price."
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,15000.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,12500.00,Single-unit list price
-https://web.archive.org/web/20221212030420/https://cloud.google.com/compute/gpus-pricing,2022-12-12,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,Iowa (us-central1),2.93,1.85,1.03,,
-https://web.archive.org/web/20211104020654/https://aws.amazon.com/ec2/instance-types/p4/,2021-11-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
-https://web.archive.org/web/20220125025352/https://aws.amazon.com/ec2/instance-types/p4/,2022-01-25,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
-https://web.archive.org/web/20220226224704/https://aws.amazon.com/ec2/instance-types/p4/,2022-02-26,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
-https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-10-17,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
-https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
-https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2023-03-10,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,
-https://web.archive.org/web/20210630170623/https://www.graphcore.ai/posts/raising-the-bar-graphcores-first-mlperf-results,2021-06-30,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,37500.00,"DGX A100, 8 GPU, 640GB"
-https://web.archive.org/web/20220120191032/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/,2022-01-20,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,20875.00,"DGX A100, 8 GPU, 640GB"
-https://web.archive.org/web/20230923154035/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/#gpu%20,2023-09-23,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,18548.75,"HGX A100, 8 GPU, 640GB"
-https://web.archive.org/web/20221212030420/https://cloud.google.com/compute/gpus-pricing,2022-12-12,NVIDIA A100 SXM4 80 GB,NVIDIA,Google Cloud,Iowa (us-central1),3.93,,,,
-https://web.archive.org/web/20220819235958/https://aws.amazon.com/ec2/instance-types/p4/,2022-08-19,NVIDIA A100 SXM4 80 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),5.12,3.00,1.81,,
-https://web.archive.org/web/20220819235958/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100 SXM4 80 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),5.12,3.00,1.81,,
-https://web.archive.org/web/20220415025353/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-04-15,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,2.62,1.80,,
-https://web.archive.org/web/20220530173526/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-05-30,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,2.62,1.80,,
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,3.53,2.13,,instance ND96amsr A100 v4 number of GPUs: 8x
-https://www.techpowerup.com/gpu-specs/geforce-gtx-titan-x.c2632,2015-03-17,NVIDIA GTX Titan X,NVIDIA,,,,,,999.00,Single-unit release price
-https://lambdalabs.com/service/gpu-cloud,2024-01-29,NVIDIA H100 PCIe,NVIDIA,Lambda Labs,,2.49,,,,https://lambdalabs.com/service/gpu-cloud
-https://web.archive.org/web/20220929115124/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2022-09-29,NVIDIA H100 SXM5,NVIDIA,,,,,,44489.88,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=369855.51"
-https://web.archive.org/web/20230529125834/https://www.semianalysis.com/p/ai-server-cost-analysis-memory-is,2023-05-29,NVIDIA H100 SXM5,NVIDIA,,,,,,33750.00,"DGX, 8 GPU, 640GB. “Nvidia sells DGX H100’s at around $270,000”."
-https://web.archive.org/web/20231211031623/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2023-12-11,NVIDIA H100 SXM5,NVIDIA,,,,,,41197.50,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=306403.66"
-https://web.archive.org/web/20240320115454/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2024-03-20,NVIDIA H100 SXM5,NVIDIA,,,,,,41217.00,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=303610.2"
-https://web.archive.org/web/20240321212632/https://www.dihuni.com/product/supermicro-8125gs-tnhr-server/,2024-03-21,NVIDIA H100 SXM5,NVIDIA,,,,,,37080.50,"HGX, 8 GPU, 640GB"
-https://lambdalabs.com/service/gpu-cloud,2024-01-29,NVIDIA H100 SXM5,NVIDIA,Lambda Labs,,3.49,,,,27.92 for 8x
-https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy copy copy,2018-12-30,NVIDIA P40,NVIDIA,Microsoft Azure,West US 2,2.07,1.32,0.92,,instance ND6
-https://web.archive.org/web/20171114190230/https://cloud.google.com/compute/pricing,2017-11-14,NVIDIA P100,NVIDIA,Google Cloud,Oregon,2.30,,,,
-https://web.archive.org/web/20171201173231/https://cloud.google.com/compute/pricing,2017-12-01,NVIDIA P100,NVIDIA,Google Cloud,Oregon,1.46,,,,
-https://web.archive.org/web/20190826211015/https://cloud.google.com/compute/gpus-pricing,2019-08-26,NVIDIA P100,NVIDIA,Google Cloud,Iowa (us-central1),1.46,0.92,0.66,,
-https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2018-12-30,NVIDIA P100,NVIDIA,Microsoft Azure,West US 2,2.07,1.32,0.92,,instance NC6 v2
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC6s v2 number of GPUs: 1X
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC12s v2 number of GPUs: 2X
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.28,1.90,1.40,,instance NC24rs v2 number of GPUs: 4X
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC24s v2 number of GPUs: 4X
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2012-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,5400.00,Single-unit release price
-https://www.techpowerup.com/gpu-specs/tesla-k40s.c2528,2013-11-22,NVIDIA Tesla K40s,NVIDIA,,,,,,7699.00,Single-unit release price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2014-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,4200.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2900.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2300.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,540.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,290.00,Single-unit list price
-https://www.anandtech.com/show/8729/nvidia-launches-tesla-k80-gk210-gpu,2014-11-17,NVIDIA Tesla K80,NVIDIA,,,,,,5000.00,Single-unit release price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,3700.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,2500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,940.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,435.00,Single-unit list price
-https://web.archive.org/web/20170221212008/https://cloud.google.com/compute/pricing,2017-02-21,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,
-https://web.archive.org/web/20170304211331/https://cloud.google.com/compute/pricing,2017-03-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,
-https://web.archive.org/web/20170523014320/https://cloud.google.com/compute/pricing,2017-05-23,NVIDIA Tesla K80,NVIDIA,Google Cloud,Oregon,1.40,,,,
-https://web.archive.org/web/20170210084643/https://aws.amazon.com/ec2/instance-types/p2/,2017-02-10,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,
-https://web.archive.org/web/20170530015929/https://aws.amazon.com/ec2/instance-types/p2/,2017-05-30,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,
-https://web.archive.org/web/20231209124013/https://aws.amazon.com/ec2/instance-types/p2/,2023-12-09,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,
-https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy copy,2018-12-30,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,West US 2,0.90,0.57,0.40,,instance NC6
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC6
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC12 have 2 GPUs
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,1.00,0.74,0.53,,instance NC24r number of GPUs: 4X
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC24 number of GPUs: 4X
-https://www.techpowerup.com/gpu-specs/tesla-p100-pcie-16-gb.c2888,2016-06-20,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5699.00,Single-unit release price
-https://web.archive.org/web/20160621002700/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2016-06-21,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,16125.00,"DGX-1, 8 GPU, 128GB"
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5500.00,Single-unit list price
-https://web.archive.org/web/20170312174101/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2017-03-12,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,18543.75,"DGX-1, 8 GPU, 128GB"
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5900.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,3500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,2200.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,10500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,7400.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,4400.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,1100.00,Single-unit list price
-https://web.archive.org/web/20180608204946/https://aws.amazon.com/ec2/instance-types/p3/,2018-06-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.06,1.99,1.23,,
-https://web.archive.org/web/20190111090822/https://www.microway.com/preconfiguredsystems/nvidia-dgx-station-deep-learning-workstation/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,18457.50,"DGX, 4 GPU, 128GB"
-https://web.archive.org/web/20190111061033/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,19928.75,"DGX-1, 8 GPU, 256GB"
-https://web.archive.org/web/20190111101112/https://www.microway.com/preconfiguredsystems/nvidia-dgx-2/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,26995.63,"DGX-2, 16 GPU, 512 GB"
-https://web.archive.org/web/20190125133337/https://aws.amazon.com/ec2/instance-types/p3/,2019-01-25,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
-https://web.archive.org/web/20190405111110/https://aws.amazon.com/ec2/instance-types/p3/,2019-04-05,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
-https://web.archive.org/web/20190520073153/https://aws.amazon.com/ec2/instance-types/p3/,2019-05-20,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
-https://web.archive.org/web/20190610092728/https://aws.amazon.com/ec2/instance-types/p3/,2019-06-10,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
-https://web.archive.org/web/20190708105149/https://aws.amazon.com/ec2/instance-types/p3/,2019-07-08,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
-https://web.archive.org/web/20190805130331/https://aws.amazon.com/ec2/instance-types/p3/,2019-08-05,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,
-https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 PCIe 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,8500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,10500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,7500.00,Single-unit list price
-https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price
-https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price
-https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,11500.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,13700.00,Single-unit list price
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,2500.00,Single-unit list price
-https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,18625.00,"Price at release (2017 Q3) for a DGX-1 with 8x V100 GPUs was $149,000. Dividing by 8, the price per GPU is $18,625 including interconnect hardware."
-https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,17250.00,"Price at release (2017 Q3) for a DGXS with 4x V100 GPUs was $69,000. Dividing by 4, the price per GPU is $17250 including interconnect hardware."
-https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2018-12-30,NVIDIA V100,NVIDIA,Microsoft Azure,West US 2,3.06,1.95,1.16,,instance NC6 v3
-https://web.archive.org/web/20190806220543/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-08-06,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
-https://web.archive.org/web/20190922202958/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-09-22,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
-https://web.archive.org/web/20191118032616/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-11-18,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
-https://web.archive.org/web/20200212185125/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2020-02-12,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,
-https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,, NC6s v3 
-https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,2.75,,,,ND40rs v2 
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC6s v3 number of GPUs: 1X OS/Software: CentOS or Ubuntu Linux
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC12s v3 number of GPUs: 2X OS/Software: CentOS or Ubuntu Linux
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.37,2.47,1.79,,instance NC24rs v3 number of GPUs: 4X OS/Software: CentOS or Ubuntu Linux
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC24s v3 number of GPUs: 4X OS/Software: CentOS or Ubuntu Linux
-https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,2.75,2.29,1.70,,instance ND40rs v2 number of GPUs: 8X OS/Software: CentOS or Ubuntu Linux
+﻿Price source,Price date,Hardware model,Manufacturer (from Hardware model),Vendor,Location,Price per chip-hour (on-demand),Price per chip-hour (1-year CUD),Price per chip-hour (3-year CUD),Price (hardware purchase),Notes,Cloud GPU description,Number of GPUs
+https://www.techpowerup.com/gpu-specs/geforce-gtx-580.c270,2010-11-09,NVIDIA GeForce GTX 580,NVIDIA,,,,,,499.00,Single-unit release price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2012-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,5400.00,Single-unit release price,,
+https://www.techpowerup.com/gpu-specs/geforce-gtx-titan.c1996,2013-02-19,NVIDIA GeForce GTX TITAN,NVIDIA,,,,,,999.00,Single-unit release price,,
+https://www.techpowerup.com/gpu-specs/tesla-k40s.c2528,2013-11-22,NVIDIA Tesla K40s,NVIDIA,,,,,,7699.00,Single-unit release price,,
+https://www.techpowerup.com/gpu-specs/geforce-gtx-titan-black.c2549,2014-02-18,NVIDIA GeForce GTX TITAN BLACK,NVIDIA,,,,,,999.00,Single-unit release price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2014-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,4200.00,Single-unit list price,,
+https://www.anandtech.com/show/8729/nvidia-launches-tesla-k80-gk210-gpu,2014-11-17,NVIDIA Tesla K80,NVIDIA,,,,,,5000.00,Single-unit release price,,
+https://www.techpowerup.com/gpu-specs/geforce-gtx-titan-x.c2632,2015-03-17,NVIDIA GeForce GTX TITAN X,NVIDIA,,,,,,999.00,Single-unit release price,,
+https://www.techpowerup.com/gpu-specs/tesla-p100-pcie-16-gb.c2888,2016-06-20,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5699.00,Single-unit release price,,
+https://web.archive.org/web/20160621002700/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2016-06-21,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,16125.00,"DGX-1, 8 GPU, 128GB",,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2900.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,3700.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,10500.00,Single-unit list price,,
+https://web.archive.org/web/20170210084643/https://aws.amazon.com/ec2/instance-types/p2/,2017-02-10,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,,,
+https://web.archive.org/web/20170221212008/https://cloud.google.com/compute/pricing,2017-02-21,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,,,
+https://web.archive.org/web/20170304211331/https://cloud.google.com/compute/pricing,2017-03-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,,,
+https://web.archive.org/web/20170312174101/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2017-03-12,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,18543.75,"DGX-1, 8 GPU, 128GB",,
+https://web.archive.org/web/20170523014320/https://cloud.google.com/compute/pricing,2017-05-23,NVIDIA Tesla K80,NVIDIA,Google Cloud,Oregon,1.40,,,,,,
+https://web.archive.org/web/20170530015929/https://aws.amazon.com/ec2/instance-types/p2/,2017-05-30,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,,,
+https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,18625.00,"Price at release (2017 Q3) for a DGX-1 with 8x V100 GPUs was $149,000. Dividing by 8, the price per GPU is $18,625 including interconnect hardware.",,
+https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,17250.00,"Price at release (2017 Q3) for a DGXS with 4x V100 GPUs was $69,000. Dividing by 4, the price per GPU is $17250 including interconnect hardware.",,
+https://web.archive.org/web/20171114190230/https://cloud.google.com/compute/pricing,2017-11-14,NVIDIA P100,NVIDIA,Google Cloud,Oregon,2.30,,,,,,
+https://web.archive.org/web/20171201173231/https://cloud.google.com/compute/pricing,2017-12-01,NVIDIA P100,NVIDIA,Google Cloud,Oregon,1.46,,,,,,
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price,,
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 PCIe 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price,,
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price,,
+https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price,,
+https://web.archive.org/web/20180608204946/https://aws.amazon.com/ec2/instance-types/p3/,2018-06-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.06,1.99,1.23,,,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2300.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,2500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,5900.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,8500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,7400.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,11500.00,Single-unit list price,,
+https://web.archive.org/web/20181009102635/https://cloud.google.com/tpu/docs/pricing,2018-10-09,Google TPU v2,Google,Google Cloud,US,1.13,,,,,,
+https://web.archive.org/web/20181011013513/https://cloud.google.com/tpu/docs/pricing,2018-10-11,Google TPU v3,Google,Google Cloud,US,2.00,,,,,,
+https://web.archive.org/web/20181011013513/https://cloud.google.com/tpu/docs/pricing,2018-10-11,Google TPU v3,Google,Google Cloud,Europe,2.20,,,,,,
+https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2018-12-30,NVIDIA V100,NVIDIA,Microsoft Azure,West US 2,3.06,1.95,1.16,,instance NC6 v3,,
+https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2018-12-30,NVIDIA P100,NVIDIA,Microsoft Azure,West US 2,2.07,1.32,0.92,,instance NC6 v2,,
+https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy copy,2018-12-30,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,West US 2,0.90,0.57,0.40,,instance NC6,,
+https://web.archive.org/web/20181230212002/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy copy copy,2018-12-30,NVIDIA P40,NVIDIA,Microsoft Azure,West US 2,2.07,1.32,0.92,,instance ND6,,
+https://web.archive.org/web/20190111090822/https://www.microway.com/preconfiguredsystems/nvidia-dgx-station-deep-learning-workstation/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,18457.50,"DGX, 4 GPU, 128GB",,
+https://web.archive.org/web/20190111061033/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,19928.75,"DGX-1, 8 GPU, 256GB",,
+https://web.archive.org/web/20190111101112/https://www.microway.com/preconfiguredsystems/nvidia-dgx-2/,2019-01-11,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,,,,,,26995.63,"DGX-2, 16 GPU, 512 GB",,
+https://web.archive.org/web/20190125133337/https://aws.amazon.com/ec2/instance-types/p3/,2019-01-25,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,,,
+https://web.archive.org/web/20190405111110/https://aws.amazon.com/ec2/instance-types/p3/,2019-04-05,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,,,
+https://web.archive.org/web/20190520073153/https://aws.amazon.com/ec2/instance-types/p3/,2019-05-20,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,,,
+https://web.archive.org/web/20190610092728/https://aws.amazon.com/ec2/instance-types/p3/,2019-06-10,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,,,
+https://web.archive.org/web/20190701021000/https://cloud.google.com/tpu/pricing,2019-07-01,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20190708105149/https://aws.amazon.com/ec2/instance-types/p3/,2019-07-08,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,,,
+https://web.archive.org/web/20190728061708/https://cloud.google.com/tpu/pricing,2019-07-28,Google TPU v3,Google,Google Cloud,Netherlands (europe-west4),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20190805130331/https://aws.amazon.com/ec2/instance-types/p3/,2019-08-05,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.90,2.29,1.21,,,,
+https://web.archive.org/web/20190806220543/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-08-06,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,,,
+https://web.archive.org/web/20190826211015/https://cloud.google.com/compute/gpus-pricing,2019-08-26,NVIDIA P100,NVIDIA,Google Cloud,Iowa (us-central1),1.46,0.92,0.66,,,,
+https://web.archive.org/web/20190831055832/https://cloud.google.com/tpu/pricing,2019-08-31,Google TPU v3,Google,Google Cloud,Netherlands (europe-west4),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20190922202958/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-09-22,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,,,
+https://web.archive.org/web/20191118032616/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2019-11-18,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,,,
+https://web.archive.org/web/20191226151615/https://cloud.google.com/tpu/pricing,2019-12-06,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20200212185125/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2020-02-12,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,,,,
+https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,, NC6s v3 ,,
+https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,2.75,,,,ND40rs v2 ,,
+https://web.archive.org/web/20200521074015/https://nvidianews.nvidia.com/news/nvidia-ships-worlds-most-advanced-ai-system-nvidia-dgx-a100-to-fight-covid-19-third-generation-dgx-packs-record-5-petaflops-of-ai-performance,2020-05-21,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,24875.00,"DGX A100, 8 GPU, 320GB. Release price.",,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,540.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,940.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,3500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,10500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 PCIe,NVIDIA,,,,,,15000.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,4400.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,13700.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,15000.00,Single-unit list price,,
+https://web.archive.org/web/20201202160025/https://cloud.google.com/tpu/pricing,2020-12-02,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20210307231531/https://cloud.google.com/tpu/pricing,2021-03-07,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20210411041826/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-04-11,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.40,1.44,,,,
+https://web.archive.org/web/20210615052658/https://aws.amazon.com/ec2/instance-types/p4/,2021-06-15,NVIDIA A100,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,p4d.24xlarge,,
+https://web.archive.org/web/20210615231408/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-06-15,NVIDIA A100,NVIDIA,Microsoft Azure,West US 2,3.40,2.35,1.36,,instance ND96asr A100 v4 ,,
+https://web.archive.org/web/20210630170623/https://www.graphcore.ai/posts/raising-the-bar-graphcores-first-mlperf-results,2021-06-30,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,37500.00,"DGX A100, 8 GPU, 640GB",,
+https://web.archive.org/web/20210716090503/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-07-16,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,,,
+https://web.archive.org/web/20210813114749/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-08-13,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,,,
+https://web.archive.org/web/20211008140911/https://cloud.google.com/tpu/pricing,2021-10-08,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20211104020654/https://aws.amazon.com/ec2/instance-types/p4/,2021-11-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
+https://web.archive.org/web/20211117224813/https://cloud.google.com/tpu/pricing,2021-11-17,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
+https://web.archive.org/web/20220120191032/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/,2022-01-20,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,20875.00,"DGX A100, 8 GPU, 640GB",,
+https://web.archive.org/web/20220120172902/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-01-20,NVIDIA A100,NVIDIA,Microsoft Azure,West US 2,3.40,2.35,1.36,,instance ND96asr A100 v4 ,,
+https://web.archive.org/web/20220125025352/https://aws.amazon.com/ec2/instance-types/p4/,2022-01-25,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
+https://web.archive.org/web/20220226224704/https://aws.amazon.com/ec2/instance-types/p4/,2022-02-26,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
+https://web.archive.org/web/20220317020602/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2022-03-17,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,West US 2,3.67,,,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20220415025353/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-04-15,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,2.62,1.80,,,,
+https://web.archive.org/web/20220511211849/https://cloud.google.com/tpu/pricing,2022-05-11,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,,,
+https://web.archive.org/web/20220526141119/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-05-26,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,West US 2,3.67,,,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20220530173526/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-05-30,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,2.62,1.80,,,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,290.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,435.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla P100 PCIe 16 GB,NVIDIA,,,,,,2200.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla V100 PCIe 32 GB,NVIDIA,,,,,,7500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA A100 PCIe,NVIDIA,,,,,,12500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,1100.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,2500.00,Single-unit list price,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2022-07-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,12500.00,Single-unit list price,,
+https://web.archive.org/web/20220728203654/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-07-28,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,2.40,1.36,,instance NC24ads A100 v4,,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Microsoft Azure,,2.07,,,,NC6s v2,P100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla T4,NVIDIA,Microsoft Azure,,0.75,,,,NC8as T4 v3,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Amazon Web Services,,3.90,,,,p3dn.24xlarge,V100 (32 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Lambda Labs,,1.10,,,,,A100 (40 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,,0.92,,,,n1-highmem-8,K80 (12 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Microsoft Azure,,2.07,,,,NC12s v2,P100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,,3.06,,,,p3.16xlarge,V100 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Paperspace,,2.30,,,,,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,,0.92,,,,n1-highmem-32,K80 (12 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla T4,NVIDIA,Microsoft Azure,,0.53,,,,NC4as T4 v3,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,,4.10,,,,p4d.24xlarge,A100 (40 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Paperspace,,3.18,,,,,A100 (80 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Lambda Labs,,1.10,,,,,A100 (40 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Amazon Web Services,,5.12,,,,p4de.24xlarge,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Paperspace,,3.09,,,,,A100 (40 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,,3.67,,,,a2-highgpu-8g,A100 (40 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla T4,NVIDIA,Microsoft Azure,,1.20,,,,NC16as T4 v3,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,,3.67,,,,NC96ads A100 v4,A100 (80 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Paperspace,,3.09,,,,,A100 (40 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Lambda Labs,,0.55,,,,,V100 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Paperspace,,3.18,,,,,A100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,,0.90,,,,p2.xlarge,K80 (12 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA RTX A6000,NVIDIA,Lambda Labs,,0.80,,,,,A6000 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla T4,NVIDIA,Google Cloud,,0.82,,,,n1-highmem-8,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Google Cloud,,0.84,,,,n1-highmem-4,P4 (8 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,,3.67,,,,a2-highgpu-1g,A100 (40 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,,0.90,,,,p2.8xlarge,K80 (12 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Paperspace,,2.30,,,,,V100 (32 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Paperspace,,3.18,,,,,A100 (80 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,,0.90,,,,p2.16xlarge,K80 (12 GB),16
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Google Cloud,,2.95,,,,n1-highmem-8,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,,3.67,,,,a2-highgpu-2g,A100 (40 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla T4,NVIDIA,Google Cloud,,0.82,,,,n1-highmem-32,T4 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,,3.06,,,,p3.2xlarge,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA RTX A6000,NVIDIA,Paperspace,,1.89,,,,,A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Paperspace,,3.09,,,,,A100 (40 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Google Cloud,,1.93,,,,n1-highmem-8,P100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA RTX A6000,NVIDIA,Lambda Labs,,0.80,,,,,A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA RTX A6000,NVIDIA,Lambda Labs,,0.80,,,,,A6000 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Google Cloud,,2.95,,,,n1-highmem-16,V100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Paperspace,,3.09,,,,,A100 (40 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Microsoft Azure,,3.06,,,,NC6s v3,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,,3.67,,,,NC48ads A100 v4,A100 (80 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,,0.92,,,,n1-highmem-16,K80 (12 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla T4,NVIDIA,Microsoft Azure,,1.09,,,,NC64as T4 v3,T4 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Google Cloud,,1.93,,,,n1-highmem-32,P100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,,0.90,,,,NC12,K80 (12 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,,0.92,,,,n1-highmem-64,K80 (12 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Google Cloud,,0.84,,,,n1-highmem-8,P4 (8 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,,4.64,,,,ND96amsr A100 v4,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,,3.67,,,,NC24ads A100 v4,A100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla T4,NVIDIA,Google Cloud,,0.82,,,,n1-highmem-16,T4 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Google Cloud,,0.84,,,,n1-highmem-16,P4 (8 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,,3.48,,,,a2-megagpu-16g,A100 (40 GB),16
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 80 GB,NVIDIA,Paperspace,,3.18,,,,,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,,0.90,,,,NC24,K80 (12 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA RTX A6000,NVIDIA,Paperspace,,1.89,,,,,A6000 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Google Cloud,,2.95,,,,n1-highmem-32,V100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA RTX A6000,NVIDIA,Paperspace,,1.89,,,,,A6000 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,,3.67,,,,a2-highgpu-4g,A100 (40 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Lambda Labs,,1.10,,,,,A100 (40 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Microsoft Azure,,3.06,,,,NC24s v3,V100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,,0.90,,,,NC6,K80 (12 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,,3.06,,,,p3.8xlarge,V100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Microsoft Azure,,3.06,,,,NC12s v3,V100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Google Cloud,,2.95,,,,n1-highmem-64,V100 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Paperspace,,2.30,,,,,V100 (32 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,Paperspace,,2.30,,,,,V100 (32 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Microsoft Azure,,2.07,,,,NC24s v2,P100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-04,NVIDIA Tesla P4,NVIDIA,Google Cloud,,1.93,,,,n1-highmem-16,P100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,1.21,,,,g5.2xlarge,A10G (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,2.18,,,,g4dn.8xlarge,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,4.35,,,,g4dn.16xlarge,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,1.01,,,,g5.xlarge,A10G (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,0.98,,,,g4dn.metal,T4 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,1.20,,,,g4dn.4xlarge,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,0.75,,,,g4dn.2xlarge,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,1.20,,,,g4dn.4xlarge,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,1.62,,,,g5.4xlarge,A10G (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,0.53,,,,g4dn.xlarge,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,0.98,,,,g4dn.12xlarge,T4 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,2.04,,,,g5.24xlarge,A10G (24 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,2.45,,,,g5.8xlarge,A10G (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,1.42,,,,g5.12xlarge,A10G (24 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,2.04,,,,g5.48xlarge,A10G (24 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA Tesla T4,NVIDIA,Amazon Web Services,,1.20,,,,g4dn.4xlarge,T4 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Amazon Web Services,,4.10,,,,g5.16xlarge,A10G (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-05,NVIDIA A10G,NVIDIA,Lambda Labs,,0.60,,,,,A10G (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA A100 SXM4 40 GB,NVIDIA,Jarvislabs,,1.10,,,,,A100 (40 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A5000,NVIDIA,Jarvislabs,,0.59,,,,,A5000 (24 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A5000,NVIDIA,Jarvislabs,,0.59,,,,,A5000 (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A6000,NVIDIA,Jarvislabs,,0.99,,,,,A6000 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA A100 SXM4 40 GB,NVIDIA,Jarvislabs,,1.10,,,,,A100 (40 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A6000,NVIDIA,Jarvislabs,,0.99,,,,,A6000 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A6000,NVIDIA,Jarvislabs,,0.99,,,,,A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A5000,NVIDIA,Jarvislabs,,0.59,,,,,A5000 (24 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A6000,NVIDIA,Jarvislabs,,0.99,,,,,A6000 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA Quadro RTX 5000,NVIDIA,Jarvislabs,,0.49,,,,,RTX5000 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA RTX A5000,NVIDIA,Jarvislabs,,0.59,,,,,A5000 (24 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA A100 SXM4 40 GB,NVIDIA,Jarvislabs,,1.10,,,,,A100 (40 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA Quadro RTX 5000,NVIDIA,Jarvislabs,,0.49,,,,,RTX5000 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA A100 SXM4 40 GB,NVIDIA,Jarvislabs,,1.10,,,,,A100 (40 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA Quadro RTX 5000,NVIDIA,Jarvislabs,,0.49,,,,,RTX5000 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-06,NVIDIA Quadro RTX 5000,NVIDIA,Jarvislabs,,0.49,,,,,RTX5000 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA RTX A6000,NVIDIA,Datacrunch,,1.25,,,,8A6000.80V,A6000 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Datacrunch,,1.00,,,,8V100.48V,V100 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Datacrunch,,1.00,,,,4V100.20V,V100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA A100 SXM4 80 GB,NVIDIA,Datacrunch,,1.85,,,,2A100.44V,A100 (80 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Datacrunch,,1.00,,,,2V100.10V,V100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA RTX A6000,NVIDIA,Datacrunch,,1.25,,,,1A6000.10V,A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA A100 SXM4 80 GB,NVIDIA,Datacrunch,,1.85,,,,8A100.176V,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Datacrunch,,1.00,,,,1V100.6V,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA A100 SXM4 80 GB,NVIDIA,Datacrunch,,1.85,,,,1A100.22V,A100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-08,NVIDIA A100 SXM4 80 GB,NVIDIA,Datacrunch,,1.85,,,,4A100.88V,A100 (80 GB),4
+https://web.archive.org/web/20220819235958/https://aws.amazon.com/ec2/instance-types/p4/,2022-08-19,NVIDIA A100 SXM4 80 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),5.12,3.00,1.81,,,,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA Tesla P4,NVIDIA,Exoscale,,0.86,,,,GPU MEDIUM,P100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA A40 PCIe,NVIDIA,Exoscale,,2.14,,,,GPU3 MEDIUM,A40 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA A40 PCIe,NVIDIA,Exoscale,,2.13,,,,GPU3 LARGE,A40 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA A40 PCIe,NVIDIA,Exoscale,,2.13,,,,GPU3 HUGE,A40 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Exoscale,,0.83,,,,GPU2 HUGE,V100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA A40 PCIe,NVIDIA,Exoscale,,2.13,,,,GPU3 SMALL,A40 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Exoscale,,1.38,,,,GPU2 SMALL,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA Tesla P4,NVIDIA,Exoscale,,0.64,,,,GPU LARGE,P100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA Tesla P4,NVIDIA,Exoscale,,1.17,,,,GPU SMALL,P100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Exoscale,,1.01,,,,GPU2 MEDIUM,V100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-08-26,NVIDIA Tesla P4,NVIDIA,Exoscale,,0.35,,,,GPU HUGE,P100 (16 GB),8
+https://web.archive.org/web/20220911040357/https://cloud.google.com/tpu/pricing,2022-09-11,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,,,
+https://web.archive.org/web/20220912080457/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy,2022-09-12,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,2.40,1.36,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20220929115124/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2022-09-29,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,44489.88,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=369855.51",,
+https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-10-17,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
+https://web.archive.org/web/20221115193106/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2022-11-15,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
+https://web.archive.org/web/20220819235958/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100 SXM4 80 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),5.12,3.00,1.81,,,,
+https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2022-12-09,NVIDIA A100,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,p4d.24xlarge,,
+https://web.archive.org/web/20221212030420/https://cloud.google.com/compute/gpus-pricing,2022-12-12,NVIDIA A100 SXM4 80 GB,NVIDIA,Google Cloud,Iowa (us-central1),3.93,,,,,,
+https://web.archive.org/web/20221212030420/https://cloud.google.com/compute/gpus-pricing,2022-12-12,NVIDIA A100 SXM4 40 GB,NVIDIA,Google Cloud,Iowa (us-central1),2.93,1.85,1.03,,,,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-12-12,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,OVHcloud,,2.19,,,,t2-180,V100 (32 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-12-12,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,OVHcloud,,1.97,,,,t1-90,V100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-12-12,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,OVHcloud,,1.97,,,,t1-45,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-12-12,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,OVHcloud,,1.97,,,,t1-180,V100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-12-12,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,OVHcloud,,2.19,,,,t2-90,V100 (32 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2022-12-12,NVIDIA Tesla V100 DGXS 32 GB,NVIDIA,OVHcloud,,2.19,,,,t2-45,V100 (32 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-01-10,NVIDIA Quadro RTX 6000,NVIDIA,Lambda Labs,,4.40,,,,,Quadro RTX 6000 (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-01-10,NVIDIA A100 SXM4 40 GB,NVIDIA,Lambda Labs,,1.10,,,,,A100 (40 GB),8
+https://web.archive.org/web/20230128121104/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy copy,2023-01-28,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-02-02,NVIDIA A100 SXM4 80 GB,NVIDIA,Lambda Labs,,1.50,,,,,A100 (80 GB),8
+https://web.archive.org/web/20221209004833/https://aws.amazon.com/ec2/instance-types/p4/,2023-03-10,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
+https://web.archive.org/web/20230321095612/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-03-21,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20230508171615/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-05-08,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.30,,,,,A4000 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,RunPod,,0.34,,,,,A4000 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A6000,NVIDIA,Cudo Compute,,0.81,,,,,A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A6000,NVIDIA,Cudo Compute,,0.78,,,,,A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.30,,,,,A4000 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,RunPod,,0.44,,,,,A5000 (24 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.55,,,,,A5000 (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.29,,,,,A4000 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A6000,NVIDIA,RunPod,,0.79,,,,,A6000 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.58,,,,,A5000 (24 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.30,,,,,A4000 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.52,,,,,A5000 (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.58,,,,,A5000 (24 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.30,,,,,A4000 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA A40 PCIe,NVIDIA,RunPod,,0.79,,,,,A40 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.58,,,,,A5000 (24 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.29,,,,,A4000 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.58,,,,,A5000 (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A6000,NVIDIA,Cudo Compute,,0.81,,,,,A6000 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.29,,,,,A4000 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.52,,,,,A5000 (24 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.55,,,,,A5000 (24 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.30,,,,,A4000 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.29,,,,,A4000 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A6000,NVIDIA,Cudo Compute,,0.81,,,,,A6000 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA A100 SXM4 80 GB,NVIDIA,RunPod,,1.89,,,,,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.55,,,,,A5000 (24 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.55,,,,,A5000 (24 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A6000,NVIDIA,Cudo Compute,,0.78,,,,,A6000 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A6000,NVIDIA,Cudo Compute,,0.81,,,,,A6000 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.29,,,,,A4000 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.55,,,,,A5000 (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.29,,,,,A4000 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-23,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.30,,,,,A4000 (16 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Quadro RTX 4000,NVIDIA,Oblivus Cloud,,0.27,,,,,RTX4000 (8 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Oblivus Cloud,,0.65,,,,,V100 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 40 GB,NVIDIA,Oblivus Cloud,,2.39,,,,,A100 (40 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Quadro RTX 4000,NVIDIA,Oblivus Cloud,,0.27,,,,,RTX4000 (8 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A40 PCIe,NVIDIA,Oblivus Cloud,,1.54,,,,,A40 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Quadro RTX 5000,NVIDIA,Oblivus Cloud,,0.76,,,,,RTX5000 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Quadro RTX 5000,NVIDIA,Oblivus Cloud,,0.76,,,,,RTX5000 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A6000,NVIDIA,Oblivus Cloud,,1.54,,,,,A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Quadro RTX 4000,NVIDIA,Oblivus Cloud,,0.27,,,,,RTX4000 (8 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A6000,NVIDIA,Oblivus Cloud,,1.54,,,,,A6000 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A4000,NVIDIA,Oblivus Cloud,,0.81,,,,,A4000 (16 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A5000,NVIDIA,Oblivus Cloud,,0.98,,,,,A5000 (24 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 40 GB,NVIDIA,Oblivus Cloud,,2.39,,,,,A100 (40 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A4000,NVIDIA,Oblivus Cloud,,0.81,,,,,A4000 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A6000,NVIDIA,Oblivus Cloud,,1.54,,,,,A6000 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A5000,NVIDIA,Oblivus Cloud,,0.98,,,,,A5000 (24 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Oblivus Cloud,,0.65,,,,,V100 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A5000,NVIDIA,Oblivus Cloud,,0.98,,,,,A5000 (24 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A40 PCIe,NVIDIA,Oblivus Cloud,,1.54,,,,,A40 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 40 GB,NVIDIA,Oblivus Cloud,,2.39,,,,,A100 (40 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 80 GB,NVIDIA,Oblivus Cloud,,2.55,,,,,A100 (80 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 80 GB,NVIDIA,Oblivus Cloud,,2.55,,,,,A100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A6000,NVIDIA,Oblivus Cloud,,1.54,,,,,A6000 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A4000,NVIDIA,Oblivus Cloud,,0.81,,,,,A4000 (16 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A40 PCIe,NVIDIA,Oblivus Cloud,,1.54,,,,,A40 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A40 PCIe,NVIDIA,Oblivus Cloud,,1.54,,,,,A40 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Quadro RTX 5000,NVIDIA,Oblivus Cloud,,0.76,,,,,RTX5000 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA RTX A5000,NVIDIA,Oblivus Cloud,,0.98,,,,,A5000 (24 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 80 GB,NVIDIA,Oblivus Cloud,,2.55,,,,,A100 (80 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Oblivus Cloud,,0.65,,,,,V100 (16 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 40 GB,NVIDIA,Oblivus Cloud,,2.39,,,,,A100 (40 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-05-24,NVIDIA A100 SXM4 80 GB,NVIDIA,Oblivus Cloud,,2.55,,,,,A100 (80 GB),8
+https://web.archive.org/web/20230529125834/https://www.semianalysis.com/p/ai-server-cost-analysis-memory-is,2023-05-29,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,33750.00,"DGX, 8 GPU, 640GB. “Nvidia sells DGX H100’s at around $270,000”.",,
+https://web.archive.org/web/20230601141218/https://cloud.google.com/tpu/pricing,2023-06-01,Google TPU v4,Google,Google Cloud,us-central2-b,3.22,2.03,1.45,,,,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-06-20,NVIDIA H100 SXM5 80GB,NVIDIA,Lambda Labs,,1.99,,,,,H100 (80 GB),1
+https://web.archive.org/web/20240411010832/https://www.databricks.com/blog/mpt-30b,2023-06-22,NVIDIA H100 SXM5 80GB,NVIDIA,Databricks,,5.00,,,,"""Table 4 - Times and costs to pre-train MPT-30B from scratch on 1 trillion tokens. Times for H100 are extrapolated from a 256xH100 system. Costs are based on current MosaicML reserved cluster pricing of $2.50/A100-40GB/hour and $5.00/H100-80GB/hour""",,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-06-22,NVIDIA H100 SXM5 80GB,NVIDIA,Latitude.sh,,4.03,,,,g3.xlarge.x86,H100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-06-22,NVIDIA H100 SXM5 80GB,NVIDIA,Latitude.sh,,4.40,,,,g3.small.x86,H100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-06-22,NVIDIA A100 SXM4 80 GB,NVIDIA,Latitude.sh,,2.90,,,,g3.large.x86,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-06-22,NVIDIA H100 SXM5 80GB,NVIDIA,Latitude.sh,,4.40,,,,g3.medium.x86,H100 (80 GB),4
+https://web.archive.org/web/20230714001610/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-07-14,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20230909082839/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-09-09,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20230923154035/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/#gpu%20,2023-09-23,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,18548.75,"HGX A100, 8 GPU, 640GB",,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA A100 SXM4 80 GB,NVIDIA,Oracle Cloud,,4.00,,,,BM.GPU.A100-v2.8,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA A10 PCIe,NVIDIA,Oracle Cloud,,2.00,,,,VM.GPU.A10.1,A10,1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA A100 SXM4 40 GB,NVIDIA,Oracle Cloud,,3.05,,,,BM.GPU.A4.8,A100 (40 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA H100 SXM5 80GB,NVIDIA,Oracle Cloud,,10.00,,,,BM.GPU.H100.8,H100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA A10 PCIe,NVIDIA,Oracle Cloud,,2.00,,,,VM.GPU.A10.2,A10,2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA A100 SXM4 80 GB,NVIDIA,FluidStack,,2.21,,,,,A100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA H100 SXM5 80GB,NVIDIA,FluidStack,,4.76,,,,,H100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA H100 SXM5 80GB,NVIDIA,FluidStack,,4.76,,,,,H100 (80 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA A100 SXM4 80 GB,NVIDIA,FluidStack,,2.21,,,,,A100 (80 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA A100 SXM4 80 GB,NVIDIA,FluidStack,,2.21,,,,,A100 (80 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA A100 SXM4 80 GB,NVIDIA,FluidStack,,2.21,,,,,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA H100 SXM5 80GB,NVIDIA,FluidStack,,4.76,,,,,H100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA H100 SXM5 80GB,NVIDIA,FluidStack,,4.76,,,,,H100 (80 GB),2
+https://web.archive.org/web/20231121194714/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy copy copy,2023-11-21,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
+https://web.archive.org/web/20231209124013/https://aws.amazon.com/ec2/instance-types/p2/,2023-12-09,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,,,
+https://web.archive.org/web/20231211031623/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2023-12-11,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,41197.50,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=306403.66",,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC6,,
+https://lambdalabs.com/service/gpu-cloud,2024-01-29,NVIDIA H100 PCIe,NVIDIA,Lambda Labs,,2.49,,,,https://lambdalabs.com/service/gpu-cloud,,
+https://lambdalabs.com/service/gpu-cloud,2024-01-29,NVIDIA H100 SXM5 80GB,NVIDIA,Lambda Labs,,3.49,,,,27.92 for 8x,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC12 have 2 GPUs,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,1.00,0.74,0.53,,instance NC24r number of GPUs: 4X,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA Tesla K80,NVIDIA,Microsoft Azure,East US,0.91,0.67,0.49,,instance NC24 number of GPUs: 4X,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC24ads A100 v4 number of GPUs: 1,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC48ads A100 v4 number of GPUs: 2,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.72,3.10,2.30,,instance NC96ads A100 v4 number of GPUs: 4,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.83,1.70,,instance ND96asr A100 v4 number of GPUs: 8x,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA A100 SXM4 80 GB,NVIDIA,Microsoft Azure,East US,4.10,3.53,2.13,,instance ND96amsr A100 v4 number of GPUs: 8x,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC6s v2 number of GPUs: 1X,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC12s v2 number of GPUs: 2X,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.28,1.90,1.40,,instance NC24rs v2 number of GPUs: 4X,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA P100,NVIDIA,Microsoft Azure,East US,2.07,1.72,1.28,,instance NC24s v2 number of GPUs: 4X,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC6s v3 number of GPUs: 1X OS/Software: CentOS or Ubuntu Linux,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC12s v3 number of GPUs: 2X OS/Software: CentOS or Ubuntu Linux,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.37,2.47,1.79,,instance NC24rs v3 number of GPUs: 4X OS/Software: CentOS or Ubuntu Linux,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,2.24,1.63,,instance NC24s v3 number of GPUs: 4X OS/Software: CentOS or Ubuntu Linux,,
+https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2024-01-29,NVIDIA V100,NVIDIA,Microsoft Azure,East US,2.75,2.29,1.70,,instance ND40rs v2 number of GPUs: 8X OS/Software: CentOS or Ubuntu Linux,,
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA A100 SXM4 80 GB,NVIDIA,NovoNimbus,,2.73,,,,,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA RTX A6000,NVIDIA,NovoNimbus,,0.89,,,,,RTX A6000 (48 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 SXM5 80GB,NVIDIA,NovoNimbus,,4.78,,,,,H100 HGX (80GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA A100 SXM4 80 GB,NVIDIA,NovoNimbus,,2.73,,,,,A100 (80 GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 PCIe,NVIDIA,NovoNimbus,,4.29,,,,,H100 PCIe (80GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA RTX A6000,NVIDIA,NovoNimbus,,0.89,,,,,RTX A6000 (48 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA RTX A6000,NVIDIA,NovoNimbus,,0.89,,,,,RTX A6000 (48 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 SXM5 80GB,NVIDIA,NovoNimbus,,4.78,,,,,H100 HGX (80GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA RTX A6000,NVIDIA,NovoNimbus,,0.89,,,,,RTX A6000 (48 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 SXM5 80GB,NVIDIA,NovoNimbus,,4.78,,,,,H100 HGX (80GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA A100 SXM4 80 GB,NVIDIA,NovoNimbus,,2.73,,,,,A100 (80 GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA A100 SXM4 80 GB,NVIDIA,NovoNimbus,,2.73,,,,,A100 (80 GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 PCIe,NVIDIA,NovoNimbus,,4.29,,,,,H100 PCIe (80GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 PCIe,NVIDIA,NovoNimbus,,4.29,,,,,H100 PCIe (80GB),2
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 SXM5 80GB,NVIDIA,NovoNimbus,,4.78,,,,,H100 HGX (80GB),1
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-14,NVIDIA H100 PCIe,NVIDIA,NovoNimbus,,4.29,,,,,H100 PCIe (80GB),4
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-23,NVIDIA A100 SXM4 80 GB,NVIDIA,CR8DL,,3.40,,,,AZ1-A10080-8G,A100 (80 GB),8
+https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2024-02-23,NVIDIA A100 SXM4 80 GB,NVIDIA,CR8DL,,3.40,,,,AZ1-A10080-1G,A100 (80 GB),1
+https://web.archive.org/web/20240320115454/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2024-03-20,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,41217.00,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=303610.2",,
+https://web.archive.org/web/20240321212632/https://www.dihuni.com/product/supermicro-8125gs-tnhr-server/,2024-03-21,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,37080.50,"HGX, 8 GPU, 640GB",,
+https://web.archive.org/web/20241004135147/https://www.deltacomputer.com/d14n-m2-gh.html,2024-10-31,NVIDIA GH200,NVIDIA,,,,,,46675.10,Euro to USD https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=43066.13,,
+https://web.archive.org/web/20241217210350/https://www.deltacomputer.com/nvidia-dgx-b200-1440gb.html,2024-12-17,NVIDIA B200,NVIDIA,,,,,,47409.13,"DGX, 8 GPU, euro to USD",,
+https://archive.ph/TxlLv,2025-01-31,NVIDIA H200 SXM,NVIDIA,,,,,,39083.38,"HGX, 8 GPU, on sale",,
+https://archive.ph/miFcW,2025-01-31,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,31904.63,"HGX, 8 GPU",,
+https://web.archive.org/web/20250210200705/https://smicro.eu/amd-instinct-mi300a-128gb-hbm3-100-200000001h-1,2025-02-10,AMD Instinct MI300A,AMD,,,,,,23876.70,Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=23126.72,,
+https://web.archive.org/web/20250210202751/https://www.interpromicro.com/product/39955-amd-instinct-mi300x-192gb-8-oam-ubb,2025-02-10,AMD Instinct MI300X,AMD,,,,,,25733.71,8 GPU,,
+https://arxiv.org/pdf/2405.21015,2017-05-01,Google TPU v2,Google,,,,,,5054.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://arxiv.org/pdf/2405.21015,2018-05-18,Google TPU v3,Google,,,,,,5276.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://arxiv.org/pdf/2405.21015,2021-05-20,Google TPU v4,Google,,,,,,5176.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://arxiv.org/pdf/2405.21015,2015-05-15,Google TPU v1,Google,,,,,,5463.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://archive.ph/9WHHS,2025-02-21,AMD Radeon Instinct MI250,AMD,,,,,,15770.49,,,
+https://archive.ph/W5Vuf,2025-02-21,NVIDIA H800 SXM5,NVIDIA,,,,,,33800.00,,,
+https://web.archive.org/web/20250221165332/https://www.abrmicro.com/components/detail/nvidia/DGX-H800-640GB-SXM5-2TB/2949099,2025-02-21,NVIDIA H800 SXM5,NVIDIA,,,,,,44750.00,"DGX, 8 GPU",,
+https://web.archive.org/web/20250114055522/https://www.tomshardware.com/news/price-of-nvidia-a800-compute-gpu-soars,2023-07-10,NVIDIA A800 PCIe,NVIDIA,,,,,,15000.00,"""Right now, the price is approaching CNY110,000 (US$15,000) per unit""",,
+https://web.archive.org/web/20250221170625/https://viperatech.com/shop/nvidia-a800-customer-deck/?srsltid=AfmBOoptUjb3cQAEf2Mxicsz7OsVh2xJYmolFODYo3rp9ltS5_fOZKYX,2025-02-21,NVIDIA A800 PCIe,NVIDIA,,,,,,17500.00,,,
+https://archive.ph/2HhLb,2025-02-21,NVIDIA Tesla K20X,NVIDIA,,,,,,30.00,,,
+https://archive.ph/Jxl43,2012-11-12,NVIDIA Tesla K20X,NVIDIA,,,,,,7699.00,launch price,,
+https://archive.ph/XS4zz,2020-06-09,Cerebras CS-1,Cerebras,,,,,,2250000.00,"Pissburgh Supercomputing Center bought two for $5 million. Earlier in the article it lists the price as ""$2 million +"". I'm taking the average to get $2.25 million",,
+https://archive.ph/72nwz#selection-1127.52-1127.57,2011-07-25,NVIDIA Tesla C2050,NVIDIA,,,,,,2499.00,Launch price,,
+https://archive.ph/XQXxN,2025-02-21,Intel Data Center GPU Max 1550,Intel,,,,,,8550.00,,,
+https://web.archive.org/web/20241203142605/https://www.techradar.com/pro/intel-discloses-list-prices-of-its-gaudi-3-and-gaudi-2-ai-accelerators-and-were-in-for-a-shock-rivals-to-iconic-nvidias-h100-gpu-have-a-much-better-performance-per-dollar-ratio-but-will-it-matter,2024-06-09,Intel Habana Gaudi2,Intel,,,,,,8125.00,$65k for 8,,
+https://archive.ph/88dVB,2014-10-16,Intel Xeon Phi 31S1P,Intel,,,,,,1695.00,This was the price immediately before they started a sale,,
+https://web.archive.org/web/20240917214529/https://cryptoslate.com/groq-20000-lpu-card-breaks-ai-performance-records-to-rival-gpu-led-industry/,2024-02-20,GroqChip LPU v1,,,,,,,19948.00,,,
