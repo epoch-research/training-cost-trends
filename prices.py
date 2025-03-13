@@ -93,21 +93,21 @@ def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colnam
 def get_training_start_date(row, backup_training_time=True):
     # Account for time between publication and training end
     # Special case for models where the gap is abnormally large
-    if 'Gemini 1.0 Ultra' in row['System']:
+    if 'Gemini 1.0 Ultra' in row['Model']:
         # https://blog.google/technology/ai/google-io-2023-keynote-sundar-pichai/#ai-responsibility
         # "This includes our next-generation foundation model, Gemini, which is still in training."
         # So might have been even earlier, but 
         training_start_date = pd.to_datetime('2023-05-10')
-    elif 'GPT-4' in row['System']:
+    elif row['Model'] == 'GPT-4':
         # https://arxiv.org/abs/2303.08774
         # "This system card analyzes GPT-4 [...] Since it finished training in August of 2022 [...]"
         training_time = pd.Timedelta(hours=int(row['Training time (hours)']))
         training_start_date = pd.to_datetime('2022-08-15') - training_time
-    elif 'GPT-3.5' in row['System']:
+    elif 'GPT-3.5' in row['Model']:
         # https://web.archive.org/web/20230314165432/https://openai.com/research/gpt-4
         # "A year [before March 14 2023], we trained GPT-3.5 as a first “test run” of the system."
         training_start_date = pd.to_datetime('2022-03-14')
-    elif 'GPT-3' in row['System']:
+    elif 'GPT-3' in row['Model']:
         """
         1. Shevlane (2022)
         https://uploads-ssl.webflow.com/614b70a71b9f71c9c240c7a7/6262a1a55526a373cc93207d_Shevlane%20dissertation%20preprint.pdf
@@ -225,7 +225,7 @@ def find_price(
         return None, None
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
-        print(f"Could not find hardware model for {row['System']}\n")
+        print(f"Could not find hardware model for {row['Model']}\n")
         print()
         return None, None
     
@@ -236,7 +236,7 @@ def find_price(
 
     vendor = select_vendor(row, org_to_cloud_vendor, default_vendor=default_vendor)
     if vendor is None:
-        print(f"Could not find vendor for {row['System']}\n")
+        print(f"Could not find vendor for {row['Model']}\n")
         print()
         return None, None
     print(f"Trying {hardware_model} at {acquisition_date}")
@@ -355,7 +355,7 @@ def find_hardware_acquisition_price(
 ):
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
-        print(f"Could not find hardware model for {row['System']}\n")
+        print(f"Could not find hardware model for {row['Model']}\n")
         return [None] * 4
     if ',' in hardware_model: 
         # comma indicates multiple types of hardware, which we don't handle

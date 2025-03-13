@@ -7,8 +7,8 @@ def adjust_value_for_inflation(row, cost_colname, price_index, to_year_month):
     
     from_date = str(row['Publication date'])
     from_year_month = from_date.rsplit('-', maxsplit=1)[0] + '-01'
-    from_price_index = price_index[price_index['DATE'] == from_year_month]['PCU518210518210'].values[0]
-    to_price_index = price_index[price_index['DATE'] == to_year_month]['PCU518210518210'].values[0]
+    from_price_index = price_index[price_index['observation_date'] == from_year_month]['PCU518210518210'].values[0]
+    to_price_index = price_index[price_index['observation_date'] == to_year_month]['PCU518210518210'].values[0]
     adjust_factor = to_price_index / from_price_index
     return row[cost_colname] * adjust_factor
 
@@ -23,7 +23,7 @@ def adjust_column_for_inflation(df, cost_colname, path_to_price_index, to_year_m
 
 if __name__ == '__main__':
     input_df = pd.DataFrame({
-        'System': ['A', 'B', 'C'],
+        'Model': ['A', 'B', 'C'],
         'Publication date': ['2017-01-01', '2019-07-01', '2021-01-01'],
         'Training cost (USD)': [100, 100, None],
     })

@@ -127,7 +127,7 @@ def regression_slope_t_test(data1, data2, features, target, logy=False, adj_corr
     X2 = sm.add_constant(X2)
     y2 = data2[target].to_numpy()
 
-    common_systems = data1['System'].isin(data2['System']) & data2['System'].isin(data1['System'])
+    common_systems = data1['Model'].isin(data2['Model']) & data2['Model'].isin(data1['Model'])
 
     data12 = data1.loc[common_systems].dropna(subset=features + [target])
     X12 = data12[features].to_numpy()

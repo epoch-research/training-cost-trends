@@ -61,18 +61,18 @@ def estimate_cloud_costs(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        print_safely(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['Model']} ====")
         price, _ = find_price(row, price_df, hardware_df, pcd_hardware_model_colname, price_colname, org_to_cloud_vendor)
         if price is None:
             continue
         else:
-            system_to_price[row['System']] = price
+            system_to_price[row['Model']] = price
 
     # Cost estimation
     # cost = price_per_chip_hour * chip_hours
     # TODO move outside of the function
     def estimate_cost(row, system_to_price):
-        system = row['System']
+        system = row['Model']
         price = system_to_price.get(system)
         if price is None:
             return None
@@ -96,19 +96,19 @@ def estimate_cloud_costs(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
-        print_safely(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['Model']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
             print("Unable to estimate cost")
             continue
         else:
             print("Estimated cost:", cost)
-        system_to_cost[row['System']] = cost
+        system_to_cost[row['Model']] = cost
 
     print("All costs:")
     print(system_to_cost)
 
-    frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
+    frontier_pcd_df['Cost'] = frontier_pcd_df['Model'].map(system_to_cost)
 
     return frontier_pcd_df
 
@@ -132,19 +132,19 @@ def estimate_hardware_acquisition_cost(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        print_safely(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['Model']} ====")
         price, _ = get_hardware_acquisition_price(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
             continue
         else:
-            system_to_price[row['System']] = price
+            system_to_price[row['Model']] = price
 
     # Cost estimation
     # TODO move outside of the function
     def estimate_cost(row, system_to_price):
-        system = row['System']
+        system = row['Model']
         price = system_to_price.get(system)
         if price is None:
             print("No hardware price found")
@@ -168,18 +168,18 @@ def estimate_hardware_acquisition_cost(
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
-        print_safely(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['Model']} ====")
         cost = estimate_cost(row, system_to_price)
         if cost is None:
             print("Unable to estimate cost")
             continue
         else:
             print("Estimated cost:", cost)
-        system_to_cost[row['System']] = cost
+        system_to_cost[row['Model']] = cost
 
     print(system_to_cost)
 
-    frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
+    frontier_pcd_df['Cost'] = frontier_pcd_df['Model'].map(system_to_cost)
 
     return frontier_pcd_df
 
@@ -203,18 +203,18 @@ def estimate_hardware_capex_energy(
     system_to_price = {}
 
     for i, row in frontier_pcd_df.iterrows():
-        print_safely(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['Model']} ====")
         price, _ = get_hardware_value_at_training_start(
             row, price_df, hardware_df, pcd_hardware_model_colname, price_colname
         )
         if price is None:
             continue
         else:
-            system_to_price[row['System']] = price
+            system_to_price[row['Model']] = price
         
     system_to_cost = {}
     for i, row in frontier_pcd_df.iterrows():
-        print_safely(f"==== System: {row['System']} ====")
+        print_safely(f"==== System: {row['Model']} ====")
         cost = estimate_hardware_capex_energy_cost(
             row, system_to_price, frontier_pcd_df, hardware_df, separate_components
         )
@@ -223,7 +223,7 @@ def estimate_hardware_capex_energy(
             continue
         else:
             print("Estimated cost:", cost)
-        system_to_cost[row['System']] = cost
+        system_to_cost[row['Model']] = cost
 
     print("All costs:")
     print(system_to_cost)
@@ -240,10 +240,10 @@ def estimate_hardware_capex_energy(
             system_to_component_cost = {
                 system: system_to_cost[system][k] for system in system_to_cost
             }
-            frontier_pcd_df[k] = frontier_pcd_df['System'].map(system_to_component_cost)
+            frontier_pcd_df[k] = frontier_pcd_df['Model'].map(system_to_component_cost)
         frontier_pcd_df['Cost'] = frontier_pcd_df[cost_component_names].sum(axis=1)
     else:
-        frontier_pcd_df['Cost'] = frontier_pcd_df['System'].map(system_to_cost)
+        frontier_pcd_df['Cost'] = frontier_pcd_df['Model'].map(system_to_cost)
 
     return frontier_pcd_df
 
@@ -251,7 +251,7 @@ def estimate_hardware_capex_energy(
 def estimate_hardware_capex_energy_cost(
     row, system_to_price, frontier_pcd_df, hardware_df, separate_components=False,
 ):
-    system = row['System']
+    system = row['Model']
     price = system_to_price.get(system)
     if price is None:
         return None
@@ -305,7 +305,7 @@ def cluster_energy_cost(hardware_model, total_chip_hours, hardware_df, organizat
     organization: name of the organization who did the training
     year: year in which the training run was conducted
     """
-    matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    matching_hardware = hardware_df[hardware_df['Hardware name'] == hardware_model]
     chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
     if pd.isna(chip_TDP_kw):
         if "TPU v4" in hardware_model:

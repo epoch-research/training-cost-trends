@@ -162,7 +162,7 @@ def cluster_power_capacity(hardware_model, hardware_quantity, hardware_df, organ
 
     Returns the power capacity in kilowatts required to do the training run.
     """
-    matching_hardware = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    matching_hardware = hardware_df[hardware_df['Hardware name'] == hardware_model]
     chip_TDP_kw = matching_hardware['TDP (W)'].squeeze() / 1000
     if pd.isna(chip_TDP_kw):
         if "TPU v4" in hardware_model:

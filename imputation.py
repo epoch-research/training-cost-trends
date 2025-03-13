@@ -111,7 +111,7 @@ def knn_impute_pcd(pcd_df, num_neighbors_general=5, num_neighbors_training_hardw
     pcd_df['Publication date'] = datetime_to_float_year(pcd_df['Publication date'])
 
     # set the System column as the index for formatting purposes
-    pcd_df = pcd_df.set_index('System')
+    pcd_df = pcd_df.set_index('Model')
     one_hot_pcd_df = get_one_hot_df(pcd_df)
     imputed_pcd_df = knn_impute_numerical_pcd_data(one_hot_pcd_df, num_neighbors=num_neighbors_general)
 
@@ -124,10 +124,10 @@ def knn_impute_pcd(pcd_df, num_neighbors_general=5, num_neighbors_training_hardw
     )
 
     # Restore the System column
-    imputed_pcd_df['System'] = pcd_df.index
+    imputed_pcd_df['Model'] = pcd_df.index
 
     # set the System column as the index
-    imputed_pcd_df = imputed_pcd_df.set_index('System')
+    imputed_pcd_df = imputed_pcd_df.set_index('Model')
 
     # insert imputed values into pcd_df
     pcd_df['Training hardware'] = imputed_pcd_df['Training hardware']
@@ -144,7 +144,7 @@ def knn_impute_pcd(pcd_df, num_neighbors_general=5, num_neighbors_training_hardw
 
     assert all(pcd_df['Training time (chip hours)'].notna())
 
-    pcd_df['System'] = pcd_df.index
+    pcd_df['Model'] = pcd_df.index
     # Imputation converted datetime to float
     # Need to convert back to datetime
     pcd_df['Publication date'] = pcd_df['Publication date'].apply(float_year_to_datetime)
@@ -208,7 +208,7 @@ def most_common_impute_training_hardware(pcd_df):
 
     frontier_systems = load_frontier_systems()
     pcd_df.loc[:, 'Training hardware'] = imputed_pcd_df.loc[
-        imputed_pcd_df['System'].isin(frontier_systems), 'Training hardware'
+        imputed_pcd_df['Model'].isin(frontier_systems), 'Training hardware'
     ]
 
     # TODO: probably want to move this part one level up in the functions, like `knn_impute_pcd`

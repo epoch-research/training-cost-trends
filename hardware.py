@@ -35,18 +35,18 @@ GPU_HARWARE_ALIASES = [
 def get_flop_per_second(hardware_model, hardware_df):
     # Get FLOP/second from the hardware database
     flop_per_second_columns = [  # ordered by preference
-        'FP16 Tensor Core',
-        'Tensor Float 32 (TF32)',
-        'FP16 (half precision) Performance (FLOP/s)',
-        'FP32 (single precision) Performance (FLOP/s)',
+        'Tensor-FP16/BF16 performance (FLOP/s)',
+        'TF32 (TensorFloat-32) performance (FLOP/s)',
+        'FP16 (half precision) performance (FLOP/s)',
+        'FP32 (single precision) performance (FLOP/s)',
     ]
-    hardware_df_match = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    hardware_df_match = hardware_df[hardware_df['Hardware name'] == hardware_model]
     if 'TPU v1' in hardware_model:
         # Special case
-        flop_per_second = hardware_df_match['INT8 Performance (OP/s)'].values[0]
+        flop_per_second = hardware_df_match['INT8 performance (OP/s)'].values[0]
         return flop_per_second
     for col in flop_per_second_columns:
-        if col == 'FP16 (half precision) Performance (FLOP/s)':
+        if col == 'FP16 (half precision) performance (FLOP/s)':
             if 'TPU' in hardware_model:
                 # FP16 performance for older GPUs can be misleading
                 # So only use it for TPUs
@@ -67,7 +67,7 @@ def get_simplified_hardware_model(hardware_model):
 
 
 def get_release_date(hardware_model, hardware_df):
-    hardware_df_match = hardware_df[hardware_df['Name of the hardware'] == hardware_model]
+    hardware_df_match = hardware_df[hardware_df['Hardware name'] == hardware_model]
     release_date = hardware_df_match['Release date'].values[0]
     return pd.to_datetime(release_date)
 

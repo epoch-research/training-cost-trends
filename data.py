@@ -58,7 +58,7 @@ def load_data_for_cost_estimation(compute_threshold_method='top_n', compute_thre
         compute_threshold=compute_threshold,
     )
     frontier_systems = [_.replace('Î£', 'Σ') for _ in frontier_systems]
-    frontier_pcd_df = pcd_df[pcd_df['System'].isin(frontier_systems)]
+    frontier_pcd_df = pcd_df[pcd_df['Model'].isin(frontier_systems)]
 
     assert len(frontier_pcd_df) == len(frontier_systems)
 
