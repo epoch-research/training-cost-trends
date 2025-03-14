@@ -20,13 +20,13 @@
         "Megatron-Turing NLG 530B",
         "NASv3 (CIFAR-10)",
         "PaLM 2",
+        "SenseChat",
         "U-PaLM (540B)"
     ],
     "3": [
         "AlphaStar",
         "AlphaZero",
         "Amazon Titan",
-        "Claude 2",
         "Claude 3.5 Sonnet",
         "Gopher (280B)",
         "Inflection-2",
@@ -36,10 +36,10 @@
         "Xception"
     ],
     "4": [
+        "Claude 2",
         "Claude 3 Opus",
         "DeepSpeech2 (English)",
         "ERNIE 3.0 Titan",
-        "Falcon-180B",
         "Flan-PaLM 540B",
         "GLM-4 (0116)",
         "Gemini 1.5 Pro",
@@ -50,6 +50,8 @@
         "Yuan 1.0"
     ],
     "5": [
+        "Falcon-180B",
+        "GLM-4-Plus",
         "GLaM",
         "Grok-2",
         "Megatron-LM (8.3B)",
@@ -63,8 +65,6 @@
     ],
     "6": [
         "Chinchilla",
-        "Doubao-pro",
-        "Grok-1",
         "HyperCLOVA 82B",
         "Libratus",
         "Mistral Large",
@@ -74,8 +74,10 @@
     ],
     "7": [
         "ByT5-XXL",
+        "Doubao-pro",
         "GPT-2 (1.5B)",
         "GShard (dense)",
+        "Grok-1",
         "MoE-Multi",
         "PolyNet",
         "ProtT5-XXL",
@@ -123,59 +125,58 @@
     "13": [
         "AlphaCode",
         "BERT-Large-CAS (PTB+WT2+WT103)",
-        "Llama 2-70B",
+        "Llama-3.1-Nemotron-70B-Instruct",
         "PLUG",
         "PNASNet-5",
         "ProtBERT-BFD",
-        "ST-MoE",
-        "xTrimoPGLM -100B"
+        "ST-MoE"
     ],
     "14": [
         "IMPALA",
-        "InternLM",
         "LUKE",
+        "Llama 2-70B",
         "PanGu-\u03a3",
-        "ProtT5-XXL-BFD"
+        "ProtT5-XXL-BFD",
+        "xTrimoPGLM -100B"
     ],
     "15": [
         "BIDAF",
         "CoAtNet",
         "ContextNet + Noisy Student",
         "GLM-130B",
-        "HR-ResNet101"
+        "HR-ResNet101",
+        "InternLM"
     ],
     "16": [
         "Flamingo",
-        "GPT-4o mini",
-        "GPT-NeoX-20B",
-        "Gemini 1.0 Pro",
-        "Llama 3.1-70B",
-        "Qwen-72B"
+        "GPT-NeoX-20B"
     ],
     "17": [
         "BERT-Large",
+        "GPT-4o mini",
+        "Gemini 1.0 Pro",
+        "Llama 3.1-70B",
+        "Qwen-72B",
         "Transformer",
         "iGPT-L"
     ],
     "18": [
-        "DBRX",
-        "Florence",
-        "Yi-34B"
+        "Florence"
     ],
     "19": [
         "ALBERT-xxlarge",
         "CLIP (ViT L/14@336px)",
         "CogView",
+        "DBRX",
         "Mesh-TensorFlow Transformer 4.9B (language)",
-        "Qwen2-72B"
+        "Yi-34B"
     ],
     "20": [
         "ELECTRA",
         "Generative BST",
         "LSTM (Hebbian, Cache, MbPA)",
         "MuseNet",
-        "Qwen1.5-72B",
-        "Qwen2.5-72B",
+        "Qwen2-72B",
         "YOLOv3"
     ]
 }

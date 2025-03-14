@@ -130,7 +130,7 @@ def get_training_start_date(row, backup_training_time=True):
     else:
         if pd.isna(row['Training time (hours)']):
             if backup_training_time:
-                print(f"No training time found, assuming {MEDIAN_TRAINING_TIME_DAYS}\n")
+                print(f"No training time found, assuming {MEDIAN_TRAINING_TIME_DAYS} days\n")
                 training_time = pd.Timedelta(days=MEDIAN_TRAINING_TIME_DAYS)
             else:
                 print(f"No training time found\n")
@@ -207,6 +207,26 @@ def apply_cud(price_per_chip_hour, vendor, price_type, default_price_type):
     return adjusted_price_per_chip_hour
 
 
+def default_hardware_model(row, hardware_df):
+    """
+    Choose a default hardware model for a given row of data.
+    Choose based on the release date and organization.
+    If the model is a TPU, return the latest TPU model available at the time of the release.
+    If the model is a GPU, return the latest leading NVIDIA GPU available at the time of the release.
+    """
+    if 'Google' in row['Organization']:
+        # Find the latest TPU model available at the time of the release
+        matching_hardware = hardware_df[hardware_df['Hardware name'].str.contains('TPU')]
+        matching_hardware = matching_hardware[matching_hardware['Release date'] <= row['Publication date']]
+        hardware_model = matching_hardware.iloc[-1]['Hardware name']
+    else:
+        # Find the latest leading NVIDIA GPU available at the time of the release
+        matching_hardware = hardware_df[hardware_df['Hardware name'].str.contains('NVIDIA')]
+        matching_hardware = matching_hardware[matching_hardware['Release date'] <= row['Publication date']]
+        hardware_model = matching_hardware.iloc[-1]['Hardware name']
+    return hardware_model
+
+
 def find_price(
     row,
     price_df,
@@ -225,6 +245,8 @@ def find_price(
         return None, None
     hardware_model = row[pcd_hardware_model_colname]
     if pd.isna(hardware_model):
+        hardware_model = default_hardware_model(row, hardware_df)
+        # print(f"Assuming hardware model based on organization and publication date: {hardware_model}")
         print(f"Could not find hardware model for {row['Model']}\n")
         print()
         return None, None
