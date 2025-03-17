@@ -42,6 +42,9 @@ TPU_EQUIVALENT_RELEASE_PRICES = {
 }
 
 
+PRIORITY_VENDORS = ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud']
+
+
 def find_closest_price_dates(hardware_model, date, df, vendor=None, price_colname=None):
     """
     Finds the rows in the DataFrame with the closest 'Price date' to the given date and which match
@@ -241,11 +244,14 @@ def find_price(
         return None, None
     print(f"Trying {hardware_model} at {acquisition_date}")
 
+    possible_vendors = PRIORITY_VENDORS
+    possible_vendors.extend([v for v in price_df['Vendor'].dropna().unique() if v not in PRIORITY_VENDORS])
+
     # Find the price of the hardware at the time of acquisition
     vendors = [vendor]
     if "TPU" not in hardware_model:
         # TPUs are only available from Google Cloud
-        for possible_vendor in ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud', 'Lambda Labs']:
+        for possible_vendor in possible_vendors:
             if possible_vendor != vendor:
                 # Means that we try the selected vendor first, then the other vendors
                 vendors.append(possible_vendor)
