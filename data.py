@@ -68,7 +68,6 @@ def load_data_for_cost_estimation(compute_threshold_method='top_n', compute_thre
     # Price date in datetime format
     price_df.dropna(subset=['Price date'], inplace=True)
     price_df['Price date'] = pd.to_datetime(price_df['Price date'])
-    pcd_hardware_model_colname = 'Name of the hardware (from Training hardware)'
 
     ## Hardware data
     hardware_df = load_hardware_df()
