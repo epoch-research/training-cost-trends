@@ -29,6 +29,7 @@ def estimate_chip_hours(row, hardware_df):
             training_chip_seconds = flop / (flop_per_second * flop_utilization)
             training_chip_hours = training_chip_seconds / SECONDS_PER_HOUR
         else:
+            print(f"Unable to impute training chip-hours for {row['Model']}")
             return None
     else:
         training_chip_hours = training_time * hardware_quantity
@@ -81,7 +82,7 @@ def estimate_cloud_costs(
             chip_hours = row['Training time (chip hours)']
         else:
             chip_hours = estimate_chip_hours(row, hardware_df)
-        if np.isnan(chip_hours):
+        if chip_hours is None or np.isnan(chip_hours):
             print("Unable to estimate chip hours")
             return None
 
