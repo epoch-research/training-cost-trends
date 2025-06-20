@@ -25,10 +25,10 @@ There is a parameter `INCLUDE_EQUITY` to toggle including equity in the R&D staf
 
 Raw data is available in the `data/` folder:
 
-- `All ML Systems - full view.csv` is a snapshot of the Epoch database: https://epochai.org/data/epochdb/table
+- `All ML Systems - full view.csv` is a snapshot of the Epoch database: https://epoch.ai/data/ai-models?view=table#explore-the-data
 - `Chip dataset-Grid view.csv` is a snapshot of our chip database, with technical information about chips such as FLOP/s performance.
 - `Hardware prices.csv` is a snapshot of our hardware price database, including both purchase prices and cloud rental prices.
 - `PCU518210518210.csv` is a snapshot of this [price index](https://fred.stlouisfed.org/series/PCU518210518210), used to adjust for inflation
 
 
-[1] Ben Cottier, Robi Rahman, Loredana Fattorini, Nestor Maslej, and David Owen. ‘The rising costs of training frontier AI models’. ArXiv [cs.CY], 2024. arXiv. https://arxiv.org/abs/2405.21015.
+[1] Ben Cottier, Robi Rahman, Loredana Fattorini, Nestor Maslej, Tamay Besiroglu, and David Owen. ‘The rising costs of training frontier AI models’. ArXiv [cs.CY], 2024. arXiv. https://arxiv.org/abs/2405.21015.
