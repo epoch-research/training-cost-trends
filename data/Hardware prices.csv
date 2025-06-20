@@ -1,5 +1,4 @@
 ﻿Price source,Price date,Hardware model,Manufacturer,Vendor,Location,Price per chip-hour (on-demand),Price per chip-hour (1-year CUD),Price per chip-hour (3-year CUD),Price (hardware purchase),Notes,Cloud GPU description,Number of GPUs
-,,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,,,,
 https://www.techpowerup.com/gpu-specs/geforce-gtx-580.c270,2010-11-09,NVIDIA GeForce GTX 580,NVIDIA,,,,,,499.00,Single-unit release price,,1
 https://archive.ph/72nwz#selection-1127.52-1127.57,2011-07-25,NVIDIA Tesla C2050,NVIDIA,,,,,,2499.00,Launch price,,
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2012-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,5400.00,Single-unit release price,,1
@@ -11,7 +10,7 @@ https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge
 https://archive.ph/88dVB,2014-10-16,Intel Xeon Phi 31S1P,Intel,,,,,,1695.00,This was the price immediately before they started a sale,,
 https://www.anandtech.com/show/8729/nvidia-launches-tesla-k80-gk210-gpu,2014-11-17,NVIDIA Tesla K80,NVIDIA,,,,,,5000.00,Single-unit release price,,1
 https://www.techpowerup.com/gpu-specs/geforce-gtx-titan-x.c2632,2015-03-17,NVIDIA GeForce GTX TITAN X,NVIDIA,,,,,,999.00,Single-unit release price,,1
-https://arxiv.org/pdf/2405.21015,2015-05-15,Google TPU v1,Google,,,,,,5463.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://arxiv.org/pdf/2405.21015,2015-05-15,Google TPU v1,Google,,,,,,5463.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,1
 https://www.techpowerup.com/gpu-specs/tesla-p100-pcie-16-gb.c2888,2016-06-20,NVIDIA Tesla P100 PCIe 16GB,NVIDIA,,,,,,5699.00,Single-unit release price,,1
 https://web.archive.org/web/20160621002700/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2016-06-21,NVIDIA Tesla P100 PCIe 16GB,NVIDIA,,,,,,16125.00,"DGX-1, 8 GPU, 128GB",,8
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2016-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2900.00,Single-unit list price,,1
@@ -22,20 +21,18 @@ https://web.archive.org/web/20170210084643/https://aws.amazon.com/ec2/instance-t
 https://web.archive.org/web/20170221212008/https://cloud.google.com/compute/pricing,2017-02-21,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,,,
 https://web.archive.org/web/20170304211331/https://cloud.google.com/compute/pricing,2017-03-04,NVIDIA Tesla K80,NVIDIA,Google Cloud,US,1.40,,,,,,
 https://web.archive.org/web/20170312174101/https://www.microway.com/preconfiguredsystems/nvidia-dgx-1-deep-learning-system/,2017-03-12,NVIDIA Tesla P100 PCIe 16GB,NVIDIA,,,,,,18543.75,"DGX-1, 8 GPU, 128GB",,8
-https://arxiv.org/pdf/2405.21015,2017-05-01,Google TPU v2,Google,,,,,,5054.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://arxiv.org/pdf/2405.21015,2017-05-01,Google TPU v2,Google,,,,,,5054.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,1
 https://web.archive.org/web/20170523014320/https://cloud.google.com/compute/pricing,2017-05-23,NVIDIA Tesla K80,NVIDIA,Google Cloud,Oregon,1.40,,,,,,
 https://web.archive.org/web/20170530015929/https://aws.amazon.com/ec2/instance-types/p2/,2017-05-30,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,,,
 https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,18625.00,"Price at release (2017 Q3) for a DGX-1 with 8x V100 GPUs was $149,000. Dividing by 8, the price per GPU is $18,625 including interconnect hardware.",,8
 https://web.archive.org/web/20170513081017/https://wccftech.com/nvidia-volta-tesla-v100-dgx-1-hgx-1-supercomputers/,2017-07-01,NVIDIA V100,NVIDIA,,,,,,17250.00,"Price at release (2017 Q3) for a DGXS with 4x V100 GPUs was $69,000. Dividing by 4, the price per GPU is $17250 including interconnect hardware.",,4
-Unknown,2017-07-01,NVIDIA Tesla V100 SXM2,NVIDIA,,,,,,11500.00,Single-unit list price,,1
 https://web.archive.org/web/20171114190230/https://cloud.google.com/compute/pricing,2017-11-14,NVIDIA P100,NVIDIA,Google Cloud,Oregon,2.30,,,,,,
 https://web.archive.org/web/20171201173231/https://cloud.google.com/compute/pricing,2017-12-01,NVIDIA P100,NVIDIA,Google Cloud,Oregon,1.46,,,,,,
-https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-03-27,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price,,1
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price,,1
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 PCIe 16 GB,NVIDIA,,,,,,10664.00,Single-unit list price,,1
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price,,1
 https://web.archive.org/web/20190118082125/https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-05-08,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price,,1
-https://arxiv.org/pdf/2405.21015,2018-05-18,Google TPU v3,Google,,,,,,5276.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://arxiv.org/pdf/2405.21015,2018-05-18,Google TPU v3,Google,,,,,,5276.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,1
 https://web.archive.org/web/20180608204946/https://aws.amazon.com/ec2/instance-types/p3/,2018-06-08,NVIDIA Tesla V100 DGXS 16 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),3.06,1.99,1.23,,,,
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,2300.00,Single-unit list price,,1
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2018-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,2500.00,Single-unit list price,,1
@@ -71,8 +68,7 @@ https://web.archive.org/web/20200212185125/https://azure.microsoft.com/en-us/pri
 https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,3.06,1.95,1.16,, NC6s v3 ,,
 https://web.archive.org/web/20200309095635/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2020-03-09,NVIDIA V100,NVIDIA,Microsoft Azure,East US,2.75,,,,ND40rs v2 ,,
 https://web.archive.org/web/20200521074015/https://nvidianews.nvidia.com/news/nvidia-ships-worlds-most-advanced-ai-system-nvidia-dgx-a100-to-fight-covid-19-third-generation-dgx-packs-record-5-petaflops-of-ai-performance,2020-05-21,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,24875.00,"DGX A100, 8 GPU, 320GB. Release price.",,8
-No source,2020-05-21,NVIDIA A100,NVIDIA,,,,,,24875.00,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
-https://archive.ph/XS4zz,2020-06-09,Cerebras CS-1,Cerebras,,,,,,2250000.00,"Pittsburgh Supercomputing Center bought two for $5 million. Earlier in the article it lists the price as ""$2 million +"". I'm taking the average to get $2.25 million",,
+https://archive.ph/XS4zz,2020-06-09,Cerebras CS-1,Cerebras,,,,,,2250000.00,"Pittsburgh Supercomputing Center bought two for $5 million. Earlier in the article it lists the price as ""$2 million +"". I'm taking the average to get $2.25 million",,2
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K40s,NVIDIA,,,,,,540.00,Single-unit list price,,1
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla K80,NVIDIA,,,,,,940.00,Single-unit list price,,1
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 PCIe 16GB,NVIDIA,,,,,,3500.00,Single-unit list price,,1
@@ -81,26 +77,20 @@ https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla P100 SXM2,NVIDIA,,,,,,4400.00,Single-unit list price,,1
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,13700.00,Single-unit list price,,1
 https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 SXM4 40 GB,NVIDIA,,,,,,15000.00,Single-unit list price,,1
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,17500.00,Single-unit list price,,1
-https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100,NVIDIA,,,,,,15000.00,Single-unit list price,,1
 https://web.archive.org/web/20201202160025/https://cloud.google.com/tpu/pricing,2020-12-02,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
 https://web.archive.org/web/20210307231531/https://cloud.google.com/tpu/pricing,2021-03-07,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
 https://web.archive.org/web/20210411041826/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-04-11,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.40,1.44,,,,
-https://www.anandtech.com/show/16626/cerebras-unveils-wafer-scale-engine-two-wse2-26-trillion-transistors-100-yield,2021-04-20,Cerebras CS-2,Cerebras,,,,,,2000000.00,,,
-https://arxiv.org/pdf/2405.21015,2021-05-20,Google TPU v4,Google,,,,,,5176.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,
+https://arxiv.org/pdf/2405.21015,2021-05-20,Google TPU v4,Google,,,,,,5176.00,"Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Page 14, table 3.",,1
 https://web.archive.org/web/20210615052658/https://aws.amazon.com/ec2/instance-types/p4/,2021-06-15,NVIDIA A100,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,p4d.24xlarge,,
 https://web.archive.org/web/20210615231408/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-06-15,NVIDIA A100,NVIDIA,Microsoft Azure,West US 2,3.40,2.35,1.36,,instance ND96asr A100 v4 ,,
 https://web.archive.org/web/20210630170623/https://www.graphcore.ai/posts/raising-the-bar-graphcores-first-mlperf-results,2021-06-30,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,37500.00,"DGX A100, 8 GPU, 640GB",,8
-No source,2021-06-30,NVIDIA A100,NVIDIA,,,,,,31187.50,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
 https://web.archive.org/web/20210716090503/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-07-16,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,,,
 https://web.archive.org/web/20210813114749/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2021-08-13,NVIDIA A100,NVIDIA,Microsoft Azure,East US,3.40,2.35,1.36,,,,
 https://web.archive.org/web/20211008140911/https://cloud.google.com/tpu/pricing,2021-10-08,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
 https://web.archive.org/web/20211104020654/https://aws.amazon.com/ec2/instance-types/p4/,2021-11-04,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
-https://www.nextplatform.com/2021/12/06/stacking-up-amd-mi200-versus-nvidia-a100-compute-engines/,2021-11-08,AMD Radeon Instinct MI250X,AMD,,,,,,14500.00,,,
 https://web.archive.org/web/20211117224813/https://cloud.google.com/tpu/pricing,2021-11-17,Google TPU v3,Google,Google Cloud,Iowa (us-central1),2.00,1.26,0.90,,,,
 https://web.archive.org/web/20220120191032/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/,2022-01-20,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,20875.00,"DGX A100, 8 GPU, 640GB",,8
 https://web.archive.org/web/20220120172902/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/,2022-01-20,NVIDIA A100,NVIDIA,Microsoft Azure,West US 2,3.40,2.35,1.36,,instance ND96asr A100 v4 ,,
-No source,2022-01-20,NVIDIA A100,NVIDIA,,,,,,20875.00,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
 https://web.archive.org/web/20220125025352/https://aws.amazon.com/ec2/instance-types/p4/,2022-01-25,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
 https://web.archive.org/web/20220226224704/https://aws.amazon.com/ec2/instance-types/p4/,2022-02-26,NVIDIA A100 SXM4 40 GB,NVIDIA,Amazon Web Services,US East (Northern Virginia),4.10,2.40,1.45,,,,
 https://web.archive.org/web/20220317020602/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/ copy,2022-03-17,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,West US 2,3.67,,,,instance NC24ads A100 v4,,
@@ -344,8 +334,6 @@ https://web.archive.org/web/20250114055522/https://www.tomshardware.com/news/pri
 https://web.archive.org/web/20230714001610/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-07-14,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
 https://web.archive.org/web/20230909082839/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2023-09-09,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
 https://web.archive.org/web/20230923154035/https://www.dihuni.com/product/dgx-a100-comparable-dihuni-optiready-ai-a100-sxm4-8nve-8-x-ampere-a100-sxm4-nvlink-epyc-deep-learning-server/#gpu%20,2023-09-23,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,18548.75,"HGX A100, 8 GPU, 640GB",,8
-No source,2023-09-23,NVIDIA A100,NVIDIA,,,,,,18548.75,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
-https://web.archive.org/web/20230930051242/https://www.deltacomputer.com/d14n-m2-gh.html,2023-09-30,NVIDIA GH200,NVIDIA,,,,,,43401.00,Euro to USD https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=41194.18,,
 https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA A100 SXM4 80 GB,NVIDIA,Oracle Cloud,,4.00,,,,BM.GPU.A100-v2.8,A100 (80 GB),8
 https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA A10 PCIe,NVIDIA,Oracle Cloud,,2.00,,,,VM.GPU.A10.1,A10,1
 https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-23,NVIDIA A100 SXM4 40 GB,NVIDIA,Oracle Cloud,,3.05,,,,BM.GPU.A4.8,A100 (40 GB),8
@@ -359,7 +347,6 @@ https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.c
 https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA A100 SXM4 80 GB,NVIDIA,FluidStack,,2.21,,,,,A100 (80 GB),8
 https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA H100 SXM5 80GB,NVIDIA,FluidStack,,4.76,,,,,H100 (80 GB),1
 https://github.com/the-full-stack/website/blob/main/docs/cloud-gpus/cloud-gpus.csv,2023-10-31,NVIDIA H100 SXM5 80GB,NVIDIA,FluidStack,,4.76,,,,,H100 (80 GB),2
-https://www.tomshardware.com/tech-industry/artificial-intelligence/distributor-claims-that-nvidia-has-allegedly-stopped-taking-orders-on-hgx-h20-gpu-processors,2023-11-09,NVIDIA HGX H20,NVIDIA,,,,,,12000.00,"""Despite its lowered performance, the HGX H20 still carries a steep price tag of around $10,000 - $13,000.""",,
 https://web.archive.org/web/20231121194714/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing copy copy copy,2023-11-21,NVIDIA A100 PCIe,NVIDIA,Microsoft Azure,East US,3.67,3.06,2.27,,instance NC24ads A100 v4,,
 https://web.archive.org/web/20231209124013/https://aws.amazon.com/ec2/instance-types/p2/,2023-12-09,NVIDIA Tesla K80,NVIDIA,Amazon Web Services,US East (Northern Virginia),0.90,,0.43,,,,
 https://web.archive.org/web/20231211031623/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2023-12-11,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,41197.50,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=306403.66",,8
@@ -414,10 +401,8 @@ https://web.archive.org/web/20240226183104/https://oblivus.com/pricing/,2024-02-
 https://web.archive.org/web/20240226183104/https://oblivus.com/pricing/,2024-02-26,NVIDIA Tesla V100 PCIe 16 GB,NVIDIA,Oblivus Cloud,,0.51,0.36,0.25,,,,
 https://web.archive.org/web/20240226183104/https://oblivus.com/pricing/,2024-02-26,NVIDIA Quadro RTX 5000,NVIDIA,Oblivus Cloud,,0.62,0.43,0.31,,,,
 https://web.archive.org/web/20240226183104/https://oblivus.com/pricing/,2024-02-26,NVIDIA Quadro RTX 4000,NVIDIA,Oblivus Cloud,,0.27,0.19,0.13,,,,
-https://web.archive.org/web/20250310133713/https://anafrashop.com/amd-instinct-mi300a-128gb-hbm3-100-200000001h-5,2024-02-28,AMD Instinct MI300A,AMD,,,,,,23627.98,"Under the ""price development"" section",,
 https://web.archive.org/web/20240320115454/https://www.deltacomputer.com/nvidia-dgx-h100-640gb.html,2024-03-20,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,41217.00,"DGX, 8 GPU, 640GB. Convert Euro to USD: https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=303610.2",,8
 https://web.archive.org/web/20240321212632/https://www.dihuni.com/product/supermicro-8125gs-tnhr-server/,2024-03-21,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,37080.50,"HGX, 8 GPU, 640GB",,8
-https://web.archive.org/web/20250310135833/https://anafrashop.com/nvidia-gpu-baseboard-8-h200-935-24287-0040-000-4,2024-03-27,NVIDIA H200 SXM,NVIDIA,,,,,,33820.65,"8x GPU, $270,565 total, price listed under ""Price Development""",,1
 https://web.archive.org/web/20241203142605/https://www.techradar.com/pro/intel-discloses-list-prices-of-its-gaudi-3-and-gaudi-2-ai-accelerators-and-were-in-for-a-shock-rivals-to-iconic-nvidias-h100-gpu-have-a-much-better-performance-per-dollar-ratio-but-will-it-matter,2024-06-09,Intel Habana Gaudi2,Intel,,,,,,8125.00,$65k for 8,,8
 https://web.archive.org/web/20240625062541/https://oblivus.com/pricing/,2024-06-25,NVIDIA H100 SXM5 80GB,NVIDIA,Oblivus Cloud,,3.45,,,,,"H100 80GB NVLINK 
 (32 vCPU - 180GB RAM - 825GB NVMe)",
@@ -439,7 +424,7 @@ https://web.archive.org/web/20240711213314/https://lambdalabs.com/service/gpu-cl
 https://web.archive.org/web/20240711213314/https://lambdalabs.com/service/gpu-cloud,2024-07-11,NVIDIA H100 PCIe,NVIDIA,Lambda Labs,,2.49,,,,,H100 PCIe (80GB),1
 https://web.archive.org/web/20240711213314/https://lambdalabs.com/service/gpu-cloud,2024-07-11,NVIDIA A100 SXM4 40 GB,NVIDIA,Lambda Labs,,1.29,,,,,,1
 https://web.archive.org/web/20240711213314/https://lambdalabs.com/service/gpu-cloud,2024-07-11,NVIDIA A100 PCIe,NVIDIA,Lambda Labs,,1.29,,,,,A100 PCIe (40GB),1
-https://web.archive.org/web/20240717050546/https://salad.com/pricing,2024-07-17,NVIDIA GeForce RTX 2080 Ti,NVIDIA,Salad,,0.10,,,,,,
+https://web.archive.org/web/20240717050546/https://salad.com/pricing,2024-07-17,NVIDIA GeForce RTX 2080 Ti 11GB,NVIDIA,Salad,,0.10,,,,,,
 https://web.archive.org/web/20240727085500/https://www.runpod.io/pricing,2024-07-27,NVIDIA H100 PCIe,NVIDIA,RunPod,,3.29,,,,,80GB,
 https://web.archive.org/web/20240727085500/https://www.runpod.io/pricing,2024-07-27,NVIDIA H100 SXM5 80GB,NVIDIA,RunPod,,3.99,,,,,,
 https://web.archive.org/web/20240727085500/https://www.runpod.io/pricing,2024-07-27,NVIDIA A100 PCIe,NVIDIA,RunPod,,1.69,,,,,80GB,
@@ -541,7 +526,7 @@ https://web.archive.org/web/20250301185658/https://vast.ai/,2025-03-03,NVIDIA Ge
 https://web.archive.org/web/20250301185658/https://vast.ai/,2025-03-03,NVIDIA RTX A6000,NVIDIA,vast.ai,,0.50,,,,,,
 https://web.archive.org/web/20250301185658/https://vast.ai/,2025-03-03,NVIDIA RTX A5000,NVIDIA,vast.ai,,0.15,,,,,,
 https://web.archive.org/web/20250301185658/https://vast.ai/,2025-03-03,NVIDIA A40 PCIe,NVIDIA,vast.ai,,0.12,,,,,,
-https://web.archive.org/web/20250303181940/https://salad.com/pricing,2025-03-03,NVIDIA GeForce RTX 2080 Ti,NVIDIA,Salad,,0.08,,,,,,
+https://web.archive.org/web/20250303181940/https://salad.com/pricing,2025-03-03,NVIDIA GeForce RTX 2080 Ti 11GB,NVIDIA,Salad,,0.08,,,,,,
 https://web.archive.org/web/20250303181940/https://salad.com/pricing,2025-03-03,NVIDIA GeForce RTX 4090,NVIDIA,Salad,,0.20,,,,,,
 https://web.archive.org/web/20250303181940/https://salad.com/pricing,2025-03-03,NVIDIA GeForce RTX 3090 Ti,NVIDIA,Salad,,0.15,,,,,,
 https://web.archive.org/web/20250303181940/https://salad.com/pricing,2025-03-03,NVIDIA GeForce RTX 3090,NVIDIA,Salad,,0.12,,,,,,
@@ -565,9 +550,9 @@ https://web.archive.org/save/https://www.cudocompute.com/products/gpu-cloud,2025
 https://web.archive.org/save/https://www.cudocompute.com/products/gpu-cloud,2025-03-03,NVIDIA RTX 4000 SFF Ada Generation,NVIDIA,Cudo Compute,,0.37,,,,,,
 https://web.archive.org/save/https://www.cudocompute.com/products/gpu-cloud,2025-03-03,NVIDIA RTX A5000,NVIDIA,Cudo Compute,,0.35,,,,,,
 https://web.archive.org/save/https://www.cudocompute.com/products/gpu-cloud,2025-03-03,NVIDIA RTX A4000,NVIDIA,Cudo Compute,,0.30,,,,,,
-https://web.archive.org/web/20250303142536/https://cloud.google.com/tpu/pricing,2025-03-03,Google TPU v6e,Google,Google Cloud,East US,2.70,1.89,1.22,,,,
-https://web.archive.org/web/20250303142536/https://cloud.google.com/tpu/pricing,2025-03-03,Google TPU v6e,Google,Google Cloud,Netherlands (europe-west4),2.97,2.08,1.34,,,,
-https://web.archive.org/web/20250303142536/https://cloud.google.com/tpu/pricing,2025-03-03,Google TPU v6e,Google,Google Cloud,Japan (asia-northeast1),3.24,2.27,1.46,,,,
+https://web.archive.org/web/20250303142536/https://cloud.google.com/tpu/pricing,2025-03-03,Google TPU v6e Trillium,Google,Google Cloud,East US,2.70,1.89,1.22,,,,
+https://web.archive.org/web/20250303142536/https://cloud.google.com/tpu/pricing,2025-03-03,Google TPU v6e Trillium,Google,Google Cloud,Netherlands (europe-west4),2.97,2.08,1.34,,,,
+https://web.archive.org/web/20250303142536/https://cloud.google.com/tpu/pricing,2025-03-03,Google TPU v6e Trillium,Google,Google Cloud,Japan (asia-northeast1),3.24,2.27,1.46,,,,
 https://web.archive.org/web/20250303193344/https://anafrashop.com/nvidia-h100-94gb-hbm2-900-21010-0020-000-2,2025-03-03,NVIDIA H100 PCIe,NVIDIA,,,,,,35098.15,CIe 5.0 x16 Memory size: 94 GB Memory type: HBM3 Stream processors: 14592 Number of tensor cores: 456 Theoretical performance: 51.22 TFLOP,94GB,
 https://web.archive.org/web/20250303193957/https://anafrashop.com/nvidia-a40-48gb-gddr6-pcie-4-0-passive-cooling-w-o-ce-48gb-gddr6-900-2g133-0000-100-4,2025-03-03,NVIDIA A40 PCIe,NVIDIA,,,,,,5842.94,,,
 https://web.archive.org/web/20250303194516/https://anafrashop.com/nvidia-a100-80gb-cowos-hbm2-pcie-w-o-cec-900-21001-0020-100-4,2025-03-03,NVIDIA A100 PCIe,NVIDIA,,,,,,16338.77,,80GB,
@@ -581,7 +566,7 @@ https://web.archive.org/web/20250303203945/https://viperatech.com/shop/nvidia-a8
 https://web.archive.org/web/20250303204111/https://viperatech.com/shop/nvidia-a100/,2025-03-03,NVIDIA A100 PCIe,NVIDIA,,,,,,18500.00,,80GB,
 https://web.archive.org/web/20250303202437/https://viperatech.com/shop/nvidia-h800-sxm5/,2025-03-03,NVIDIA H800 PCIe,NVIDIA,,,,,,33800.00,,,
 https://web.archive.org/web/20250303204941/https://www.abrmicro.com/components/detail/nvidia/AD102-301-A1/2949134,2025-03-03,NVIDIA GeForce RTX 4090,NVIDIA,,,,,,1417.20,,,
-https://web.archive.org/save/https://www.interpromicro.com/product/40088-nvidia-h100-sxm5-baseboard,2025-03-03,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,28750.00,"$230,000.00 / 8 = 28 750 US$ per chip",,8
+https://web.archive.org/web/20250304183554/https://signalpulse.com/product/nvidia-a100-80gb-sxm-tensor-core-gpu-accelerator/?gQT=2,2025-03-03,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,28750.00,"$230,000.00 / 8 = 28 750 US$ per chip",,8
 https://web.archive.org/web/20250303210259/https://www.interpromicro.com/product/34630-nvidia-hgx-2-gpu-baseboard-8x-v100-32gb-sxm3,2025-03-03,NVIDIA Tesla V100 SXM3 32 GB,NVIDIA,,,,,,9527.49,"$76,219.95 / 8 = 9 527.49375 US$ per chip",,8
 https://web.archive.org/web/20250304183308/https://anafrashop.com/nvidia-delta-hgx-gpu-baseboard-8-a100-80gb-sxm4-935-23587-0000-200-4?gQT=2,2025-03-04,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,17348.56,"$138,788.44 / 8 = 17,348.555 US$ per chip",,8
 https://web.archive.org/web/20250304183554/https://signalpulse.com/product/nvidia-a100-80gb-sxm-tensor-core-gpu-accelerator/?gQT=2,2025-03-04,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,17499.00,Single-unit list price,,1
@@ -589,12 +574,34 @@ https://web.archive.org/web/20250304183554/https://signalpulse.com/product/nvidi
 https://web.archive.org/web/20250304190352/https://stockx.com/nvidia-geforce-rtx-3090-graphics-card-founders-edition-black?country=US&currencyCode=USD&__cf_chl_rt_tk=zqg0BEwv6p.v1d6bqxWk26CJWlhfeCXvkEtyLdt8OyM-1741115032-1.0.1.1-RZFmtfE.c7fHACqmjjJ1loYSkevElIFViRrgIM.0hyI,2025-03-04,NVIDIA GeForce RTX 3090,NVIDIA,,,,,,1070.00,,,
 https://web.archive.org/web/20250304190434/https://www.newegg.com/nvidia-geforce-rtx-3090-ti-fe/p/N82E16814132093,2025-03-04,NVIDIA GeForce RTX 3090 Ti,NVIDIA,,,,,,2449.00,,,
 https://web.archive.org/web/20250304190844/https://www.newegg.com/nvidia-geforce-rtx-3090-rtx-3090-founders-edition-24gb/p/1FT-0004-00842,2025-03-04,NVIDIA GeForce RTX 3090,NVIDIA,,,,,,2199.00,,,
-https://web.archive.org/web/20250304191331/https://www.newegg.com/p/1FT-0004-002U2,2025-03-04,NVIDIA GeForce RTX 2080 Ti,NVIDIA,,,,,,879.00,,,
+https://web.archive.org/web/20250304191331/https://www.newegg.com/p/1FT-0004-002U2,2025-03-04,NVIDIA GeForce RTX 2080 Ti 11GB,NVIDIA,,,,,,879.00,,,
+No source,2020-05-21,NVIDIA A100,NVIDIA,,,,,,24875.00,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
+No source,2021-06-30,NVIDIA A100,NVIDIA,,,,,,31187.50,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
+No source,2022-01-20,NVIDIA A100,NVIDIA,,,,,,20875.00,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
+No source,2023-09-23,NVIDIA A100,NVIDIA,,,,,,18548.75,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
 No source,2025-03-04,NVIDIA A100,NVIDIA,,,,,,17348.56,This is not a real sale price. Estimating the price of a generic A100 SXM based on the previous known release prices.,,8
+https://www.microway.com/hpc-tech-tips/nvidia-tesla-v100-price-analysis/,2018-03-27,NVIDIA Tesla V100 SXM2 32 GB,NVIDIA,,,,,,11458.00,Single-unit list price,,1
+Unknown,2017-07-01,NVIDIA Tesla V100 SXM2,NVIDIA,,,,,,11500.00,Single-unit list price,,1
+https://www.tomshardware.com/tech-industry/artificial-intelligence/distributor-claims-that-nvidia-has-allegedly-stopped-taking-orders-on-hgx-h20-gpu-processors,2023-11-09,NVIDIA HGX H20,NVIDIA,,,,,,12000.00,"""Despite its lowered performance, the HGX H20 still carries a steep price tag of around $10,000 - $13,000.""",,
+https://www.anandtech.com/show/16626/cerebras-unveils-wafer-scale-engine-two-wse2-26-trillion-transistors-100-yield,2021-04-20,Cerebras CS-2,Cerebras,,,,,,2000000.00,,,
+https://www.nextplatform.com/2021/12/06/stacking-up-amd-mi200-versus-nvidia-a100-compute-engines/,2021-11-08,AMD Radeon Instinct MI250X,AMD,,,,,,14500.00,,,
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100 SXM4 80 GB,NVIDIA,,,,,,17500.00,Single-unit list price,,1
+https://www.nextplatform.com/2022/05/09/how-much-of-a-premium-will-nvidia-charge-for-hopper-gpus/,2020-07-01,NVIDIA A100,NVIDIA,,,,,,15000.00,Single-unit list price,,1
+https://web.archive.org/web/20230930051242/https://www.deltacomputer.com/d14n-m2-gh.html,2023-09-30,NVIDIA GH200,NVIDIA,,,,,,43401.00,Euro to USD https://www.oanda.com/currency-converter/en/?from=EUR&to=USD&amount=41194.18,,
+https://web.archive.org/web/20250310133713/https://anafrashop.com/amd-instinct-mi300a-128gb-hbm3-100-200000001h-5,2024-02-28,AMD Instinct MI300A,AMD,,,,,,23627.98,"Under the ""price development"" section",,
+https://web.archive.org/web/20250310135833/https://anafrashop.com/nvidia-gpu-baseboard-8-h200-935-24287-0040-000-4,2024-03-27,NVIDIA H200 SXM,NVIDIA,,,,,,33820.65,"8x GPU, $270,565 total, price listed under ""Price Development""",,8
 https://web.archive.org/web/20250317144823/https://aws.amazon.com/ec2/pricing/on-demand/ ,2025-03-17,NVIDIA H100 SXM5 80GB,NVIDIA,Amazon Web Services,East US,12.29,,,,"$98,32/8 = 12,29 US$ ",https://web.archive.org/web/20250317144803/https://aws.amazon.com/ec2/instance-types/p5/,8
+,,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,,,,
 https://web.archive.org/web/20250317144823/https://aws.amazon.com/ec2/pricing/on-demand/,2025-03-17,NVIDIA H200 SXM,NVIDIA,Amazon Web Services,East US,10.60,,,,$84.80/8 = 10.6 US$,https://web.archive.org/web/20250317144803/https://aws.amazon.com/ec2/instance-types/p5/,8
 https://web.archive.org/web/20250317145952/https://www.oracle.com/cloud/compute/gpu/pricing/,2025-03-17,NVIDIA H100 SXM5 80GB,NVIDIA,Oracle Cloud,,10.00,,,,,8x NVIDIA H100 80GB Tensor Hopper  Core ,8
 https://web.archive.org/web/20250317145952/https://www.oracle.com/cloud/compute/gpu/pricing/,2025-03-17,NVIDIA A100 SXM4 80 GB,NVIDIA,Oracle Cloud,,4.00,,,,,8x NVIDIA A100 80GB Tensor Core Ampere,8
 https://web.archive.org/web/20250317145952/https://www.oracle.com/cloud/compute/gpu/pricing/,2025-03-17,NVIDIA A100 SXM4 40 GB,NVIDIA,Oracle Cloud,,3.05,,,,,8x NVIDIA A100 40GB Tensor Core Ampere 8x2x100 Gb/sec RDMA*,8
 https://web.archive.org/web/20250317151647/https://cloud.google.com/compute/all-pricing?hl=ru,2025-03-17,NVIDIA H100 SXM5 80GB,NVIDIA,Google Cloud,Iowa (us-central1),11.06,7.67,4.86,,https://web.archive.org/web/20250317151800/https://cloud.google.com/compute/docs/accelerator-optimized-machines#a3-vms,a3-highgpu-1g,1
 https://web.archive.org/web/20250317154123/https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing,2025-03-17,NVIDIA H100 NVL,NVIDIA,Microsoft Azure,East US,6.98,5.81,4.31,,,"The NCads H100 v5 series virtual machine (VM) is designed and optimized for midrange Generative AI training, Generative AI inference and HPC simulation workloads. The NCads H100 v5 series is powered by NVIDIA H100 NVL GPU and 4th-generation AMD EPYC™ Genoa processors. The VMs feature up to 2 NVIDIA H100 NVL GPUs with 94GB memory each, up to 96 non-multithreaded AMD EPYC Genoa processor cores and 640 GiB of system memory.",1
+https://archive.ph/D6Dub,2023-09-06,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,31119.50,"8x GPU HGX, $248,956 total, comes from historical price listed under ""Price Development""",,8
+https://archive.ph/D6Dub,2024-02-21,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,33810.00,"8x GPU HGX, $270,480 total, comes from historical price listed under ""Price Development""",,8
+https://archive.ph/D6Dub,2024-03-27,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,33819.37,"8x GPU HGX, $270,555 total, comes from historical price listed under ""Price Development""",,8
+https://archive.ph/D6Dub,2024-07-31,NVIDIA H100 SXM5 80GB,NVIDIA,,,,,,36017.75,"8x GPU HGX, $288,142 total, comes from historical price listed under ""Price Development""",,8
+https://docs.google.com/spreadsheets/d/1uzExL_0uXw3LllqqyiwzlPNJnME074plrKsPg8NxDcs,2024-05-15,Google TPU v6e Trillium,Google,,,,,,6518.00,Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Does not include server hardware costs.,,1
+https://docs.google.com/spreadsheets/d/1uzExL_0uXw3LllqqyiwzlPNJnME074plrKsPg8NxDcs,2023-08-15,Google TPU v5e,Google,,,,,,1781.00,Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Does not include server hardware costs.,,1
+https://docs.google.com/spreadsheets/d/1uzExL_0uXw3LllqqyiwzlPNJnME074plrKsPg8NxDcs,2023-12-06,Google TPU v5p,Google,,,,,,3694.00,Estimated TPU purchase price based on geometric mean of TPU manufacturing cost and price of equivalent GPU. Does not include server hardware costs.,,1
