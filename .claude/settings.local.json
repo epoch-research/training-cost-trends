@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(pip3 list:*)",
+      "Bash(ls:*)",
+      "Bash(echo $VIRTUAL_ENV)",
+      "Bash(find:*)",
+      "Bash(apt list:*)",
+      "Bash(rg:*)",
+      "Bash(grep:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": false
+}
