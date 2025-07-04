@@ -8,7 +8,9 @@
       "Bash(find:*)",
       "Bash(apt list:*)",
       "Bash(rg:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(pip --version)",
+      "Bash(jupyter --version)"
     ]
   },
   "enableAllProjectMcpServers": false

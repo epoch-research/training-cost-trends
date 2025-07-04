@@ -1,9 +1,13 @@
-## Introduction
+# Introduction
 
-Our current goal is to create a standalone "update_model_costs.ipynb" notebook that we can run within the codebase every time we want updated cost data. So we shouldn't be running regressions or plotting graphs, or recalculating all of our model parameters each time.
+Our current goal is to create a not-quite-standalone "update_model_costs.ipynb" notebook that we can run within the codebase every time we want updated cost data. We shouldn't be running regressions or plotting graphs, we just want a relatively neat and contained file.
 
-## Tips
-Remember to use NotebookEdit to edit .ipynb files.
+# Tips
+Use NotebookEdit to edit .ipynb files.
+Use NotebookRead without a cell_id parameter - NotebookRead using cell_ids seems not to work at the moment (though NotebookEdit using cell_id works).
+Use python3 rather than python for relevant bash commands.
+All requirements should be imported via requirements.txt. If you need to import additional packages, add them to requirements.txt rather than using something like bash commands.
+When you see an error, for example from using a bash command, write it to "ERRORS.md" with a full comment on the situation so that I can troubleshoot for future sessions. The description should be roughly between 1 compound sentence and 2 short paragraphs in length. I'll leave notes for how to avoid common issues here in Tips.
 
 # Training Cost Trends Codebase Structure
 
@@ -169,10 +173,3 @@ Basic setup and usage instructions with parameter configuration examples
 2. **Development Costs**: `development_cost.ipynb` → R&D cost estimates
 3. **Validation**: `compared_results.ipynb`, `uncertainty.ipynb` → robustness testing
 4. **Data Quality**: `imputation_sensitivity.ipynb`, `validate_imputation.ipynb` → data validation
-
-## Potential Simplifications
-
-- `regression_analysis.ipynb` may be redundant with `cost_analysis.ipynb`
-- Data validation notebooks could be consolidated
-- Many dependencies in `requirements.txt` appear unused
-- Utility notebooks could be moved to scripts/
