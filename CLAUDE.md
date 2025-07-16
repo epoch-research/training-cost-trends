@@ -15,6 +15,224 @@ This repository analyzes the rising costs of training frontier AI models, suppor
 
 ## Core Python Modules
 
+## Core File: `cost_analysis_standalone.py` (1,465 lines)
+
+This single comprehensive script contains all necessary functions and constants for cost estimation analysis. It consolidates functionality from multiple modules into one executable file.
+
+### Key Constants and Configuration (Lines 14-94)
+
+**Time and Economic Constants:**
+- `SECONDS_PER_HOUR = 3600`, `HOURS_PER_YEAR = 8766`, `DAYS_PER_YEAR = 365.25`
+- `CLUSTER_INTERCONNECT_COST_FRACTION = 0.19` (19% of total cluster cost)
+- `MEDIAN_UTILIZATION = 0.375` (37.5% median utilization rate)
+- `ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR = 0.14` (hardware progress rate)
+
+**Hardware Mappings:**
+- `SIMPLIFIED_HARDWARE_NAMES` - Maps specific GPU variants to simplified names (e.g., "NVIDIA A100 SXM4 40 GB" → "NVIDIA A100")
+- `GPU_HARWARE_ALIASES` - List of common GPU aliases for matching
+- `TPU_EQUIVALENT_RELEASE_PRICES` - Fixed TPU pricing estimates
+
+**Cloud Vendor Configuration:**
+- `DEFAULT_CUD` - Committed-use discount rates for AWS, Google Cloud, Azure, Lambda Labs
+- `PRIORITY_VENDORS` - Vendor preference order for price lookups
+
+### Data Loading Functions (Lines 127-194)
+
+**Core Data Loaders:**
+- `load_frontier_systems()` - Loads precomputed frontier model lists from JSON files
+- `load_pcd_df()`, `load_hardware_df()`, `load_price_df()` - CSV data loaders
+- `load_data_for_cost_estimation()` - Complete data pipeline integrating all data sources
+
+**Data Processing Choices:**
+- Publication dates converted to datetime format with NaN handling
+- Unicode character normalization (Σ symbol replacement)
+- Automatic filtering to frontier models only
+
+### Hardware Analysis Functions (Lines 196-301)
+
+**Performance Lookup (Lines 200-227):**
+- `get_flop_per_second()` - Hardware performance lookup with priority order:
+  1. Tensor-FP16/BF16 performance (preferred)
+  2. TF32 performance
+  3. FP16 performance (TPUs only)
+  4. FP32 performance (fallback)
+- Special handling for TPU v1 using INT8 performance
+
+**Server Economics (Lines 237-257):**
+- `get_server_lifetime()` - Server depreciation timeline:
+  - ≤2020: 3 years
+  - 2021-2022: 4 years  
+  - ≥2023: 5 years
+- `get_server_cost_overhead()` - Server vs. GPU cost multipliers:
+  - A100: 1.66x
+  - V100: 1.69x
+  - P100: 1.54x
+  - Default: 1.64x
+
+### Energy Cost Calculations (Lines 260-343)
+
+**Power Modeling:**
+- `power_usage_effectiveness()` - Data center efficiency:
+  - Hyperscalers (Google, Microsoft, Amazon, Meta): 1.1x
+  - Others: 1.25x
+- `server_TDP_fraction()` - Average power during training:
+  - TPUs: 43% of TDP
+  - GPUs: 75% of TDP
+- `chip_to_server_power()` - Chip-to-server power multipliers (hardware-specific)
+
+**Energy Pricing:**
+- `energy_price()` - US industrial electricity prices by year (2010-2025)
+- Hardcoded annual values, no interpolation
+
+### Price Discovery and Matching (Lines 346-696)
+
+**Temporal Price Matching:**
+- `find_closest_price_dates()` - Sophisticated price lookup with:
+  - Exact hardware model matching
+  - Soft matching via `SIMPLIFIED_HARDWARE_NAMES`
+  - Vendor-specific filtering
+  - Temporal proximity optimization
+
+**Training Timeline Estimation:**
+- `get_training_start_date()` - Estimates training start with:
+  - Special cases for GPT-4, GPT-3.5, GPT-3, Gemini Ultra
+  - Default: Publication date - training time - 60 days buffer
+  - Fallback: Median training time (793.5 hours)
+- `get_acquisition_date()` - Hardware acquisition: Training start - 60 days buffer
+
+**Price Selection Logic:**
+- `find_price()` - Multi-tier fallback system:
+  1. Try selected vendor first
+  2. Fall back to priority vendors (AWS, Azure, Google Cloud)
+  3. Try different CUD commitment levels (3-year → 1-year → on-demand)
+  4. Allow future price dates if no past prices available
+
+**Hardware Depreciation:**
+- `depreciate_by_hardware_progress()` - Uses `ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR` to depreciate hardware value over time
+
+### Inflation Adjustment (Lines 698-717)
+
+**CPI Adjustment:**
+- `adjust_value_for_inflation()` - Uses Producer Price Index (PCU518210518210.csv)
+- `adjust_column_for_inflation()` - Batch processing for dataframes
+- Default target: December 2024 prices
+
+### Data Imputation Methods (Lines 719-931)
+
+**KNN Imputation (Lines 730-864):**
+- `knn_impute_pcd()` - Full KNN imputation pipeline:
+  - Drops irrelevant columns (citations, notes, etc.)
+  - Converts large numbers to log scale
+  - One-hot encodes categorical variables
+  - Imputes numerical values with KNeighborsRegressor
+  - Separately imputes categorical training hardware with KNeighborsClassifier
+  - Default: 5 neighbors
+
+**Most Common Imputation (Lines 866-931):**
+- `most_common_impute_training_hardware()` - Year-based mode imputation:
+  - Groups models by publication year
+  - Separates TPUs from GPUs for imputation
+  - Uses full PCD dataset for better coverage
+  - Handles comma-separated multiple values
+
+**Imputation Configuration (Lines 1284-1317):**
+- `enable_imputation` - Toggle imputation on/off
+- `imputation_method` - Choose 'knn', 'most_common', or 'none'
+- `knn_neighbors` - Number of neighbors for KNN (default: 5)
+
+### Cost Estimation Methods (Lines 933-1237)
+
+**Method 1: Hardware CapEx + Energy (Lines 985-1094)**
+- `estimate_hardware_capex_energy()` - **Primary estimation method**
+- Amortized hardware cost using optimal replacement rate
+- Hardware replacement per year = `ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR * ln(10)`
+- Total cost = Amortized hardware + Interconnect (19%) + Energy
+- Uses depreciated hardware values at training start
+
+**Method 2: Hardware Acquisition (Lines 1096-1162)**
+- `estimate_hardware_acquisition_cost()` - Upfront hardware purchase cost
+- Cost = Hardware quantity × Price per chip × Server overhead
+- Adds interconnect cost: `Cost / (1 - CLUSTER_INTERCONNECT_COST_FRACTION)`
+- Uses hardware acquisition prices
+
+**Method 3: Cloud Costs (Lines 1164-1237)**
+- `estimate_cloud_costs()` - Cloud rental cost estimation
+- Uses committed-use discount rates (3-year CUD preferred)
+- Cost = Price per chip-hour × Total chip-hours
+- Vendor selection based on organization mapping
+
+**Common Features:**
+- All methods exclude fine-tuned models (base model field check)
+- Chip-hours estimated from compute/hardware specs if missing
+- Comprehensive logging and error handling
+
+### Main Analysis Workflow (Lines 1243-1465)
+
+**Configuration Options:**
+- `compute_threshold_method` - Frontier model selection: 'top_n', 'window_percentile'
+- `compute_threshold` - Selection threshold (e.g., 10 for top 10 models)
+- `exclude_models_containing` - Model name exclusion filters
+- `enable_imputation` - Toggle imputation processing
+- `imputation_method` - Choose imputation strategy
+
+**Execution Pipeline:**
+1. **Data Loading** - Load frontier models, hardware specs, prices
+2. **Data Quality Assessment** - Report missing data before/after imputation
+3. **Imputation** - Apply selected imputation method if enabled
+4. **Cost Estimation** - Run all three estimation methods in parallel
+5. **Inflation Adjustment** - Apply CPI adjustment to December 2024
+6. **Results Export** - Generate multiple output files
+
+**Output Files:**
+- `cost_dataset_3_estimates.csv` - Comparison of all three methods
+- `cost_dataset_detailed.csv` - Detailed results for primary method
+- `cost_components.csv` - Component cost breakdown
+- `cost_estimation_*.out` - Detailed logs for each method
+
+## Data Files
+
+### Core Datasets
+- `All ML Systems - full view.csv` - Epoch AI model database with training details
+- `Hardware prices.csv` - GPU/TPU pricing data across vendors and time
+- `Chip dataset-Grid view.csv` - Hardware technical specifications (FLOP/s, TDP, etc.)
+- `PCU518210518210.csv` - Producer price index for inflation adjustment
+
+### Precomputed Model Selections
+- `frontier_systems_by_top_n.json` - Top-N frontier model selections
+- `frontier_systems_by_window_percentile.json` - Percentile-based selections
+- `frontier_systems_by_backward_window_percentile.json` - Backward-looking percentile
+- `frontier_systems_by_residual_from_trend.json` - Residual-based selections
+
+## Key Modifiable Parameters for Future Changes
+
+### Economic Assumptions (Lines 17-24)
+- `CLUSTER_INTERCONNECT_COST_FRACTION` - Network infrastructure cost percentage
+- `MEDIAN_UTILIZATION` - Hardware utilization rate assumption
+- `ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR` - Hardware progress rate
+
+### Timing Assumptions (Lines 389-424)
+- Training start buffer: 60 days before publication
+- Hardware acquisition buffer: 60 days before training start
+- Hardware acquisition minimum delay: 90 days after release (GPUs)
+
+### Imputation Strategy (Lines 1284-1317)
+- Switch between KNN and most-common imputation
+- Adjust KNN neighbor count
+- Enable/disable imputation entirely
+
+### Cost Method Selection (Lines 1258-1264)
+- Enable/disable specific cost estimation methods
+- Change primary method for detailed outputs
+
+### Inflation Target (Line 1376)
+- Adjust target date for inflation adjustment
+- Currently set to July 2025
+
+### Cloud Pricing (Lines 60-84)
+- Update committed-use discount rates
+- Modify vendor priority order
+- Adjust TPU equivalent prices
+
 ### `cost.py` (331 lines)
 Main cost estimation pipeline with three approaches:
 - `estimate_cloud_costs()` - Cloud rental cost estimation using committed-use discounts
@@ -78,6 +296,14 @@ Main cost estimation workflow producing paper results:
 - Generates regression analysis showing ~2.9x/year cost growth
 - Produces cost breakdown by components (chips, servers, interconnect, energy)
 - Creates publication-ready plots and datasets
+
+### `cost_analysis_streamlined.ipynb` - **Streamlined Cost Data Update**
+Streamlined version of the main cost analysis workflow for regular data updates:
+- Runs all three cost estimation methods (hardware-capex-energy, hardware-acquisition, cloud) in a single notebook
+- Applies configurable data imputation methods to handle missing data
+- Exports results to CSV files without regression analysis or plotting
+- Focuses on cost estimation and data generation rather than visualization
+- Provides cost component breakdowns and comparison datasets
 
 ### `development_cost.ipynb` - **R&D Cost Analysis**
 Total model development cost estimation:

@@ -10,7 +10,8 @@
       "Bash(rg:*)",
       "Bash(grep:*)",
       "Bash(pip --version)",
-      "Bash(jupyter --version)"
+      "Bash(jupyter --version)",
+      "Bash(claude doctor)"
     ]
   },
   "enableAllProjectMcpServers": false
