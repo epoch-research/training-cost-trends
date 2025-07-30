@@ -704,8 +704,26 @@ def adjust_value_for_inflation(row, cost_colname, price_index, to_year_month):
     
     from_date = str(row['Publication date'])
     from_year_month = from_date.rsplit('-', maxsplit=1)[0] + '-01'
-    from_price_index = price_index[price_index['observation_date'] == from_year_month]['PCU518210518210'].values[0]
-    to_price_index = price_index[price_index['observation_date'] == to_year_month]['PCU518210518210'].values[0]
+    
+    # Get the from_price_index
+    from_matches = price_index[price_index['observation_date'] == from_year_month]
+    if len(from_matches) == 0:
+        print(f"Warning: No price index found for {from_year_month}, skipping inflation adjustment")
+        return row[cost_colname]
+    from_price_index = from_matches['PCU518210518210'].values[0]
+    # inflation data in the PCU spreadsheet from https://fred.stlouisfed.org/series/PCU518210518210
+    
+    # Get the to_price_index - use most recent if exact date not found
+    to_matches = price_index[price_index['observation_date'] == to_year_month]
+    if len(to_matches) == 0:
+        # Use the most recent available date
+        price_index_sorted = price_index.sort_values('observation_date', ascending=False)
+        to_price_index = price_index_sorted['PCU518210518210'].iloc[0]
+        actual_to_date = price_index_sorted['observation_date'].iloc[0]
+        print(f"Warning: No price index found for {to_year_month}, using most recent date: {actual_to_date}")
+    else:
+        to_price_index = to_matches['PCU518210518210'].values[0]
+    
     adjust_factor = to_price_index / from_price_index
     return row[cost_colname] * adjust_factor
 
@@ -1373,7 +1391,7 @@ def main():
 
     # Apply inflation adjustment to all cost dataframes
     for method in estimation_methods:
-        cost_dfs[method] = adjust_column_for_inflation(cost_dfs[method], 'Cost', 'data/PCU518210518210.csv', '2025-07-01')
+        cost_dfs[method] = adjust_column_for_inflation(cost_dfs[method], 'Cost', 'data/PCU518210518210.csv', '2025-06-01')
 
     # Create cost_dataset_3_estimates.csv with Model + 3 cost columns
     cost_comparison_df = pd.DataFrame()

@@ -113,9 +113,10 @@ This single comprehensive script contains all necessary functions and constants 
 ### Inflation Adjustment (Lines 698-717)
 
 **CPI Adjustment:**
+- inflation data in the PCU spreadsheet from https://fred.stlouisfed.org/series/PCU518210518210
 - `adjust_value_for_inflation()` - Uses Producer Price Index (PCU518210518210.csv)
 - `adjust_column_for_inflation()` - Batch processing for dataframes
-- Default target: December 2024 prices
+- Default target: June 2025 prices
 
 ### Data Imputation Methods (Lines 719-931)
 
@@ -180,7 +181,7 @@ This single comprehensive script contains all necessary functions and constants 
 2. **Data Quality Assessment** - Report missing data before/after imputation
 3. **Imputation** - Apply selected imputation method if enabled
 4. **Cost Estimation** - Run all three estimation methods in parallel
-5. **Inflation Adjustment** - Apply CPI adjustment to December 2024
+5. **Inflation Adjustment** - Apply CPI adjustment to June 2025
 6. **Results Export** - Generate multiple output files
 
 **Output Files:**

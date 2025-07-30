@@ -61,7 +61,7 @@ MarkupSafe==2.1.3
 matplotlib
 matplotlib-inline
 mccabe==0.7.0
-msgspec==0.18.1
+msgspec>=0.18.1
 multidict
 multiprocess==0.70.15
 munkres==1.1.4
@@ -71,13 +71,13 @@ numexpr
 numpy
 outcome==1.3.0.post0
 packaging
-pandas==1.5.3
+pandas>=1.5.3
 parso
 pathos==0.3.1
 patsy==0.5.3
 pexpect
 pickleshare
-Pillow==10.0.0
+Pillow>=10.0.0
 platformdirs
 plotly
 pluggy==1.2.0
@@ -88,7 +88,7 @@ psutil
 ptyprocess
 pure-eval
 pyalex==0.11
-pyarrow==11.0.0
+pyarrow>=11.0.0
 pycodestyle==2.11.0
 pycparser
 pydocstyle==6.3.0
@@ -110,7 +110,7 @@ requests
 responses
 scholarly==1.7.11
 scikit-learn==1.4.0
-scipy
+scipy==1.11.4
 seaborn
 selenium==4.14.0
 semanticscholar==0.5.0
