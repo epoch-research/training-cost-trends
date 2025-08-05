@@ -109,7 +109,7 @@ This single comprehensive script (~1,465 lines) contains all necessary functions
 - `Chip dataset-Grid view.csv` - Hardware technical specifications (FLOP/s, TDP, etc.)
 - `PCU518210518210.csv` - Producer price index for inflation adjustment
 
-### Precomputed Model Selections
+### Precomputed Model Selections (in `claude-data/` directory)
 - `frontier_systems_by_top_n.json` - Top-N frontier model selections
 - `frontier_systems_by_window_percentile.json` - Percentile-based selections
 - `frontier_systems_by_backward_window_percentile.json` - Backward-looking percentile
