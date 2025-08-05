@@ -1,0 +1,10 @@
+[project]
+name = "training-cost-trends"
+version = "0.1.0"
+description = 'Code for the paper "The rising costs of training frontier AI models"'
+readme = "README.md"
+requires-python = ">=3.12.11"
+dependencies = [
+    "numpy>=2.3.2",
+    "pandas>=2.3.1",
+]
