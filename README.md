@@ -21,7 +21,7 @@ python run cost_analysis_standalone.py
 
 All results are saved in a `results/` folder, with subfolders for each method and variant.
 
-Results are currently found in `results/all-methods-top_n=10-2025-03/17_exclude_finetunes_at_threshold_stage/cost_dataset_3_estimates`.
+Results are currently found in `results/all-methods-top_n=10-2025-03/17_exclude_finetunes_at_threshold_stage/cost_dataset_3_estimates.csv`.
 
 ## Data
 
