@@ -13,7 +13,7 @@ uv run cost_analysis_standalone.py
 ### Using pip
 
 ```
-pip install numpy pandas
+pip install <list of dependencies listed in pyproject.toml>
 python run cost_analysis_standalone.py
 ```
 
