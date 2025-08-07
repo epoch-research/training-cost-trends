@@ -285,18 +285,20 @@ def airtable_to_df(table, columns_to_resolve: list[str] = []) -> pd.DataFrame:
 
     return pd.DataFrame(record_fields, index=record_ids)
 
-def write_costs_to_airtable(costs, table, table_df):
+def write_costs_to_airtable(costs, table):
     updates = []
 
-    for record_id, row in costs.iterrows():
-        matches = table_df[table_df['Model'] == row['Model']] # TMP
-        if matches.empty: # TMP
-            continue # TMP
+    records = table.all(fields=['Model'])
+    name_to_id = {record['fields']['Model']: record['id'] for record in records}
 
-        table_id = matches.index[0] # TMP
+    for record_id, row in costs.iterrows():
+        if row['Model'] not in name_to_id:
+            print(f"Could not find {row['Model']} in Airtable table")
+            continue
+
         sanitize = lambda x: None if pd.isna(x) else x
         updates.append({
-            'id': table_id,
+            'id': name_to_id[row['Model']],
             'fields': {
                 'Training compute cost (2023 USD)': sanitize(row['hardware_capex_energy_cost']),
                 'Training compute cost (cloud)': sanitize(row['cloud_cost']),
@@ -1669,8 +1671,7 @@ def main(
             update_table_path.app_id,
             update_table_path.table_id,
         )
-        table_df = airtable_to_df(table)
-        write_costs_to_airtable(cost_comparison_df, table, table_df)
+        write_costs_to_airtable(cost_comparison_df, table)
         print("Results uploaded to Airtable successfully!")
 
 if __name__ == "__main__":
