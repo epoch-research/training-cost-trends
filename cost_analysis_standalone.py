@@ -264,18 +264,21 @@ def airtable_to_df(table, columns_to_resolve: list[str] = []) -> pd.DataFrame:
     records = table.all()
     for record in records:
         row = record['fields']
+
         for column in columns_to_resolve:
-            resolved = [
+            # Empty columns are not present in the record
+            if column not in row:
+                continue
+
+            row[column] = [
                 dependency_record_values[column][linked_record_id]
                 for linked_record_id in row[column]
             ]
 
-            field = dependency_fields[column]
-
-            if field.options.prefers_single_record_link:
-                row[column] = resolved[0]
-            else:
-                row[column] = resolved
+        # Hack to handle lists
+        for column, value in row.items():
+            if isinstance(value, list):
+                row[column] = ','.join([str(v) if v is not None else '' for v in value])
 
         record_fields.append(row)
         record_ids.append(record['id'])
@@ -317,11 +320,12 @@ def load_data(path: Path | AirtablePath, airtable_api_key: str = None, columns_t
     else:
         return pd.read_csv(path)
 
-def load_pcd_df(path: Path | AirtablePath, airtable_api_key: str = None) -> pd.DataFrame:
-    pcd_df = load_data(path, airtable_api_key).astype({
+def load_pcd_data(path: Path | AirtablePath, airtable_api_key: str = None) -> pd.DataFrame:
+    pcd_df = load_data(path, airtable_api_key, ['Training hardware', 'Organization']).astype({
         'Training compute (FLOP)': 'float64',
     })
     pcd_df.dropna(subset=['Publication date'], inplace=True)
+    pcd_df['Organization'] = pcd_df['Organization'].fillna('')
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
     return pcd_df
 
@@ -714,8 +718,11 @@ def find_gpu_acquisition_price(price_df, hardware_model, price_colname):
     price_df = price_df.sort_values(by='Price date').dropna(subset=[price_colname])
     # Search for the best price closest to release date    
     matching_prices = price_df[price_df['Hardware model'].str.contains(gpu_hardware_alias)]
+
     if matching_prices.empty:
-        raise ValueError(f"Could not find any prices for '{hardware_model}' in the price data.")
+        print(f"Could not find any prices for '{hardware_model}' in the price data.")
+        return None
+
     chosen_price_row = None
     for _, price_row in matching_prices.iterrows():
         if 'DGX' in price_row['Notes']:
@@ -1006,7 +1013,7 @@ def knn_impute_pcd(pcd_df, num_neighbors=5):
     # insert imputed values into pcd_df
     pcd_df['Training hardware'] = imputed_pcd_df['Training hardware']
     pcd_df['Hardware quantity'] = imputed_pcd_df['Hardware quantity']
-    pcd_df['Hardware utilization'] = imputed_pcd_df['Hardware utilization']
+    pcd_df['Hardware utilization (MFU)'] = imputed_pcd_df['Hardware utilization (MFU)']
     pcd_df['Training time (hours)'] = imputed_pcd_df['Training time (hours)']
     # calculate training time (chip hours) from training time and hardware quantity
     pcd_df['Training time (chip hours)'] = pcd_df['Training time (hours)'] * pcd_df['Hardware quantity']
@@ -1101,7 +1108,7 @@ def estimate_chip_hours(row, hardware_df):
         if not any([pd.isna(x) for x in [flop, hardware_model]]):
             print("Imputing training time from compute and hardware")
             flop_per_second = get_flop_per_second(hardware_model, hardware_df)
-            flop_utilization = row['Hardware utilization']
+            flop_utilization = row['Hardware utilization (MFU)']
             if pd.isna(flop_utilization):
                 flop_utilization = MEDIAN_UTILIZATION
 
@@ -1402,19 +1409,25 @@ def main(
     hardware_path: Path | AirtablePath,
     hardware_price_path: Path | AirtablePath,
     update_table_path: AirtablePath = None,
-    airtable_api_key: str = None,
-    fred_api_key: str = None,
     compute_threshold: int = 5,
 ):
     """
     Main function that runs the cost analysis workflow
     """
 
-    if isinstance(price_index_path, FredPath) and not fred_api_key:
-        raise ValueError("FRED API key must be provided")
+    airtable_api_key = os.environ.get('AIRTABLE_API_KEY')
+    fred_api_key = os.environ.get('FRED_API_KEY')
 
-    if update_table_path and not airtable_api_key: # TMP add the other checks
-        raise ValueError("Airtable API key must be provided")
+    if isinstance(price_index_path, FredPath) and not fred_api_key:
+        raise ValueError("Missing `FRED_API_KEY` environment variable")
+
+    using_airtable = \
+        isinstance(models_path, AirtablePath) \
+        or isinstance(hardware_path, AirtablePath) \
+        or isinstance(hardware_price_path, AirtablePath) \
+        or update_table_path
+    if using_airtable and not airtable_api_key:
+        raise ValueError("Missing `AIRTABLE_API_KEY` environment variable")
 
     # Configuration
     compute_threshold_method = 'top_n'  # top_n, window_percentile
@@ -1438,7 +1451,7 @@ def main(
     os.makedirs(results_dir, exist_ok=True)
 
     print("Loading data...")
-    full_pcd_df = load_pcd_df(models_path, airtable_api_key)
+    full_pcd_df = load_pcd_data(models_path, airtable_api_key)
     price_df = load_price_data(hardware_price_path, airtable_api_key)
     hardware_df = load_hardware_data(hardware_path, airtable_api_key)
     frontier_pcd_df = get_top_models(full_pcd_df, compute_threshold)
@@ -1464,7 +1477,7 @@ def main(
     print("Data Quality Report (Before Imputation):")
     print(f"Models with known Training hardware: {frontier_pcd_df['Training hardware'].notna().sum()}/{len(frontier_pcd_df)}")
     print(f"Models with known Hardware quantity: {frontier_pcd_df['Hardware quantity'].notna().sum()}/{len(frontier_pcd_df)}")
-    print(f"Models with known Hardware utilization: {frontier_pcd_df['Hardware utilization'].notna().sum()}/{len(frontier_pcd_df)}")
+    print(f"Models with known Hardware utilization (MFU): {frontier_pcd_df['Hardware utilization (MFU)'].notna().sum()}/{len(frontier_pcd_df)}")
     print(f"Models with known Training time (hours): {frontier_pcd_df['Training time (hours)'].notna().sum()}/{len(frontier_pcd_df)}")
 
     # Apply imputation if enabled
@@ -1483,7 +1496,7 @@ def main(
         print("\nData Quality Report (After Imputation):")
         print(f"Models with known Training hardware: {frontier_pcd_df['Training hardware'].notna().sum()}/{len(frontier_pcd_df)}")
         print(f"Models with known Hardware quantity: {frontier_pcd_df['Hardware quantity'].notna().sum()}/{len(frontier_pcd_df)}")
-        print(f"Models with known Hardware utilization: {frontier_pcd_df['Hardware utilization'].notna().sum()}/{len(frontier_pcd_df)}")
+        print(f"Models with known Hardware utilization (MFU): {frontier_pcd_df['Hardware utilization (MFU)'].notna().sum()}/{len(frontier_pcd_df)}")
         print(f"Models with known Training time (hours): {frontier_pcd_df['Training time (hours)'].notna().sum()}/{len(frontier_pcd_df)}")
     else:
         print("\nSkipping imputation (disabled in configuration)")
@@ -1549,8 +1562,8 @@ def main(
         print(f"Models with cost estimates: {df['Cost'].notna().sum()}")
         if 'Training time (hours)' in df.columns:
             print(f"Models with training time: {df.dropna(subset=['Cost'])['Training time (hours)'].notna().sum()}")
-        if 'Hardware utilization' in df.columns:
-            print(f"Models with hardware utilization: {df.dropna(subset=['Cost'])['Hardware utilization'].notna().sum()}")
+        if 'Hardware utilization (MFU)' in df.columns:
+            print(f"Models with hardware utilization: {df.dropna(subset=['Cost'])['Hardware utilization (MFU)'].notna().sum()}")
         print(f"Cost range: ${df['Cost'].min():.0f} - ${df['Cost'].max():.0f}")
 
     # Apply exclusions to all cost dataframes
@@ -1598,7 +1611,7 @@ def main(
         'Base model',
         'Finetune compute (FLOP)',
         'Hardware quantity',
-        'Hardware utilization',
+        'Hardware utilization (MFU)',
         'Training cloud compute vendor',
         'Training data center',
         'Cost',
@@ -1701,26 +1714,10 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--fred-key",
-        type=str,
-        required=False,
-        default=os.environ.get('FRED_API_KEY'),
-        help="FRED API key (if using FRED inputs)"
-    )
-
-    parser.add_argument(
         "--update-table",
         type=parse_airtable_path,
         required=False,
         help=f"Table to write the results to ({airtable_path_format})"
-    )
-
-    parser.add_argument(
-        "--airtable-key",
-        type=str,
-        required=False,
-        default=os.environ.get('AIRTABLE_API_KEY'),
-        help="Airtable API key (if using Airtable)"
     )
 
     args = parser.parse_args()
@@ -1731,7 +1728,5 @@ if __name__ == "__main__":
         hardware_path=args.hardware_data,
         hardware_price_path=args.hardware_price_data,
         update_table_path=args.update_table,
-        airtable_api_key=args.airtable_key,
-        fred_api_key=args.fred_key,
         compute_threshold=args.compute_threshold,
     )
