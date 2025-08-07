@@ -40,6 +40,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: results
-          path: results/
-          exclude: |
-            results/**/cost_components.csv
+          path: |
+            results/
+            !results/**/cost_components.csv
