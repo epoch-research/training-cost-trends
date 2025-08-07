@@ -35,3 +35,11 @@ jobs:
             --models-data airtable://${{ secrets.AIRTABLE_APP_ID }}/${{ secrets.AIRTABLE_MODELS_DATA_TABLE_ID }} \
             --price-index-data fred://${{ vars.FRED_PRICE_INDEX_SERIES }} \
             --update-table airtable://${{ secrets.AIRTABLE_APP_ID }}/${{ secrets.AIRTABLE_MODELS_DATA_TABLE_ID }}
+
+      - name: Upload result files
+        uses: actions/upload-artifact@v4
+        with:
+          name: results
+          path: results/
+          exclude: |
+            results/**/cost_components.csv
