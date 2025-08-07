@@ -2,6 +2,7 @@ name: Update Airtable
 
 on:
   workflow_dispatch
+  push
 
 jobs:
   update_airtable:
