@@ -29,7 +29,6 @@ jobs:
           AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: |
-          uv run 
           uv run cost_analysis_standalone.py \
             --hardware-price-data airtable://${{ secrets.AIRTABLE_APP_ID }}/${{ secrets.AIRTABLE_HARDWARE_PRICE_TABLE_ID }} \
             --hardware-data airtable://${{ secrets.AIRTABLE_APP_ID }}/${{ secrets.AIRTABLE_HARDWARE_DATA_TABLE_ID }} \
