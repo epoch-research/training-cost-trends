@@ -33,6 +33,8 @@ ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR = 0.14  # https://epochai.org/blog/trends
 
 DEFAULT_RNG = np.random.default_rng(20240531)
 
+DEFAULT_COMPUTE_THRESHOLD = 5
+
 PRICE_INDEX_SERIES = 'PCU518210518210'
 
 SCRIPT_DIR = Path(__file__).parent
@@ -155,7 +157,7 @@ def geomean(arr):
 def wgeomean(arr, weights):
     return np.exp(np.average(np.log(arr), weights=weights))
 
-def get_top_models(models, n=5):
+def get_top_models(models, n=DEFAULT_COMPUTE_THRESHOLD):
     """Returns the top n models by training compute."""
     return models[models['Compute rank when published'] <= n].copy()
 
@@ -171,6 +173,9 @@ def get_fred_df(api_key: str, path: FredPath) -> pd.DataFrame:
     data = response.json()
 
     return pd.DataFrame(data['observations'])
+
+def relpath(p: Path) -> str:
+    return str(p.resolve().relative_to(Path.cwd().resolve()))
 
 # ==============================================================================
 # AIRTABLE FUNCTIONS
@@ -1411,7 +1416,7 @@ def main(
     hardware_path: Path | AirtablePath,
     hardware_price_path: Path | AirtablePath,
     update_table_path: AirtablePath = None,
-    compute_threshold: int = 5,
+    compute_threshold: int = DEFAULT_COMPUTE_THRESHOLD,
 ):
     """
     Main function that runs the cost analysis workflow
@@ -1683,42 +1688,48 @@ if __name__ == "__main__":
         "--price-index-data",
         type=parse_local_or_fred_path,
         default=PRICE_INDEX_FILE,
-        help="Producer Price Index data (local path or fred://<series_id>)"
+        metavar="LOCAL_PATH|FRED_URL",
+        help=f"Producer Price Index data (local path or fred://<series_id>) [default: {relpath(PRICE_INDEX_FILE)}]"
     )
 
     parser.add_argument(
         "--compute-threshold",
         type=int,
-        default=5,
-        help="Compute threshold for selecting frontier models (e.g. 5 to select top 5)",
+        default=DEFAULT_COMPUTE_THRESHOLD,
+        metavar="N",
+        help=f"Compute threshold for selecting frontier models (e.g. 5 to select top 5) [default: {DEFAULT_COMPUTE_THRESHOLD}]"
     )
 
     parser.add_argument(
         "--models-data",
         type=parse_local_or_airtable_path,
         default=MODELS_FILE,
-        help=f"Models (PCD) data (local path or {airtable_path_format})"
+        metavar="LOCAL_PATH|AIRTABLE_URL",
+        help=f"Models (PCD) data (local path or {airtable_path_format}) [default: {relpath(MODELS_FILE)}]"
     )
 
     parser.add_argument(
         "--hardware-data",
         type=parse_local_or_airtable_path,
         default=HARDWARE_FILE,
-        help=f"Hardware data (local path or {airtable_path_format})"
+        metavar="LOCAL_PATH|AIRTABLE_URL",
+        help=f"Hardware data (local path or {airtable_path_format}) [default: {relpath(HARDWARE_FILE)}]"
     )
 
     parser.add_argument(
         "--hardware-price-data",
         type=parse_local_or_airtable_path,
         default=HARDWARE_PRICE_FILE,
-        help=f"Hardware price data (local path or {airtable_path_format})"
+        metavar="LOCAL_PATH|AIRTABLE_URL",
+        help=f"Hardware price data (local path or {airtable_path_format}) [default: {relpath(HARDWARE_PRICE_FILE)}]"
     )
 
     parser.add_argument(
         "--update-table",
         type=parse_airtable_path,
         required=False,
-        help=f"Table to write the results to ({airtable_path_format})"
+        metavar="AIRTABLE_PATH",
+        help=f"Table to write the results to ({airtable_path_format}) [default: None]"
     )
 
     args = parser.parse_args()

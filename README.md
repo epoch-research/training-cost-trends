@@ -7,14 +7,24 @@ Code for the paper "The rising costs of training frontier AI models" [^1].
 ### Using uv (recommended)
 
 ```bash
+# Basic execution
 uv run cost_analysis_standalone.py
+
+# List options
+uv run cost_analysis_standalone.py --help
 ```
 
 ### Using pip
 
-```
+```bash
+# Install dependencies
 pip install <list of dependencies listed in pyproject.toml>
+
+# Basic execution
 python run cost_analysis_standalone.py
+
+# List options
+python run cost_analysis_standalone.py --help
 ```
 
 ## Results
