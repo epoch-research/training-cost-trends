@@ -312,18 +312,18 @@ def write_costs_to_airtable(costs, table):
 # DATA LOADING FUNCTIONS
 # ==============================================================================
 
-def load_data(path: Path | AirtablePath, airtable_api_key: str = None, columns_to_resolve: list[str] = []) -> pd.DataFrame:
+def load_data(path: Path | AirtablePath, airtable_token: str = None, columns_to_resolve: list[str] = []) -> pd.DataFrame:
     if isinstance(path, AirtablePath):
-        if not airtable_api_key:
-            raise ValueError("Airtable API key is required to load data from Airtable.")
+        if not airtable_token:
+            raise ValueError("Airtable token is required to load data from Airtable.")
 
-        table = get_airtable_table(airtable_api_key, path.app_id, path.table_id)
+        table = get_airtable_table(airtable_token, path.app_id, path.table_id)
         return airtable_to_df(table, columns_to_resolve=columns_to_resolve)
     else:
         return pd.read_csv(path)
 
-def load_pcd_data(path: Path | AirtablePath, airtable_api_key: str = None) -> pd.DataFrame:
-    pcd_df = load_data(path, airtable_api_key, ['Training hardware', 'Organization']).astype({
+def load_pcd_data(path: Path | AirtablePath, airtable_token: str = None) -> pd.DataFrame:
+    pcd_df = load_data(path, airtable_token, ['Training hardware', 'Organization']).astype({
         'Training compute (FLOP)': 'float64',
     })
     pcd_df.dropna(subset=['Publication date'], inplace=True)
@@ -331,12 +331,12 @@ def load_pcd_data(path: Path | AirtablePath, airtable_api_key: str = None) -> pd
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
     return pcd_df
 
-def load_hardware_data(path: Path | AirtablePath, airtable_api_key: str = None) -> pd.DataFrame:
-    hardware_df = load_data(path, airtable_api_key)
+def load_hardware_data(path: Path | AirtablePath, airtable_token: str = None) -> pd.DataFrame:
+    hardware_df = load_data(path, airtable_token)
     return hardware_df
 
-def load_price_data(path: Path | AirtablePath, airtable_api_key: str = None) -> pd.DataFrame:
-    price_df = load_data(path, airtable_api_key, ['Hardware model'])
+def load_price_data(path: Path | AirtablePath, airtable_token: str = None) -> pd.DataFrame:
+    price_df = load_data(path, airtable_token, ['Hardware model'])
     price_df.dropna(subset=['Price date'], inplace=True)
     price_df['Price date'] = pd.to_datetime(price_df['Price date'])
     return price_df
@@ -1417,7 +1417,7 @@ def main(
     Main function that runs the cost analysis workflow
     """
 
-    airtable_api_key = os.environ.get('AIRTABLE_API_KEY')
+    airtable_token = os.environ.get('AIRTABLE_TOKEN')
     fred_api_key = os.environ.get('FRED_API_KEY')
 
     if isinstance(price_index_path, FredPath) and not fred_api_key:
@@ -1428,8 +1428,8 @@ def main(
         or isinstance(hardware_path, AirtablePath) \
         or isinstance(hardware_price_path, AirtablePath) \
         or update_table_path
-    if using_airtable and not airtable_api_key:
-        raise ValueError("Missing `AIRTABLE_API_KEY` environment variable")
+    if using_airtable and not airtable_token:
+        raise ValueError("Missing `AIRTABLE_TOKEN` environment variable")
 
     # Configuration
     compute_threshold_method = 'top_n'  # top_n, window_percentile
@@ -1453,9 +1453,9 @@ def main(
     os.makedirs(results_dir, exist_ok=True)
 
     print("Loading data...")
-    full_pcd_df = load_pcd_data(models_path, airtable_api_key)
-    price_df = load_price_data(hardware_price_path, airtable_api_key)
-    hardware_df = load_hardware_data(hardware_path, airtable_api_key)
+    full_pcd_df = load_pcd_data(models_path, airtable_token)
+    price_df = load_price_data(hardware_price_path, airtable_token)
+    hardware_df = load_hardware_data(hardware_path, airtable_token)
     frontier_pcd_df = get_top_models(full_pcd_df, compute_threshold)
 
     if isinstance(price_index_path, Path):
@@ -1667,7 +1667,7 @@ def main(
     if update_table_path is not None:
         print(f"\nUploading results to {update_table_path.get_url()}...")
         table = get_airtable_table(
-            airtable_api_key,
+            airtable_token,
             update_table_path.app_id,
             update_table_path.table_id,
         )
