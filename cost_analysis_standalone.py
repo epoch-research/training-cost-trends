@@ -5,9 +5,17 @@ Contains all necessary functions from the project dependencies.
 """
 
 import json
+import requests
 import numpy as np
 import os
+import bisect
+import argparse
+import re
 import pandas as pd
+from functools import partial
+from pyairtable import Api
+from dataclasses import dataclass
+from pathlib import Path
 from contextlib import redirect_stdout
 
 # ==============================================================================
@@ -24,6 +32,17 @@ MEDIAN_TRAINING_TIME_DAYS = 793.5 / 24  # median of the running top-10 models
 ML_GPU_PRICE_PERFORMANCE_OOMS_PER_YEAR = 0.14  # https://epochai.org/blog/trends-in-machine-learning-hardware
 
 DEFAULT_RNG = np.random.default_rng(20240531)
+
+DEFAULT_COMPUTE_THRESHOLD = 5
+
+PRICE_INDEX_SERIES = 'PCU518210518210'
+
+SCRIPT_DIR = Path(__file__).parent
+DATA_DIR = SCRIPT_DIR / 'data'
+PRICE_INDEX_FILE = DATA_DIR / 'PCU518210518210.csv'
+HARDWARE_PRICE_FILE = DATA_DIR / 'Hardware prices.csv'
+HARDWARE_FILE = DATA_DIR / 'Chip dataset-Grid view.csv'
+MODELS_FILE = DATA_DIR / 'All ML Systems - full view.csv'
 
 # ==============================================================================
 # HARDWARE MAPPINGS AND CONSTANTS
@@ -95,8 +114,23 @@ TPU_EQUIVALENT_RELEASE_PRICES = {
 PRIORITY_VENDORS = ['Amazon Web Services', 'Microsoft Azure', 'Google Cloud']
 
 # ==============================================================================
-# UTILITY FUNCTIONS
+# UTILITY FUNCTIONS AND DATA STRUCTURES
 # ==============================================================================
+
+@dataclass
+class FredPath:
+    series: str
+
+    def get_url(self) -> str:
+        return f'fred://{self.series}'
+
+@dataclass
+class AirtablePath:
+    app_id: str
+    table_id: str
+
+    def get_url(self) -> str:
+        return f'airtable://{self.app_id}/{self.table_id}'
 
 def datetime_to_float_year(datetimes):
     date_floats = datetimes.dt.year + (datetimes.dt.month-1) / 12 + (datetimes.dt.day-1) / 365
@@ -123,75 +157,194 @@ def geomean(arr):
 def wgeomean(arr, weights):
     return np.exp(np.average(np.log(arr), weights=weights))
 
+def get_top_models(models, n=DEFAULT_COMPUTE_THRESHOLD):
+    """Returns the top n models by training compute."""
+    return models[models['Compute rank when published'] <= n].copy()
+
+def get_fred_df(api_key: str, path: FredPath) -> pd.DataFrame:
+    url = "https://api.stlouisfed.org/fred/series/observations"
+    params = {
+        "api_key": api_key,
+        "series_id": path.series,
+        "file_type": "json",
+    }
+
+    response = requests.get(url, params=params)
+    data = response.json()
+
+    return pd.DataFrame(data['observations'])
+
+def relpath(p: Path) -> str:
+    return str(p.resolve().relative_to(Path.cwd().resolve()))
+
+# ==============================================================================
+# AIRTABLE FUNCTIONS
+# ==============================================================================
+
+def parse_local_or_fred_path(value: str) -> Path | FredPath:
+    """Parse a string to determine if it's a file path or a fred://<series_id> URL (for FRED's API)."""
+
+    fred_pattern = r'^fred://([A-Za-z0-9]+)$'
+    match = re.match(fred_pattern, value)
+    
+    if match:
+        return FredPath(series=match.group(1))
+
+    # Check if it's a valid file path
+    try:
+        path = Path(value)
+        if path.exists() or path.suffix:  # Accept existing files or files with extensions
+            return Path(path=path)
+    except Exception:
+        pass
+    
+    raise argparse.ArgumentTypeError(
+        f"Input must be either a valid file path or fred://<series_id> format. Got: {value}"
+    )
+
+def parse_airtable_path(value: str, raise_exception: bool = True) -> AirtablePath:
+    """Parse a airtable://app<id>/tbl<id> URL."""
+
+    airtable_pattern = r'^airtable://(app[A-Za-z0-9]+)/(tbl[A-Za-z0-9]+)$'
+    match = re.match(airtable_pattern, value)
+    
+    if match:
+        return AirtablePath(
+            app_id=match.group(1),
+            table_id=match.group(2)
+        )
+
+    if raise_exception:
+        raise argparse.ArgumentTypeError(
+            f"Input must be in airtable://app<id>/tbl<id> format. Got: {value}"
+        )
+
+def parse_local_or_airtable_path(value: str) -> Path | AirtablePath:
+    """Parse a string to determine if it's a file path or an airtable://app<id>/tbl<id> URL."""
+
+    # Check if it's an Airtable URL
+    airtable_path = parse_airtable_path(value, raise_exception=False)
+    if airtable_path:
+        return airtable_path
+    
+    # Check if it's a valid file path
+    try:
+        path = Path(value)
+        if path.exists() or path.suffix:  # Accept existing files or files with extensions
+            return path
+    except Exception:
+        pass
+    
+    raise argparse.ArgumentTypeError(
+        f"Input must be either a valid file path or airtable://app<id>/tbl<id> format. Got: {value}"
+    )
+
+def get_airtable_table(api_key, app_id, table_id):
+    api = Api(api_key)
+    return api.table(app_id, table_id)
+
+def airtable_to_df(table, columns_to_resolve: list[str] = []) -> pd.DataFrame:
+    # Resolve dependencies in a very hacky way
+
+    dependency_fields = {
+        field.name: field
+        for field in table.schema().fields
+        if field.type == 'multipleRecordLinks' and field.name in columns_to_resolve
+    }
+
+    dependency_record_values = {}
+    for field in dependency_fields.values():
+        dependency_table = table.api.table(table.base.id, field.options.linked_table_id)
+        primary_id = dependency_table.schema().primary_field_id
+
+        records = {
+            record['id']: list(record['fields'].values())[0]
+            for record in dependency_table.all(fields=[primary_id])
+        }
+        dependency_record_values[field.name] = records
+
+    record_fields = []
+    record_ids = []
+
+    records = table.all()
+    for record in records:
+        row = record['fields']
+
+        for column in columns_to_resolve:
+            # Empty columns are not present in the record
+            if column not in row:
+                continue
+
+            row[column] = [
+                dependency_record_values[column][linked_record_id]
+                for linked_record_id in row[column]
+            ]
+
+        # Hack to handle lists
+        for column, value in row.items():
+            if isinstance(value, list):
+                row[column] = ','.join([str(v) if v is not None else '' for v in value])
+
+        record_fields.append(row)
+        record_ids.append(record['id'])
+
+    return pd.DataFrame(record_fields, index=record_ids)
+
+def write_costs_to_airtable(costs, table):
+    updates = []
+
+    records = table.all(fields=['Model'])
+    name_to_id = {record['fields']['Model']: record['id'] for record in records}
+
+    for record_id, row in costs.iterrows():
+        if row['Model'] not in name_to_id:
+            print(f"Could not find {row['Model']} in Airtable table")
+            continue
+
+        sanitize = lambda x: None if pd.isna(x) else x
+        updates.append({
+            'id': name_to_id[row['Model']],
+            'fields': {
+                'Training compute cost (2023 USD)': sanitize(row['hardware_capex_energy_cost']),
+                'Training compute cost (cloud)': sanitize(row['cloud_cost']),
+                'Training compute cost (upfront)': sanitize(row['hardware_acquisition_cost']),
+            }
+        })
+
+    table.batch_update(updates)
+
 # ==============================================================================
 # DATA LOADING FUNCTIONS
 # ==============================================================================
 
-def load_frontier_systems(compute_threshold_method='top_n', compute_threshold=10):
-    """
-    Load the frontier systems from the file
+def load_data(path: Path | AirtablePath, airtable_token: str = None, columns_to_resolve: list[str] = []) -> pd.DataFrame:
+    if isinstance(path, AirtablePath):
+        if not airtable_token:
+            raise ValueError("Airtable token is required to load data from Airtable.")
 
-    Returns a list of the frontier systems
-    """
-    frontier_systems = []
-    with open(f'data/frontier_systems_by_{compute_threshold_method}.json', 'r') as f:
-        # Load JSON data
-        frontier_systems_index = json.load(f)
-        if compute_threshold_method == 'top_n':
-            indices = range(1, compute_threshold+1)
-        elif compute_threshold_method == 'window_percentile':
-            indices = range(compute_threshold, 100, 5)
-        elif compute_threshold_method == 'backward_window_percentile':
-            indices = range(compute_threshold, 100, 5)
-        elif compute_threshold_method == 'residual_from_trend':
-            indices = range(compute_threshold, 100, 5)
-        else:
-            raise ValueError(f"Invalid compute_threshold_method: {compute_threshold_method}")
-        for i in indices:
-            frontier_systems.extend(frontier_systems_index[str(i)])
+        table = get_airtable_table(airtable_token, path.app_id, path.table_id)
+        return airtable_to_df(table, columns_to_resolve=columns_to_resolve)
+    else:
+        return pd.read_csv(path)
 
-    return frontier_systems
-
-def load_pcd_df():
-    dtype = {'Training compute (FLOP)': 'float64'}
-    return pd.read_csv('data/All ML Systems - full view.csv', dtype=dtype)
-
-def load_hardware_df():
-    return pd.read_csv('data/Chip dataset-Grid view.csv')
-
-def load_price_df():
-    return pd.read_csv('data/Hardware prices.csv')
-
-def load_data_for_cost_estimation(compute_threshold_method='top_n', compute_threshold=10):
-    """
-    Load the data needed for cost estimation
-
-    Returns a tuple of the frontier systems PCD dataframe, hardware dataframe, and price dataframe
-    """
-    pcd_df = load_pcd_df()
-
-    # Publication date in datetime format
+def load_pcd_data(path: Path | AirtablePath, airtable_token: str = None) -> pd.DataFrame:
+    pcd_df = load_data(path, airtable_token, ['Training hardware', 'Organization']).astype({
+        'Training compute (FLOP)': 'float64',
+    })
     pcd_df.dropna(subset=['Publication date'], inplace=True)
+    pcd_df['Organization'] = pcd_df['Organization'].fillna('')
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
+    return pcd_df
 
-    frontier_systems = load_frontier_systems(
-        compute_threshold_method=compute_threshold_method,
-        compute_threshold=compute_threshold,
-    )
-    frontier_systems = [_.replace('Î£', 'Σ') for _ in frontier_systems]
-    frontier_pcd_df = pcd_df[pcd_df['Model'].isin(frontier_systems)]
+def load_hardware_data(path: Path | AirtablePath, airtable_token: str = None) -> pd.DataFrame:
+    hardware_df = load_data(path, airtable_token)
+    return hardware_df
 
-    ## Prices
-    price_df = load_price_df()
-
-    # Price date in datetime format
+def load_price_data(path: Path | AirtablePath, airtable_token: str = None) -> pd.DataFrame:
+    price_df = load_data(path, airtable_token, ['Hardware model'])
     price_df.dropna(subset=['Price date'], inplace=True)
     price_df['Price date'] = pd.to_datetime(price_df['Price date'])
-
-    ## Hardware data
-    hardware_df = load_hardware_df()
-
-    return frontier_pcd_df, hardware_df, price_df
+    return price_df
 
 # ==============================================================================
 # HARDWARE FUNCTIONS
@@ -572,6 +725,11 @@ def find_gpu_acquisition_price(price_df, hardware_model, price_colname):
     price_df = price_df.sort_values(by='Price date').dropna(subset=[price_colname])
     # Search for the best price closest to release date    
     matching_prices = price_df[price_df['Hardware model'].str.contains(gpu_hardware_alias)]
+
+    if matching_prices.empty:
+        print(f"Could not find any prices for '{hardware_model}' in the price data.")
+        return None
+
     chosen_price_row = None
     for _, price_row in matching_prices.iterrows():
         if 'DGX' in price_row['Notes']:
@@ -710,7 +868,7 @@ def adjust_value_for_inflation(row, cost_colname, price_index, to_year_month):
     if len(from_matches) == 0:
         print(f"Warning: No price index found for {from_year_month}, skipping inflation adjustment")
         return row[cost_colname]
-    from_price_index = from_matches['PCU518210518210'].values[0]
+    from_price_index = from_matches[PRICE_INDEX_SERIES].values[0]
     # inflation data in the PCU spreadsheet from https://fred.stlouisfed.org/series/PCU518210518210
     
     # Get the to_price_index - use most recent if exact date not found
@@ -718,17 +876,16 @@ def adjust_value_for_inflation(row, cost_colname, price_index, to_year_month):
     if len(to_matches) == 0:
         # Use the most recent available date
         price_index_sorted = price_index.sort_values('observation_date', ascending=False)
-        to_price_index = price_index_sorted['PCU518210518210'].iloc[0]
+        to_price_index = price_index_sorted[PRICE_INDEX_SERIES].iloc[0]
         actual_to_date = price_index_sorted['observation_date'].iloc[0]
         print(f"Warning: No price index found for {to_year_month}, using most recent date: {actual_to_date}")
     else:
-        to_price_index = to_matches['PCU518210518210'].values[0]
+        to_price_index = to_matches[PRICE_INDEX_SERIES].values[0]
     
     adjust_factor = to_price_index / from_price_index
     return row[cost_colname] * adjust_factor
 
-def adjust_column_for_inflation(df, cost_colname, path_to_price_index, to_year_month):
-    price_index = pd.read_csv(path_to_price_index)
+def adjust_column_for_inflation(df, cost_colname, price_index, to_year_month):
     df[cost_colname + ' (inflation-adjusted)'] = df.apply(
         adjust_value_for_inflation, axis=1, args=(cost_colname, price_index, to_year_month)
     )
@@ -863,7 +1020,7 @@ def knn_impute_pcd(pcd_df, num_neighbors=5):
     # insert imputed values into pcd_df
     pcd_df['Training hardware'] = imputed_pcd_df['Training hardware']
     pcd_df['Hardware quantity'] = imputed_pcd_df['Hardware quantity']
-    pcd_df['Hardware utilization'] = imputed_pcd_df['Hardware utilization']
+    pcd_df['Hardware utilization (MFU)'] = imputed_pcd_df['Hardware utilization (MFU)']
     pcd_df['Training time (hours)'] = imputed_pcd_df['Training time (hours)']
     # calculate training time (chip hours) from training time and hardware quantity
     pcd_df['Training time (chip hours)'] = pcd_df['Training time (hours)'] * pcd_df['Hardware quantity']
@@ -920,26 +1077,21 @@ def most_common_impute(dataframe, target_col, time_col):
 
     return dataframe
 
-def most_common_impute_training_hardware(pcd_df):
+def most_common_impute_training_hardware(full_pcd_df, pcd_df):
     """
     Impute the missing values in the `Training hardware` of `pcd_df` with the most common value
     for each year in the full PCD data.
     """
-    # Load full PCD data to get as much data as possible
-    full_pcd_df = load_pcd_df()
 
     # Publication date in datetime format
-    full_pcd_df.dropna(subset=['Publication date'], inplace=True)
-    full_pcd_df['Publication date'] = pd.to_datetime(full_pcd_df['Publication date'])
-    full_pcd_df['Publication date'] = datetime_to_float_year(full_pcd_df['Publication date'])
+    full_pcd_df_copy = full_pcd_df.copy()
+    full_pcd_df_copy['Publication date'] = datetime_to_float_year(full_pcd_df_copy['Publication date'])
 
     # Impute missing values in Training hardware
-    imputed_pcd_df = most_common_impute(full_pcd_df, 'Training hardware', 'Publication date')
+    imputed_pcd_df = most_common_impute(full_pcd_df_copy.copy(), 'Training hardware', 'Publication date')
 
-    frontier_systems = load_frontier_systems()
-    pcd_df.loc[:, 'Training hardware'] = imputed_pcd_df.loc[
-        imputed_pcd_df['Model'].isin(frontier_systems), 'Training hardware'
-    ]
+    frontier_systems = get_top_models(full_pcd_df_copy)
+    pcd_df.loc[:, 'Training hardware'] = imputed_pcd_df.loc[frontier_systems.index, 'Training hardware']
 
     # TODO: probably want to move this part one level up in the functions, like `knn_impute_pcd`
     for _, row in pcd_df.iterrows():
@@ -963,7 +1115,7 @@ def estimate_chip_hours(row, hardware_df):
         if not any([pd.isna(x) for x in [flop, hardware_model]]):
             print("Imputing training time from compute and hardware")
             flop_per_second = get_flop_per_second(hardware_model, hardware_df)
-            flop_utilization = row['Hardware utilization']
+            flop_utilization = row['Hardware utilization (MFU)']
             if pd.isna(flop_utilization):
                 flop_utilization = MEDIAN_UTILIZATION
 
@@ -1258,13 +1410,34 @@ def estimate_cloud_costs(
 # MAIN COST ANALYSIS WORKFLOW
 # ==============================================================================
 
-def main():
+def main(
+    price_index_path: Path | FredPath,
+    models_path: Path | AirtablePath,
+    hardware_path: Path | AirtablePath,
+    hardware_price_path: Path | AirtablePath,
+    update_table_path: AirtablePath = None,
+    compute_threshold: int = DEFAULT_COMPUTE_THRESHOLD,
+):
     """
     Main function that runs the cost analysis workflow
     """
+
+    airtable_token = os.environ.get('AIRTABLE_TOKEN')
+    fred_api_key = os.environ.get('FRED_API_KEY')
+
+    if isinstance(price_index_path, FredPath) and not fred_api_key:
+        raise ValueError("Missing `FRED_API_KEY` environment variable")
+
+    using_airtable = \
+        isinstance(models_path, AirtablePath) \
+        or isinstance(hardware_path, AirtablePath) \
+        or isinstance(hardware_price_path, AirtablePath) \
+        or update_table_path
+    if using_airtable and not airtable_token:
+        raise ValueError("Missing `AIRTABLE_TOKEN` environment variable")
+
     # Configuration
     compute_threshold_method = 'top_n'  # top_n, window_percentile
-    compute_threshold = 10  # e.g. 10 to select top 10; 75 to select top 25%
     variant = '2025-03-17_exclude_finetunes_at_threshold_stage'  # whatever else distinguishes this run
     exclude_models_containing = []  # ['GNMT', 'AlphaZero', 'AlphaGo Master', 'AlphaGo Zero']
 
@@ -1285,9 +1458,25 @@ def main():
     os.makedirs(results_dir, exist_ok=True)
 
     print("Loading data...")
-    frontier_pcd_df, hardware_df, price_df = load_data_for_cost_estimation(
-        compute_threshold_method=compute_threshold_method, compute_threshold=compute_threshold,
-    )
+    full_pcd_df = load_pcd_data(models_path, airtable_token)
+    price_df = load_price_data(hardware_price_path, airtable_token)
+    hardware_df = load_hardware_data(hardware_path, airtable_token)
+    frontier_pcd_df = get_top_models(full_pcd_df, compute_threshold)
+
+    if isinstance(price_index_path, Path):
+        price_index = pd.read_csv(price_index_path)
+    else:
+        fred_data = get_fred_df(fred_api_key, price_index_path)
+        # It would probably be better to rename the columns in the CSV
+        price_index = fred_data.rename(
+            columns={
+                'date': 'observation_date',
+                'value': PRICE_INDEX_SERIES,
+            }
+        )[['observation_date', PRICE_INDEX_SERIES]].astype({
+            'observation_date': 'string',
+            PRICE_INDEX_SERIES: 'float',
+        })
 
     print(f"Loaded {len(frontier_pcd_df)} frontier models, {len(hardware_df)} hardware entries, {len(price_df)} price entries")
 
@@ -1295,7 +1484,7 @@ def main():
     print("Data Quality Report (Before Imputation):")
     print(f"Models with known Training hardware: {frontier_pcd_df['Training hardware'].notna().sum()}/{len(frontier_pcd_df)}")
     print(f"Models with known Hardware quantity: {frontier_pcd_df['Hardware quantity'].notna().sum()}/{len(frontier_pcd_df)}")
-    print(f"Models with known Hardware utilization: {frontier_pcd_df['Hardware utilization'].notna().sum()}/{len(frontier_pcd_df)}")
+    print(f"Models with known Hardware utilization (MFU): {frontier_pcd_df['Hardware utilization (MFU)'].notna().sum()}/{len(frontier_pcd_df)}")
     print(f"Models with known Training time (hours): {frontier_pcd_df['Training time (hours)'].notna().sum()}/{len(frontier_pcd_df)}")
 
     # Apply imputation if enabled
@@ -1307,14 +1496,14 @@ def main():
             print(f"Applied KNN imputation with {knn_neighbors} neighbors")
         elif imputation_method == 'most_common':
             # Apply most common value imputation for training hardware
-            frontier_pcd_df = most_common_impute_training_hardware(frontier_pcd_df.copy())
+            frontier_pcd_df = most_common_impute_training_hardware(full_pcd_df, frontier_pcd_df.copy())
             print("Applied most common value imputation for training hardware")
         
         # Data quality report after imputation
         print("\nData Quality Report (After Imputation):")
         print(f"Models with known Training hardware: {frontier_pcd_df['Training hardware'].notna().sum()}/{len(frontier_pcd_df)}")
         print(f"Models with known Hardware quantity: {frontier_pcd_df['Hardware quantity'].notna().sum()}/{len(frontier_pcd_df)}")
-        print(f"Models with known Hardware utilization: {frontier_pcd_df['Hardware utilization'].notna().sum()}/{len(frontier_pcd_df)}")
+        print(f"Models with known Hardware utilization (MFU): {frontier_pcd_df['Hardware utilization (MFU)'].notna().sum()}/{len(frontier_pcd_df)}")
         print(f"Models with known Training time (hours): {frontier_pcd_df['Training time (hours)'].notna().sum()}/{len(frontier_pcd_df)}")
     else:
         print("\nSkipping imputation (disabled in configuration)")
@@ -1325,7 +1514,7 @@ def main():
             impute_pcd_fn = knn_impute_pcd
             impute_kwargs = {'num_neighbors': knn_neighbors}
         elif imputation_method == 'most_common':
-            impute_pcd_fn = most_common_impute_training_hardware
+            impute_pcd_fn = partial(most_common_impute_training_hardware, full_pcd_df)
             impute_kwargs = {}
         else:
             impute_pcd_fn = None
@@ -1380,8 +1569,8 @@ def main():
         print(f"Models with cost estimates: {df['Cost'].notna().sum()}")
         if 'Training time (hours)' in df.columns:
             print(f"Models with training time: {df.dropna(subset=['Cost'])['Training time (hours)'].notna().sum()}")
-        if 'Hardware utilization' in df.columns:
-            print(f"Models with hardware utilization: {df.dropna(subset=['Cost'])['Hardware utilization'].notna().sum()}")
+        if 'Hardware utilization (MFU)' in df.columns:
+            print(f"Models with hardware utilization: {df.dropna(subset=['Cost'])['Hardware utilization (MFU)'].notna().sum()}")
         print(f"Cost range: ${df['Cost'].min():.0f} - ${df['Cost'].max():.0f}")
 
     # Apply exclusions to all cost dataframes
@@ -1391,7 +1580,7 @@ def main():
 
     # Apply inflation adjustment to all cost dataframes
     for method in estimation_methods:
-        cost_dfs[method] = adjust_column_for_inflation(cost_dfs[method], 'Cost', 'data/PCU518210518210.csv', '2025-06-01')
+        cost_dfs[method] = adjust_column_for_inflation(cost_dfs[method], 'Cost', price_index, '2025-06-01')
 
     # Create cost_dataset_3_estimates.csv with Model + 3 cost columns
     cost_comparison_df = pd.DataFrame()
@@ -1429,7 +1618,7 @@ def main():
         'Base model',
         'Finetune compute (FLOP)',
         'Hardware quantity',
-        'Hardware utilization',
+        'Hardware utilization (MFU)',
         'Training cloud compute vendor',
         'Training data center',
         'Cost',
@@ -1479,5 +1668,77 @@ def main():
 
     print(f"\nCost analysis complete! Results saved to {results_dir}")
 
+    # Optionally, upload to airtable
+    if update_table_path is not None:
+        print(f"\nUploading results to {update_table_path.get_url()}...")
+        table = get_airtable_table(
+            airtable_token,
+            update_table_path.app_id,
+            update_table_path.table_id,
+        )
+        write_costs_to_airtable(cost_comparison_df, table)
+        print("Results uploaded to Airtable successfully!")
+
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+
+    airtable_path_format = 'airtable://app<id>/tbl<id>'
+
+    parser.add_argument(
+        "--price-index-data",
+        type=parse_local_or_fred_path,
+        default=PRICE_INDEX_FILE,
+        metavar="LOCAL_PATH|FRED_URL",
+        help=f"Producer Price Index data (local path or fred://<series_id>) [default: {relpath(PRICE_INDEX_FILE)}]"
+    )
+
+    parser.add_argument(
+        "--compute-threshold",
+        type=int,
+        default=DEFAULT_COMPUTE_THRESHOLD,
+        metavar="N",
+        help=f"Compute threshold for selecting frontier models (e.g. 5 to select top 5) [default: {DEFAULT_COMPUTE_THRESHOLD}]"
+    )
+
+    parser.add_argument(
+        "--models-data",
+        type=parse_local_or_airtable_path,
+        default=MODELS_FILE,
+        metavar="LOCAL_PATH|AIRTABLE_URL",
+        help=f"Models (PCD) data (local path or {airtable_path_format}) [default: {relpath(MODELS_FILE)}]"
+    )
+
+    parser.add_argument(
+        "--hardware-data",
+        type=parse_local_or_airtable_path,
+        default=HARDWARE_FILE,
+        metavar="LOCAL_PATH|AIRTABLE_URL",
+        help=f"Hardware data (local path or {airtable_path_format}) [default: {relpath(HARDWARE_FILE)}]"
+    )
+
+    parser.add_argument(
+        "--hardware-price-data",
+        type=parse_local_or_airtable_path,
+        default=HARDWARE_PRICE_FILE,
+        metavar="LOCAL_PATH|AIRTABLE_URL",
+        help=f"Hardware price data (local path or {airtable_path_format}) [default: {relpath(HARDWARE_PRICE_FILE)}]"
+    )
+
+    parser.add_argument(
+        "--update-table",
+        type=parse_airtable_path,
+        required=False,
+        metavar="AIRTABLE_PATH",
+        help=f"Table to write the results to ({airtable_path_format}) [default: None]"
+    )
+
+    args = parser.parse_args()
+
+    main(
+        price_index_path=args.price_index_data,
+        models_path=args.models_data,
+        hardware_path=args.hardware_data,
+        hardware_price_path=args.hardware_price_data,
+        update_table_path=args.update_table,
+        compute_threshold=args.compute_threshold,
+    )

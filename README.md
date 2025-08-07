@@ -1,17 +1,39 @@
 # training-cost-trends
 
-Code for the paper "The rising costs of training frontier AI models" [1].
+Code for the paper "The rising costs of training frontier AI models" [^1].
 
-Install required packages using
+## Execution
 
+### Using uv (recommended)
+
+```bash
+# Basic execution
+uv run cost_analysis_standalone.py
+
+# List options
+uv run cost_analysis_standalone.py --help
 ```
-pip install numpy pandas
+
+### Using pip
+
+```bash
+# Install dependencies
+pip install <list of dependencies listed in pyproject.toml>
+
+# Basic execution
+python run cost_analysis_standalone.py
+
+# List options
+python run cost_analysis_standalone.py --help
 ```
 
-The main results for training cost are produced using `cost_analysis_standalone.py` Python file.
+## Results
+
 All results are saved in a `results/` folder, with subfolders for each method and variant.
 
-Results are currently found in 'results/all-methods-top_n=10-2025-03/17_exclude_finetunes_at_threshold_stage/cost_dataset_3_estimates.
+Results are currently found in `results/all-methods-top_n=10-2025-03/17_exclude_finetunes_at_threshold_stage/cost_dataset_3_estimates.csv`.
+
+## Data
 
 Raw data is available in the `data/` folder:
 
@@ -20,5 +42,4 @@ Raw data is available in the `data/` folder:
 - `Hardware prices.csv` is a snapshot of our hardware price database, including both purchase prices and cloud rental prices.
 - `PCU518210518210.csv` is a snapshot of this [price index](https://fred.stlouisfed.org/series/PCU518210518210), used to adjust for inflation
 
-
-[1] Ben Cottier, Robi Rahman, Loredana Fattorini, Nestor Maslej, Tamay Besiroglu, and David Owen. ‘The rising costs of training frontier AI models’. ArXiv [cs.CY], 2024. arXiv. https://arxiv.org/abs/2405.21015.
+[^1]: Ben Cottier, Robi Rahman, Loredana Fattorini, Nestor Maslej, Tamay Besiroglu, and David Owen. ‘The rising costs of training frontier AI models’. ArXiv [cs.CY], 2024. arXiv. https://arxiv.org/abs/2405.21015.
