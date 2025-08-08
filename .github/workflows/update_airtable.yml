@@ -42,6 +42,7 @@ jobs:
             --update-table airtable://${{ secrets.AIRTABLE_APP_ID }}/${{ secrets.AIRTABLE_MODELS_DATA_TABLE_ID }}
 
       - name: Upload result files
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: results
