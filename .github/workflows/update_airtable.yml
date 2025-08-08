@@ -1,13 +1,24 @@
 name: Update Airtable
 
 on:
+  schedule:
+    - cron: "0 14 * * 1"
+
   workflow_dispatch:
-  push:
+    inputs:
+      environment:
+        description: "Environment"
+        type: choice
+        required: true
+        options:
+          - edu-test
+          - production
+        default: edu-test
 
 jobs:
   update_airtable:
     runs-on: ubuntu-latest
-    environment: 'edu-test'
+    environment: ${{ github.event.inputs.environment || 'edu-test' }}
 
     steps:
       - name: Checkout code
