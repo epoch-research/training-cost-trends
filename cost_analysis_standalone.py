@@ -727,10 +727,7 @@ def find_gpu_acquisition_price(price_df, hardware_model, price_colname):
     matching_prices = price_df[price_df['Hardware model'].str.contains(gpu_hardware_alias)]
 
     if matching_prices.empty:
-        raise ValueError(
-            f"Could not find any prices for '{hardware_model}' in the price data. " +
-            "Please check the hardware model and the price data."
-        )
+        raise ValueError(f"Could not find any prices for '{hardware_model}' in the price data.")
 
     chosen_price_row = None
     for _, price_row in matching_prices.iterrows():
