@@ -13,7 +13,7 @@ on:
         options:
           - edu-test
           - production
-        default: edu-test
+        default: production
 
 jobs:
   update_airtable:
