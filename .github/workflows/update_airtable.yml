@@ -11,14 +11,14 @@ on:
         type: choice
         required: true
         options:
-          - edu-test
           - production
+          - edu-test
         default: production
 
 jobs:
   update_airtable:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment || 'edu-test' }}
+    environment: ${{ github.event.inputs.environment || 'production' }}
 
     steps:
       - name: Checkout code
