@@ -1163,6 +1163,10 @@ def estimate_hardware_capex_energy_cost(
 
     training_chip_hours = estimate_chip_hours(row, hardware_df)
 
+    if training_chip_hours is None:
+        print("Unable to estimate training chip hours")
+        return None
+
     # Hardware progress rate k OOMs/year 
     # => optimal to replace k * np.log(10) per year
     # See https://epochai.org/blog/the-longest-training-run#a-simple-framework-for-training-run-lengths
