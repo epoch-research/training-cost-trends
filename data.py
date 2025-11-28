@@ -53,10 +53,13 @@ def load_data_for_cost_estimation(compute_threshold_method='top_n', compute_thre
     pcd_df.dropna(subset=['Publication date'], inplace=True)
     pcd_df['Publication date'] = pd.to_datetime(pcd_df['Publication date'])
 
-    frontier_systems = load_frontier_systems(
-        compute_threshold_method=compute_threshold_method,
-        compute_threshold=compute_threshold,
-    )
+    if compute_threshold_method == 'frontier_models':
+        frontier_systems = pcd_df[pcd_df['Frontier model'] == 'checked']['Model'].values
+    else:
+        frontier_systems = load_frontier_systems(
+            compute_threshold_method=compute_threshold_method,
+            compute_threshold=compute_threshold,
+        )
     frontier_systems = [_.replace('Î£', 'Σ') for _ in frontier_systems]
     frontier_pcd_df = pcd_df[pcd_df['Model'].isin(frontier_systems)]
 

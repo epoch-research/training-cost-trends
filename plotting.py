@@ -61,17 +61,18 @@ def save_plot(fig, folder, filename, extensions=['png', 'svg', 'pdf'], scale=2):
 
 def get_cost_plot_title(estimation_method, compute_threshold_method, compute_threshold):
     if compute_threshold_method == 'window_percentile':
-        title_suffix = f' for models with more compute than {compute_threshold}% of models the year before and after'
+        title_suffix = f' of models with more compute than {compute_threshold}% of models the year before and after'
     elif compute_threshold_method == 'backward_window_percentile':
-        title_suffix = f' for models with more compute than {compute_threshold}% of models the year before'
+        title_suffix = f' of models with more compute than {compute_threshold}% of models the year before'
     elif compute_threshold_method == 'top_n':
-        title_suffix = f' for the top-{compute_threshold} most compute-intensive ML models over time'
+        title_suffix = f' of the top-{compute_threshold} most compute-intensive ML models over time'
     elif compute_threshold_method == 'residual_from_trend':
-        title_suffix = f' for the top {100 - compute_threshold}% of models farthest above compute trend'
-
+        title_suffix = f' of the top {100 - compute_threshold}% of models farthest above compute trend'
+    elif compute_threshold_method == 'frontier_models':
+        title_suffix = f' of frontier models'
     plot_title_lookup = {
         'cloud': 'Cloud compute cost of final training run<br>' + title_suffix,
-        'hardware-acquisition': 'Acquisition cost of hardware' + title_suffix,
+        'hardware-acquisition': 'Hardware acquisition cost' + title_suffix,
         'hardware-capex-energy': 'Amortized hardware CapEx + energy cost of final training run<br>' + title_suffix,
     }
 

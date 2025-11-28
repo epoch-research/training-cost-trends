@@ -29,6 +29,7 @@ GPU_HARWARE_ALIASES = [
     'GTX 580',
     'GTX TITAN',
     'Titan Black',
+    'GTX 285',
 ]
 
 

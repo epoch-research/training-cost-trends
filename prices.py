@@ -360,12 +360,16 @@ def find_hardware_acquisition_price(
     price_colname,
 ):
     hardware_model = row[pcd_hardware_model_colname]
+    if row['Model'] == 'CNN Committee (MNIST)':
+        # 580 and 480 are similar, same price, so simplify this case
+        # It's useful as an early data point for the trend estimate
+        hardware_model = 'NVIDIA GeForce GTX 580'
     if pd.isna(hardware_model):
         print(f"Could not find hardware model for {row['Model']}\n")
         return [None] * 4
-    if ',' in hardware_model: 
+    if ',' in hardware_model:
         # comma indicates multiple types of hardware, which we don't handle
-        print(f"Skipping {hardware_model}\n")
+        print(f"Skipping {hardware_model} because multiple hardware types are not supported\n")
         return [None] * 4
     if "TPU" in hardware_model:
         # Uncomment to exclude TPUs (the "no-TPUs" setting).
