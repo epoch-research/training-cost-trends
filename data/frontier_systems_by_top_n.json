@@ -1,177 +1,188 @@
 {
     "1": [
-        "AlphaGo Lee",
-        "AlphaGo Zero",
+        "DistBelief NNLM",
         "EXAONE 1.0",
         "GNMT",
+        "GPT-3 175B (davinci)",
         "GPT-3.5",
         "GPT-4",
-        "GPT-4 Turbo",
+        "GPT-4.5",
         "Gemini 1.0 Ultra",
+        "Grok 3",
+        "Grok 4",
         "Jurassic-1-Jumbo",
-        "Megatron-Turing NLG 530B",
-        "PaLM (540B)"
-    ],
-    "2": [
-        "AlphaGo Master",
-        "GPT-3 175B (davinci)",
-        "GPT-4o",
-        "Gopher (280B)",
-        "NASv3 (CIFAR-10)",
-        "PaLM 2",
-        "SenseChat"
-    ],
-    "3": [
-        "AlphaStar",
-        "AlphaZero",
-        "Amazon Titan",
-        "Claude 3.5 Sonnet",
-        "ERNIE 3.0 Titan",
-        "Inflection-2",
-        "Llama 3.1-405B",
         "Meena",
-        "OpenAI Five",
-        "Xception",
-        "Yuan 1.0"
-    ],
-    "4": [
-        "Claude 2",
-        "Claude 3 Opus",
-        "DeepSpeech2 (English)",
-        "GLM-4 (0116)",
-        "GLaM",
-        "Gemini 1.5 Pro",
-        "JFT",
         "Megatron-BERT",
-        "ResNeXt-101 32x48d",
+        "Megatron-Turing NLG 530B",
+        "PaLM (540B)",
+        "RoBERTa Large",
+        "SNM-skip",
+        "Seq2Seq LSTM",
         "T5-11B"
     ],
-    "5": [
-        "Chinchilla",
-        "Falcon-180B",
-        "GLM-4-Plus",
-        "Grok-2",
-        "HyperCLOVA 82B",
-        "Megatron-LM (8.3B)",
-        "Nemotron-4 340B",
-        "OpenAI TI7 DOTA 1v1",
-        "ResNet-200",
-        "RoBERTa Large",
-        "Switch",
-        "mT5-XXL"
-    ],
-    "6": [
-        "Libratus",
-        "Mistral Large",
-        "Mistral Large 2",
-        "Noisy Student (L2)",
+    "2": [
+        "Big Transformer for Back-Translation",
+        "Claude 3.5 Sonnet",
+        "ERNIE 3.0 Titan",
+        "GPT-2 (774M)",
+        "Gopher (280B)",
+        "Inflection-2",
+        "Llama 3.1-405B",
+        "Megatron-LM (1.2B)",
+        "PaLM 2",
+        "RNNsearch-50*",
+        "SenseChat",
         "XLNet"
     ],
-    "7": [
-        "ByT5-XXL",
-        "Doubao-pro",
-        "GPT-2 (1.5B)",
+    "3": [
+        "Amazon Titan",
+        "GPT-2 (355M)",
         "GShard (dense)",
+        "Grok-2",
+        "HyperCLOVA 204B",
+        "Llama 4 Behemoth (preview)",
+        "Megatron-LM (8.3B)",
+        "Mistral Large",
+        "MoE-Multi",
+        "Nemotron-4 340B",
+        "RNN LM",
+        "Switch",
+        "TransE",
+        "Transformer-XL (257M)",
+        "XLM-RoBERTa",
+        "Yuan 1.0",
+        "mT5-XXL"
+    ],
+    "4": [
+        "Aramco Metabrain AI",
+        "BERT-Large",
+        "BIDAF",
+        "Claude 2",
+        "Claude 3.7 Sonnet",
+        "ConvS2S (ensemble of 8 models)",
+        "GLaM",
+        "GPT-2 (1.5B)",
+        "GPT-5",
+        "HyperCLOVA 82B",
+        "LSTM LM",
+        "Mistral Large 2"
+    ],
+    "5": [
+        "ByT5-XXL",
+        "Chinchilla",
+        "Doubao-pro",
+        "Falcon-180B",
+        "GPT-2 (124M)",
+        "Mesh-TensorFlow Transformer 4.9B (language)",
+        "T5-3B",
+        "Transformer",
+        "Turing-NLG",
+        "Word2Vec (large)"
+    ],
+    "6": [
+        "GPT-1",
+        "Inflection-2.5",
+        "MegaScale (Production)",
+        "PLUG",
+        "RNTN",
+        "Reka Core"
+    ],
+    "7": [
         "Grok-1",
         "LaMDA",
-        "MoE-Multi",
+        "Mesh-TensorFlow Transformer 2.9B (translation)",
         "OPT-175B",
-        "PolyNet",
-        "ProtT5-XXL",
-        "ResNet-152 (ImageNet)",
-        "T5-3B",
-        "XLM-RoBERTa"
+        "RCTM",
+        "Transformer (Adaptive Input Embeddings) WT103"
     ],
     "8": [
-        "Aramco Metabrain AI",
-        "BigGAN-deep 512x512",
+        "AWD-LSTM-MoS + dynamic evaluation (WT2, 2017)",
+        "InternLM",
         "LLaMA-65B",
-        "Parti",
-        "ResNet-101 (ImageNet)"
+        "Llama 3-70B",
+        "Named Entity Recognition model",
+        "SPN-4+KN5",
+        "Transformer + Simple Recurrent Unit"
     ],
     "9": [
-        "DALL-E",
-        "MegaScale (Production)",
-        "Meta Pseudo Labels",
-        "iGPT-XL"
+        "ALIGN",
+        "AlphaCode",
+        "BLOOM-176B",
+        "DeBERTa",
+        "XLMR-XXL"
     ],
     "10": [
-        "BLOOM-176B",
-        "ConvS2S (ensemble of 8 models)",
-        "Inflection-2.5",
-        "Llama 2-70B",
-        "MnasNet-A1 + SSDLite",
-        "OpenAI Five Rerun",
+        "CLIP (ViT L/14@336px)",
+        "Generative BST",
         "PanGu-\u03a3",
-        "xTrimoPGLM -100B"
+        "ST-MoE"
     ],
     "11": [
-        "AlphaCode",
-        "AmoebaNet-A (F=448)",
-        "Big Transformer for Back-Translation",
-        "InternLM",
-        "MnasNet-A3",
-        "Reka Core",
-        "ST-MoE",
-        "Turing-NLG",
-        "ViT-G/14"
+        "BERT-Large-CAS (PTB+WT2+WT103)",
+        "ERNIE 3.0",
+        "Llama 2-70B",
+        "Llama 3.1-70B",
+        "genCNN + dyn eval"
     ],
     "12": [
-        "DeepStack",
-        "Llama 3-70B"
+        "ALBERT-xxlarge",
+        "GLM-130B",
+        "Qwen-72B",
+        "SciBERT"
     ],
     "13": [
-        "BERT-Large-CAS (PTB+WT2+WT103)",
-        "GLM-130B",
-        "Gemini 1.0 Pro",
-        "PLUG",
-        "PNASNet-5",
-        "ProtBERT-BFD",
-        "Qwen-72B"
+        "AWD-LSTM - 3-layer LSTM (tied) + continuous cache pointer (WT2)",
+        "CamemBERT",
+        "ELECTRA",
+        "GL-LWGC-AWD-MoS-LSTM + dynamic evaluation (WT2)",
+        "GPT-NeoX-20B",
+        "Turing ULRv5"
     ],
     "14": [
-        "BIDAF",
-        "GPT-NeoX-20B",
-        "IMPALA",
-        "ProtT5-XXL-BFD"
+        "DBRX",
+        "Fraternal dropout + AWD-LSTM 3-layer (WT2)",
+        "Galactica",
+        "Pangu Ultra",
+        "QRNN",
+        "Qwen1.5-72B",
+        "TrellisNet",
+        "VD-LSTM+REAL Large"
     ],
     "15": [
-        "CoAtNet",
-        "ContextNet + Noisy Student",
+        "4 layer QRNN (h=2500)",
+        "Qwen2-72B",
+        "Qwen2.5-72B",
+        "Qwen3-Max",
         "Yi-34B"
     ],
     "16": [
-        "Florence",
-        "GPT-4o mini",
-        "Galactica",
-        "Llama 3.1-70B",
-        "Transformer"
+        "AFM-server",
+        "AlexaTM 20B",
+        "Variational (untied weights, MC) LSTM (Large)"
     ],
     "17": [
-        "AlexaTM 20B",
-        "BERT-Large",
-        "Qwen1.5-72B",
-        "iGPT-L"
-    ],
-    "18": [
-        "CLIP (ViT L/14@336px)",
-        "DBRX",
+        "(ensemble): AWD-LSTM-DOC (fin) \u00d7 5 (WT2)",
         "Llama 2-34B",
+        "Pointer Sentinel-LSTM (medium)",
+        "Telechat2-115B",
         "UL2"
     ],
+    "18": [
+        "M6-T",
+        "MegaScale (530B)",
+        "Mixtral 8x7B",
+        "NAS with base 8 and shared embeddings"
+    ],
     "19": [
-        "ALBERT-xxlarge",
-        "CogView",
-        "Generative BST",
-        "Mesh-TensorFlow Transformer 4.9B (language)"
+        "Amazon Nova Pro",
+        "Dropout-LSTM+Noise(Bernoulli) (WT2)",
+        "Llama 3.3 70B",
+        "PaLI",
+        "Tensorized Transformer (OBW)",
+        "Yi-Large"
     ],
     "20": [
-        "BASIC-L",
-        "ELECTRA",
-        "LSTM (Hebbian, Cache, MbPA)",
-        "MuseNet",
-        "PaLI",
-        "Qwen2-72B",
-        "YOLOv3"
+        "Falcon-40B",
+        "German ELECTRA Large"
     ]
 }
