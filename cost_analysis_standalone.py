@@ -294,7 +294,7 @@ def write_costs_to_airtable(costs, table):
     updates = []
 
     records = table.all(fields=['Model'])
-    name_to_id = {record['fields']['Model']: record['id'] for record in records}
+    name_to_id = {record['fields']['Model']: record['id'] for record in records if 'Model' in record['fields']}
 
     for record_id, row in costs.iterrows():
         if row['Model'] not in name_to_id:
