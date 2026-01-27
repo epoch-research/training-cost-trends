@@ -17,6 +17,7 @@ from pyairtable import Api
 from dataclasses import dataclass
 from pathlib import Path
 from contextlib import redirect_stdout
+import logging
 
 # ==============================================================================
 # CONSTANTS AND PARAMETERS
@@ -43,6 +44,8 @@ PRICE_INDEX_FILE = DATA_DIR / 'PCU518210518210.csv'
 HARDWARE_PRICE_FILE = DATA_DIR / 'Hardware prices.csv'
 HARDWARE_FILE = DATA_DIR / 'Chip dataset-Grid view.csv'
 MODELS_FILE = DATA_DIR / 'All ML Systems - full view.csv'
+
+logger = logging.getLogger(__name__)
 
 # ==============================================================================
 # HARDWARE MAPPINGS AND CONSTANTS
@@ -246,6 +249,8 @@ def get_airtable_table(api_key, app_id, table_id):
 def airtable_to_df(table, columns_to_resolve: list[str] = []) -> pd.DataFrame:
     # Resolve dependencies in a very hacky way
 
+    logger.info(f"Resolving Airtable dependencies for table {table}")
+
     dependency_fields = {
         field.name: field
         for field in table.schema().fields
@@ -257,10 +262,14 @@ def airtable_to_df(table, columns_to_resolve: list[str] = []) -> pd.DataFrame:
         dependency_table = table.api.table(table.base.id, field.options.linked_table_id)
         primary_id = dependency_table.schema().primary_field_id
 
-        records = {
-            record['id']: list(record['fields'].values())[0]
-            for record in dependency_table.all(fields=[primary_id])
-        }
+        logger.info(f"Resolving linked records for field {field.name} from table {dependency_table}")
+
+        records = {}
+        for record in dependency_table.all(fields=[primary_id]):
+            id_list = list(record['fields'].values())
+            if len(id_list) == 0:
+                continue
+            records[record['id']] = id_list[0]
         dependency_record_values[field.name] = records
 
     record_fields = []
@@ -1683,6 +1692,8 @@ def main(
         print("Results uploaded to Airtable successfully!")
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+
     parser = argparse.ArgumentParser()
 
     airtable_path_format = 'airtable://app<id>/tbl<id>'
