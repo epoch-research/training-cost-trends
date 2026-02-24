@@ -171,6 +171,7 @@ cython_debug/
 # Project
 results/
 old-results/
+model_costs*.csv
 /archive/cost_analysis.ipynb
 /archive/
 identify foundation models/All ML Systems.csv
